@@ -8,7 +8,6 @@
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  outline: 1px solid red;
 }
 body {
   width: 1600px;
@@ -50,16 +49,13 @@ header {
   color: white;
 }
 header .menu {
-  float: left;
-  margin-top: 28px;
+  margin-top: 14px;
+  margin-left: 35px;
+  display: inline-block;
   list-style: none;
 }
 header li {
   float: left;
-  position: relative;
-  left: -50%;
-  margin: 0 10px;
-  padding: 0px 38px;
 }
 header li a {
   display: block;
@@ -68,16 +64,26 @@ header li a {
   text-decoration: none;
   opacity: 0.8;
 }
+header .about {
+  margin-right: 86px;
+}
+header .projects {
+  margin-right: 84px;
+}
+header .syllabus {
+  margin-right: 101px;
+}
+header .logo {
+  margin-right: 100px;
+}
 nav {
   position: relative;
-  top: 13px;
-  margin-left: 799px;
-  height: 100px;
+  top: 28px;
+  margin-left: 467px;
+  height: 48px;
 }
 .logo {
-  position: relative;
-  top: -16px;
-  left: -5px;
+  margin-top: -16px;
   opacity: 0.8;
 }
 .menu-link a:hover,
@@ -102,6 +108,9 @@ nav {
   padding-bottom: 100px;
   text-align: center;
 }
+.wrapper-life-webdev .biggest-heading {
+  margin-left: 4px;
+}
 .wrapper-life-webdev p {
   position: relative;
   left: 550px;
@@ -110,6 +119,9 @@ nav {
   font-size: 18px;
   line-height: 140%;
   color: #FFFFFF;
+}
+.wrapper-life-webdev button {
+  margin-left: -2px;
 }
 .icons {
   position: relative;
@@ -177,7 +189,7 @@ button:hover {
 }
 .wrapper-community-content img {
   position: relative;
-  left: 43%;
+  left: 124px;
 }
 .heading-community {
   display: block;
@@ -202,7 +214,7 @@ button:hover {
 .btn-slider {
   position: relative;
   left: 638px;
-  bottom: 268px;
+  bottom: 269px;
   display: inline-block;
   font-size: 18px;
 }
@@ -254,7 +266,7 @@ button:hover {
 }
 .wrapper-subscrbe-content h2 {
   color: white;
-  margin-bottom: 27px;
+  margin-bottom: 29px;
 }
 .mail-form {
   display: flex;
@@ -263,17 +275,17 @@ button:hover {
   position: relative;
   left: -12px;
   height: 46px;
-  width: 338px;
+  width: 340px;
   font-family: 'Roboto', sans-serif;
-  padding-top: 4px;
-  padding-left: 22px;
+  padding-top: 1px;
+  padding-left: 24px;
   border: none;
   outline: none;
 }
 .mail-form .button-send {
   position: relative;
   left: -12px;
-  width: 68px;
+  width: 66px;
   background-color: #00AFDB;
   transition: 0.5s all ease;
 }
