@@ -202,8 +202,8 @@ button:hover {
 }
 .slider {
   position: relative;
-  top: -54px;
-  left: 604px;
+  top: -55px;
+  left: 600px;
   display: inline-block;
   clear: both;
 }
@@ -213,8 +213,8 @@ button:hover {
 }
 .btn-slider {
   position: relative;
-  left: 638px;
-  bottom: 269px;
+  left: 640px;
+  bottom: 268px;
   display: inline-block;
   font-size: 18px;
 }
@@ -223,7 +223,7 @@ button:hover {
 }
 .btn-back,
 .btn-next {
-  padding: 0px 10px;
+  padding: 0px 11px;
   transform: scale(1.2);
 }
 .btn-back:hover,
@@ -325,22 +325,23 @@ button:hover {
 }
 .btn-apple {
   padding-left: 20px;
-  padding-bottom: 4px;
+  padding-bottom: 1px;
+}
+.btn-apple .icon-apple {
+  position: relative;
+  top: 2px;
+  left: 41px;
+  font-size: 20px;
 }
 .btn-android {
   padding-left: 17px;
   padding-bottom: 2px;
 }
-.btn-apple .icon-apple,
 .btn-android .icon-android {
   position: relative;
-  top: 2px;
-  left: 38px;
-  font-size: 20px;
-}
-btn-apple:hover,
-btn-android:hover {
-  box-shadow: inset -14em 0 #009CC2;
+  top: 0px;
+  left: 40px;
+  font-size: 22px;
 }
 footer {
   height: 184px;
