@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Calculator</title>
+	<link href="style.css" rel="stylesheet">
+	<script src="script.js" defer></script>
+	<!--<style>
+		@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&amp;display=swap');
+	</style>-->
+</head>
+
+<body>
+	<div class="calculator-grid">
+		<h1>Не дели на ноль.</h1>
+		<div id="output">
+			<input disabled type ="text" value="0" data-previous-operand id="previous-operand" ></input>
+			<input disabled type ="text" value="0"  data-current-operand id="current-operand"></input>
+		</div>
+		<button id="c">C</button>
+		<button id="ce">CE</button>
+		<button id="point">.</button>
+		<button class="data-operation">^</sup></button>
+		<button class="data-operation">&#8730;</button>
+		<button class="data-number">1</button>
+		<button class="data-number">2</button>
+		<button class="data-number">3</button>
+		<button class="data-operation">+</button>
+		<button class="data-operation">/</button>
+		<button class="data-number">4</button>
+		<button class="data-number">5</button>
+		<button class="data-number">6</button>
+		<button class="data-operation">*</button>
+		<button class="data-operation">-</button>
+		<button class="data-number">7</button>
+		<button class="data-number">8</button>
+		<button class="data-number">9</button>
+		<button class="data-number">0</button>
+		<button class="data-operation" id="result">=</button>
+	</div>
+</body>
+
+</html>
