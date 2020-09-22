@@ -82,7 +82,8 @@ body {
 	color: #f5f6f5;
 }
 
-.data-operation {
+.data-operation,
+#sqrt {
 	color: #42a15d;
 	font-size: 1.5rem;
 }
