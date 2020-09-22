@@ -9,8 +9,7 @@
 body {
 	padding: 0;
 	margin: 0;
-	background: #070a0e;
-	/*background: linear-gradient(325deg, rgba(23, 30, 42, 1) 39%, rgba(69, 80, 99, 1) 100%);*/
+	background: #0f141c;
 }
 
 .calculator-grid {
@@ -18,9 +17,10 @@ body {
 	justify-content: center;
 	align-content: center;
 	min-height: 100vh;
-	grid-template-columns: repeat(5, 100px);
-	grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+	grid-template-columns: repeat(7, 100px);
+	grid-template-rows: minmax(150px, auto) repeat(4, 100px);
 	background-color: #0f141c;
+	margin-top: -124px;
 }
 
 .calculator-grid > button {
@@ -84,16 +84,19 @@ body {
 
 .data-operation {
 	color: #42a15d;
+	font-size: 1.5rem;
 }
 
 #ce,
 #c,
-#point {
+#point,
+#plusmin {
 	color: #fb9b49;
 }
 
-.data-equals {
-	color: #fb9b49;
+#result {
+	color:#1a2330;
+	background-color: #42a15d;
 }
 
 h1 {
