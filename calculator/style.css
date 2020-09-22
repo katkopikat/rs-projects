@@ -1,0 +1,131 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: normal;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	background: #0f141c;
+}
+
+.calculator-grid {
+	display: grid;
+	justify-content: center;
+	align-content: center;
+	min-height: 100vh;
+	grid-template-columns: repeat(7, 100px);
+	grid-template-rows: minmax(150px, auto) repeat(4, 100px);
+	background-color: #0f141c;
+	margin-top: -124px;
+	
+}
+
+.calculator-grid > button {
+	cursor: pointer;
+	font-size: 1.5rem;
+	border: none;
+	outline: none;
+	background-color: #0f141c;
+	box-shadow: -5px -5px 5px -5px rgba(0, 0, 0, 0.6),
+		5px 5px 5px -5px rgba(0, 0, 0, 0.6);
+
+	
+}
+
+.calculator-grid > button:hover {
+	background-color: #171f2b;
+	color: #fb9b49;
+	transition: all 0.2s ease-in;
+}
+
+#output {
+	grid-column: 1 / -1;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-around;
+	flex-direction: column;
+	padding: 0px 10px;
+	word-wrap: break-word;
+	word-break: break-all;
+	border-radius: 20px 20px 0px 0px;
+	box-shadow: -5px -5px 5px -5px rgba(0, 0, 0, 0.6);
+	background-color: #121823;
+	
+}
+
+#output #previous-operand {
+	color: #a5224c;
+	font-size: 1.2rem;
+	text-align: right;
+	padding: 0px 10px;
+	/*background-color: #1a2330;*/
+	height: 0px;
+	border: none;
+}
+
+#output #current-operand {
+	color: #f5f6f5;
+	font-size: 2.3rem;
+	text-align: right;
+	padding: 0px 10px;
+	/*background-color: #1a2330;*/
+	border: none;
+}
+
+.data-number {
+	color: #f5f6f5;
+}
+
+.data-operation,
+#sqrt {
+	color: #42a15d;
+	font-size: 1.5rem;
+}
+
+#point{
+	font-size: 2rem;
+	padding-bottom: 17%;
+}
+
+#del,
+#c,
+#point,
+#plusmin {
+	color: #fb9b49;
+}
+
+#del:hover,
+#c:hover,
+#point:hover,
+#plusmin:hover {
+	color: #42a15d;
+}
+
+
+#del,
+#c{
+	font-size: 1.2rem;
+}
+
+#result {
+	color:#1a2330;
+	background-color: #42a15d;
+	border-radius: 0px 0px 20px 0px;
+}
+#result:hover{
+	background-color: #fb9b49;
+}
+
+h1 {
+	display: flex;
+	color: #a5224c;
+	font-size: 25px;
+}
+
+#bottom-left{
+	border-radius: 0px 0px 0px 20px;
+}
