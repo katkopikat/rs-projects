@@ -21,34 +21,29 @@ body {
 	grid-template-rows: minmax(150px, auto) repeat(4, 100px);
 	background-color: #0f141c;
 	margin-top: -124px;
+	
 }
 
 .calculator-grid > button {
 	cursor: pointer;
 	font-size: 1.5rem;
-	/*border: 1px solid #19212c;*/
 	border: none;
 	outline: none;
 	background-color: #0f141c;
-	box-shadow: 15px 18px 24px 9px rgba(0, 0, 0, 0.3);
+	box-shadow: -5px -5px 5px -5px rgba(0, 0, 0, 0.6),
+		5px 5px 5px -5px rgba(0, 0, 0, 0.6);
+
+	
 }
 
 .calculator-grid > button:hover {
-	background-color: #1a2330;
-	/*border-radius: 50px;
-	transform: scale(0.5);
-	font-size: 42px;
-	font-weight: 600;
-	background-color: #fb9b49;
-	transition-delay: 0.1s;*/
-	background-color: #1a2330;
+	background-color: #171f2b;
 	color: #fb9b49;
 	transition: all 0.2s ease-in;
 }
 
 #output {
 	grid-column: 1 / -1;
-	background-color: #1a2330;
 	display: flex;
 	align-items: flex-end;
 	justify-content: space-around;
@@ -57,15 +52,18 @@ body {
 	word-wrap: break-word;
 	word-break: break-all;
 	border-radius: 20px 20px 0px 0px;
+	box-shadow: -5px -5px 5px -5px rgba(0, 0, 0, 0.6);
+	background-color: #121823;
+	
 }
 
 #output #previous-operand {
-	color: #a5444c;
+	color: #a5224c;
 	font-size: 1.2rem;
 	text-align: right;
 	padding: 0px 10px;
-	background-color: #1a2330;
-	height: 25px;
+	/*background-color: #1a2330;*/
+	height: 0px;
 	border: none;
 }
 
@@ -74,7 +72,7 @@ body {
 	font-size: 2.3rem;
 	text-align: right;
 	padding: 0px 10px;
-	background-color: #1a2330;
+	/*background-color: #1a2330;*/
 	border: none;
 }
 
@@ -88,6 +86,11 @@ body {
 	font-size: 1.5rem;
 }
 
+#point{
+	font-size: 2rem;
+	padding-bottom: 17%;
+}
+
 #del,
 #c,
 #point,
@@ -95,13 +98,34 @@ body {
 	color: #fb9b49;
 }
 
+#del:hover,
+#c:hover,
+#point:hover,
+#plusmin:hover {
+	color: #42a15d;
+}
+
+
+#del,
+#c{
+	font-size: 1.2rem;
+}
+
 #result {
 	color:#1a2330;
 	background-color: #42a15d;
+	border-radius: 0px 0px 20px 0px;
+}
+#result:hover{
+	background-color: #fb9b49;
 }
 
 h1 {
 	display: flex;
-	color: #a5444c;
+	color: #a5224c;
 	font-size: 25px;
+}
+
+#bottom-left{
+	border-radius: 0px 0px 0px 20px;
 }
