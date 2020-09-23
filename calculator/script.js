@@ -60,8 +60,14 @@ class Calculator {
 
             this.previousOperandTextElement.innerText =
                 `${this.operation} ${this.operandBeforeResult}`;
-            this.currentOperandTextElement.innerText = Math.sqrt(current);;
+                
+            currentOperandTextElement.innerText = Math.sqrt(current);
+            this.currentOperand = Math.sqrt(current);
+            this.operation = undefined;
+            this.previousOperand = '';
+            this.readyToReset = true;
         }
+  
     }
 
 
