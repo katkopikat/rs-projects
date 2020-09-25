@@ -21,26 +21,29 @@ class Calculator {
     }
 
     plusmin() {
-        if (this.currentOperand.indexOf('-') === -1) 
+        if (this.currentOperand.indexOf('-') === -1)
             this.currentOperand = '-' + this.currentOperand;
-         else {
+        else {
             this.currentOperand = this.currentOperand.replace("-", "");
         }
     }
 
     addNumber(number) {
         if (number === '.' && this.currentOperand.includes('.')) return
-        if ((this.currentOperand.length >= 1 && this.currentOperand[0] === '0') ||
-            (this.currentOperand[0] === '-' && this.currentOperand[1] === '0')) {
+
+        if (number === '.') this.currentOperand = this.currentOperand.toString();
+
+        else if (
+            (this.currentOperand.length >= 1 && this.currentOperand[0] === '0' && this.currentOperand[1] !== ".") ||
+            (this.currentOperand[0] === '-' && this.currentOperand[1] === '0')
+        ) {
             this.currentOperand = this.currentOperand.toString().replace("0", "");
-        }
-        this.currentOperand = this.currentOperand.toString() + number.toString();
+        }   this.currentOperand = this.currentOperand.toString() + number.toString();
     }
 
     chooseOperation(operation) {
         if (this.currentOperand === '') return;
         if (this.previousOperand !== '') this.compute();
-        
         this.operation = operation;
         this.previousOperand = this.currentOperand;
         this.currentOperand = '';
@@ -60,16 +63,15 @@ class Calculator {
 
             this.previousOperandTextElement.innerText =
                 `${this.operation} ${this.operandBeforeResult}`;
-                
+
             currentOperandTextElement.innerText = Math.sqrt(current);
             this.currentOperand = Math.sqrt(current);
             this.operation = undefined;
             this.previousOperand = '';
             this.readyToReset = true;
         }
-  
-    }
 
+    }
 
     compute() {
         let computation;
@@ -79,20 +81,20 @@ class Calculator {
         if (isNaN(prev) || isNaN(current)) return;
         switch (this.operation) {
             case '+':
-                computation = (prev * 10000 + current * 10000) / 10000;
+                computation = +(prev + current).toFixed(12);
                 break;
             case '-':
-                computation = (prev * 10000 - current * 10000) / 10000;
+                computation = +(prev - current).toFixed(12);
                 break;
             case '÷':
                 if (current === 0) computation = '\u221E';
-                else computation = ((prev * 10000) / 10000) / ((current * 10000) / 10000);            
+                else computation = +(prev / current).toFixed(12);
                 break;
             case '×':
-                computation = ((prev * 10000) / 10000) * ((current * 10000) / 10000);
+                computation = +(prev * current).toFixed(12);
                 break;
             case '^':
-                computation = Math.pow(prev, current);
+                computation = +(Math.pow(prev, current)).toFixed(12);
                 break;
             default:
                 return;
@@ -115,7 +117,6 @@ class Calculator {
     updateResaltDisplay() {
         this.previousOperandTextElement.innerText += ` ${this.operandBeforeResult}`;
     }
-
 }
 
 const numberBtns = document.querySelectorAll('.data-number'),
