@@ -3,59 +3,71 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Pets</title>
 	<link rel="stylesheet" href="normalize.css">
 	<link rel="stylesheet" href="style.css"> </head>
 
 <body>
-	<header>
-		<div class="wrapper">
-			<nav>
-				<div class="logo"><span id="logo-text">Cozy House</span><span id="logo-subtext">Shelter for pets in Boston</span></div>
-				<ul class="menu">
-					<li class="menu-item"> <a href="../main/main.html">About the shelter</a> </li>
-					<li class="menu-item"> <a href="#" class="active-link">Our pets </a></li>
-					<li class="menu-item"> <a href="#">Help the shelter</a> </li>
-					<li class="menu-item"> <a href="#">Contacts</a> </li>
-				</ul>
-			</nav>
+	<header class="header">
+		<div class="section section--header">
+			<div class="wrapper">
+				<nav class="main-nav">
+					<div class="logo"><span class="logo-text"><a href="../main/main.html">Cozy House</a></span><span class="logo-subtext">Shelter for pets in Boston</span></div>
+					<ul class="menu">
+						<li class="menu-item"> <a class="menu-item-link" href="../main/main.html">About the shelter</a> </li>
+						<li class="menu-item"> <a class="menu-item-link link--active" href="#">Our pets </a></li>
+						<li class="menu-item"> <a class="menu-item-link" href="#">Help the shelter</a> </li>
+						<li class="menu-item"> <a class="menu-item-link" href="#">Contacts</a> </li>
+					</ul>
+					<div class="mobile-menu-btn">
+						<div class="burger-icon-line"></div>
+						<div class="burger-icon-line"></div>
+						<div class="burger-icon-line"></div>
+					</div>
+				</nav>
+			</div>
 		</div>
 	</header>
-	<main>
-		<section class="wrapper-pets">
-			<h3 class="heading">Our friends who<br> are looking for a house</h3>
-			<div class="pets-grid">
-				<div class="pets-card"><img src="../../assets/images/pets-katrine.jpg" alt="Katrine"><span class="pet-name">Katrine</span>
-					<button class="learn-more">Learn more</button>
+	<main class="main-content">
+		<section class="section section--pets">
+			<div class="wrapper wrapper--pets">
+				<div class="pets-content">
+					<h3 class="heading">Our friends who<br> are looking for a house</h3>
+					<div class="pets-grid">
+						<div class="pets-card item-a"><img src="../../assets/images/pets-katrine.jpg" alt="Katrine"><span class="pet-card-name">Katrine</span>
+							<button class="btn btn--learn-more">Learn more</button>
+						</div>
+						<div class="pets-card item-b"><img src="../../assets/images/pets-jennifer.jpg" alt="Jennifer"><span class="pet-card-name">Jennifer</span>
+							<button class="btn btn--learn-more">Learn more</button>
+						</div>
+						<div class="pets-card item-c"><img src="../../assets/images/pets-woody.jpg" alt="Woody"><span class="pet-card-name">Woody</span>
+							<button class="btn btn--learn-more">Learn more</button>
+						</div>
+						<div class="pets-card item-d"><img src="../../assets/images/pets-sophia.jpg" alt="Sophia"><span class="pet-card-name">Sophia</span>
+							<button class="btn btn--learn-more">Learn more</button>
+						</div>
+						<div class="pets-card item-e"><img src="../../assets/images/pets-timmy.png" alt="Timmy"><span class="pet-card-name">Timmy</span>
+							<button class="btn btn--learn-more">Learn more</button>
+						</div>
+						<div class="pets-card item-f"><img src="../../assets/images/pets-charly.jpg" alt="Charly"><span class="pet-card-name">Charly</span>
+							<button class="btn btn--learn-more">Learn more</button>
+						</div>
+						<div class="pets-card item-g"><img src="../../assets/images/pets-scarlet.jpg" alt="Scarlett"><span class="pet-card-name">Scarlett</span>
+							<button class="btn btn--learn-more">Learn more</button>
+						</div>
+						<div class="pets-card item-h"><img src="../../assets/images/pets-freddie.jpg" alt="Freddie"><span class="pet-card-name">Freddie</span>
+							<button class="btn btn--learn-more">Learn more</button>
+						</div>
+					</div>
+					<div class="navigation">
+						<button disabled class="btn-paginator btn-pag--inactive"> &#8810;</button>
+						<button disabled class="btn-paginator btn-pag--inactive">&#60;</button>
+						<button class="btn-paginator btn-pag--curency">1</button>
+						<button class="btn-paginator btn-pag--active">&#62;</button>
+						<button class="btn-paginator btn-pag--active">&#8811;</button>
+					</div>
 				</div>
-				<div class="pets-card"><img src="../../assets/images/pets-jennifer.jpg" alt="Jennifer"><span class="pet-name">Jennifer</span>
-					<button class="learn-more">Learn more</button>
-				</div>
-				<div class="pets-card"><img src="../../assets/images/pets-woody.jpg" alt="Woody"><span class="pet-name">Woody</span>
-					<button class="learn-more">Learn more</button>
-				</div>
-				<div class="pets-card"><img src="../../assets/images/pets-sophia.jpg" alt="Sophia"><span class="pet-name">Sophia</span>
-					<button class="learn-more">Learn more</button>
-				</div>
-				<div class="pets-card"><img src="../../assets/images/pets-timmy.png" alt="Timmy"><span class="pet-name">Timmy</span>
-					<button class="learn-more">Learn more</button>
-				</div>
-				<div class="pets-card"><img src="../../assets/images/pets-charly.jpg" alt="Charly"><span class="pet-name">Charly</span>
-					<button class="learn-more">Learn more</button>
-				</div>
-				<div class="pets-card"><img src="../../assets/images/pets-scarlet.jpg" alt="Scarlett"><span class="pet-name">Scarlett</span>
-					<button class="learn-more">Learn more</button>
-				</div>
-				<div class="pets-card"><img src="../../assets/images/pets-freddie.jpg" alt="Freddie"><span class="pet-name">Freddie</span>
-					<button class="learn-more">Learn more</button>
-				</div>
-			</div>
-			<div class="navigation">
-				<button disabled class="btn-paginator btn-pag-inactive"> &#8810;</button>
-				<button disabled class="btn-paginator btn-pag-inactive">&#60;</button>
-				<button class="btn-paginator btn-pag-curency">1</button>
-				<button class="btn-paginator btn-pag-active">&#62;</button>
-				<button class="btn-paginator btn-pag-active">&#8811;</button>
 			</div>
 		</section>
 	</main>
