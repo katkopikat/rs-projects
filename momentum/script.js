@@ -14,7 +14,9 @@ const time = document.querySelector('.time'),
     nextQuote = document.querySelector('.next-quote'),
     body = document.querySelector('body'),
     img = document.createElement('img'),
-    btnImg = document.querySelector('.icon-image');
+    btnImg = document.querySelector('.icon-image'),
+    errorMess = document.querySelector('.error');
+
 
 
 const images = ['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', '11.jpg'],
@@ -86,14 +88,20 @@ function setBgGreet() {
         document.body.style.color = 'white';
     }
 }
+let animationIsActive = false;
 
 function viewBgImage(data) {
+    animationIsActive = true;
     const src = data;
     img.src = src;
+    setTimeout(waitingFinishAnim, 700)
     img.onload = () => {
-        body.style.backgroundImage = `url(${src})`;
+        body.style.backgroundImage = `url(${src})`;  
+        
     };
-    console.log(`url(${src})`)
+    function waitingFinishAnim() {
+        animationIsActive = false;
+      }
 }
 
 function getImage() {
@@ -107,12 +115,29 @@ function getImage() {
 
 function viewAllImg() {
     let curIndex = arrayToday.indexOf(linkThisImg);
-    const imageSrc = (curIndex + 1) === 24 ? arrayToday[0] : arrayToday[curIndex + 1];
+    const imageSrc = (curIndex) === 23 ? arrayToday[0] : arrayToday[curIndex + 1];
     linkThisImg = imageSrc;
-    viewBgImage(imageSrc);
+    if (animationIsActive === false){
+        viewBgImage(imageSrc);
+    }
+ 
+    //   setTimeout(function(){
+    //     viewBgImage(imageSrc);
+    //   }, 500);
+    
 }
 
 //NAME
+
+function getName() {
+    let item = localStorage.getItem('name');
+    if (!item) {
+         name.textContent = '[Введите имя]';
+    } else {
+        name.textContent = item;
+    }
+}
+
 name.addEventListener('mousedown', () => {
     name.innerText = '';
 });
@@ -120,15 +145,6 @@ name.addEventListener('mousedown', () => {
 name.onblur = function () {
     getName();
 };
-
-function getName() {
-    let item = localStorage.getItem('name');
-    if (!item) {
-        item = '[Введите имя]';
-    } else {
-        name.textContent = item;
-    }
-}
 
 function setName(e) {
     if (e.type === 'keypress') {
@@ -152,8 +168,7 @@ focus.onblur = function () {
 
 function getFocus() {
     let item = localStorage.getItem('focus');
-   // if (!item) focus.textContent = item;
-      if (!item) item = '[Введите цель]';
+      if (!item) focus.textContent = '[Введите цель]';
     else focus.textContent = item;   
 }
 
@@ -197,7 +212,6 @@ function setCity(e) {
         getWeather();
     } 
 }
-
 //WEATHER
 async function getWeather() {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=ru&appid=93f3893d8ca2513b9dff95fa5ec0f1ca&units=metric`;
@@ -213,9 +227,12 @@ async function getWeather() {
         humidity.textContent = `${data.main.humidity}%`;
         weatherDescription.textContent = data.weather[0].description;
       } catch(err) {
-        alert(`Город ${city.textContent} не найден!`); 
+        //alert(`Город ${city.textContent} не найден!`); 
         city.textContent = curCity;  
         localStorage.setItem('city', curCity);
+        errorMess.textContent = `Город не найден!`;
+        errorMess.classList.toggle("error-active");
+        setTimeout(() => errorMess.classList.remove("error-active"), 2000); 
       }
 }
 
@@ -235,6 +252,7 @@ name.addEventListener('keypress', setName);
 name.addEventListener('blur', setName);
 focus.addEventListener('keypress', setFocus);
 focus.addEventListener('blur', setFocus);
+//btnImg.addEventListener('click', setTimeout(viewAllImg, 1000));
 btnImg.addEventListener('click', viewAllImg);
 nextQuote.addEventListener('click', getQuote);
 
