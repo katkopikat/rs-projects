@@ -250,10 +250,10 @@ p {
 .pets-grid {
   text-align: center;
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   transition: flex 0.3s ease;
   width: 990px;
+  overflow: hidden;
 }
 .pets-card {
   align-items: center;
@@ -263,6 +263,7 @@ p {
   width: 270px;
   background: #FAFAFA;
   border-radius: 9px;
+  margin: 0 30px;
 }
 .pets-card img {
   margin-bottom: 30px;
