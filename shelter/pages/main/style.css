@@ -36,6 +36,7 @@ p {
 .logo {
   display: flex;
   flex-direction: column;
+  z-index: 2;
 }
 .logo-text {
   font-family: Georgia;
@@ -79,6 +80,64 @@ p {
   color: white;
   padding-bottom: 3px;
   border-bottom: 2px solid #F1CDB3;
+}
+.mobile-menu-list {
+  display: flex;
+  flex-direction: column;
+  font-size: 32px;
+  list-style: none;
+  line-height: 160%;
+  text-align: center;
+  padding: 0px;
+  padding-top: 158px;
+}
+.mobile-menu-item {
+  padding-bottom: 40px;
+}
+.menu-item-link {
+  text-decoration: none;
+  color: #CDCDCD;
+  font-family: Arial;
+}
+.menu-item-link:hover {
+  cursor: pointer;
+  color: #FAFAFA;
+}
+.link--active {
+  color: white;
+  padding-bottom: 3px;
+  border-bottom: 2px solid #F1CDB3;
+}
+.mobile-menu-container {
+  position: absolute;
+  width: 320px;
+  height: 823px;
+  background-color: #292929;
+  top: 0px;
+  right: -320px;
+  z-index: 1;
+  transition: all 0.5s ease-out;
+}
+.mobile-menu-wrapper {
+  overflow: hidden;
+  position: absolute;
+  top: 0px;
+  width: 320px;
+  height: 823px;
+}
+.mobile-menu-btn {
+  height: 22px;
+  width: 30px;
+  position: fixed;
+  flex-direction: column;
+  justify-content: space-between;
+  visibility: hidden;
+  z-index: 2;
+}
+.burger-icon-line {
+  background-color: #F1CDB3;
+  height: 2px;
+  width: 100%;
 }
 .section--start-screen {
   background: url(../../assets/images/noise_transparent.png), radial-gradient(100% 214.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
@@ -425,11 +484,104 @@ p {
   flex-direction: column;
   justify-content: space-between;
   visibility: hidden;
+  transition: all 0.5s ease-out;
 }
-.burger-icon-line {
-  background-color: white;
-  height: 2px;
+.modal {
+  position: absolute;
+  top: 21%;
+  left: 9%;
+  transform: scale(0);
+  opacity: 0;
+  transition: all 0.3s ease-out;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.modal-l {
+  width: 900px;
+  height: 500px;
+}
+.modal-window {
+  background: #FAFAFA;
+  border-radius: 9px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.modal-img {
+  height: 95%;
+}
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  width: 351px;
+  font-family: Georgia;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 110%;
+  letter-spacing: 0.06em;
+  color: #000000;
+}
+.modal-name {
+  font-size: 35px;
+  margin-bottom: 25px;
+}
+.modal-who-is-it {
+  font-size: 20px;
+}
+.modal-description {
+  font-family: Georgia;
+  padding: 40px 0px;
+  font-size: 15px;
+  margin: 0;
+}
+.modal-list {
+  margin: 0;
+  padding: 0px;
+  padding-left: 15px;
+}
+.modal-li {
+  font-weight: 600;
+  font-size: 15px;
+  color: #F1CDB3;
+}
+.modal-li > span {
+  color: black;
+  font-style: normal;
+  font-weight: bold;
+}
+.modal-open {
+  transition: all 0.3s ease-out;
+  transform: scale(1);
+  opacity: 1;
+}
+.btn--close {
+  height: 52px;
+  width: 52px;
+  border-radius: 100px;
+  border: 2px solid #F1CDB3;
+  background-color: rgba(0, 0, 0, 0);
+  position: relative;
+  left: 50px;
+}
+.overlay {
+  z-index: 4;
+  background-color: black;
+  top: 0;
+  left: 0;
+  position: fixed;
   width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-color: rgba(41, 41, 41, 0);
+  visibility: hidden;
+}
+.overlay-active {
+  visibility: visible;
+  transition: all 0.3s ease-out;
+  background-color: rgba(41, 41, 41, 0.6);
 }
 @media (max-width: 1280px) {
   .wrapper {
@@ -708,6 +860,14 @@ p {
   .section--donation .bank-link {
     font-size: 15px;
     letter-spacing: 0.06em;
+  }
+  .mobile-menu-container-anim {
+    right: 0;
+    transition: all 0.5s ease-out;
+  }
+  .mobile-menu-btn-rotation {
+    transition: all 0.5s ease-out;
+    transform: rotate(90deg);
   }
   .footer-content {
     flex-wrap: wrap;

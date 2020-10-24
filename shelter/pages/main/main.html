@@ -25,6 +25,16 @@
 							<div class="burger-icon-line"></div>
 							<div class="burger-icon-line"></div>
 						</div>
+						<div class="mobile-menu-wrapper">
+							<div class="mobile-menu-container">
+								<ul class="mobile-menu-list">
+									<li class="mobile-menu-item"> <a class="menu-item-link link--active" href="../main/main.html">About the shelter</a> </li>
+									<li class="mobile-menu-item"> <a class="menu-item-link" href="../pets/pets.html">Our pets </a></li>
+									<li class="mobile-menu-item"> <a class="menu-item-link" href="#">Help the shelter</a> </li>
+									<li class="mobile-menu-item"> <a class="menu-item-link" href="#">Contacts</a> </li>
+								</ul>
+							</div>
+						</div>
 					</nav>
 				</div>
 			</div>
@@ -59,7 +69,7 @@
 					<div class="pets-content">
 						<h3 class="heading">Our friends who<br> are looking for a house</h3>
 						<div class="pets-grid">
-							<div class="pets-card item-a"> <img src="../../assets/images/pets-katrine.jpg" alt="Katrine"> <span class="pet-card-name">Katrine</span>
+							<div class="pets-card item-a "> <img src="../../assets/images/pets-katrine.jpg" alt="Katrine"> <span class="pet-card-name">Katrine</span>
 								<button class="btn btn--learn-more">Learn more</button>
 							</div>
 							<div class="pets-card item-b"> <img src="../../assets/images/pets-jennifer.jpg" alt="Jennifer"> <span class="pet-card-name">Jennifer</span>
@@ -76,6 +86,20 @@
 					</div>
 					<div class="navigation navigation--next">
 						<button class="btn btn-paginator btn-pag--active btn--next"> &#129046;</button>
+					</div>
+					<div class="modal ">
+						<button class="btn btn--close">x</button>
+						<div class="modal-window modal-l"> <img class="modal-img" src="../../assets/images/pets-jennifer.jpg" alt="Jennifer">
+							<div class="modal-content"> <span class="modal-name">Jennifer</span> <span class="modal-who-is-it">Dog-Labrador</span>
+								<p class="modal-description">Jennifer is a sweet 2 months old Labrador that is patiently waiting to find a new forever home. This girl really enjoys being able to go outside to run and play, but won't hesitate to play up a storm in the house if she has all of her favorite toys.</p>
+								<ul class="modal-list">
+									<li class="modal-li"><span class="modal-li-bold">Age:</span><span class="modal-age"></span></li>
+									<li class="modal-li"><span class="modal-li-bold">Inoculations:</span><span class="modal-inoculations"></span></li>
+									<li class="modal-li"><span class="modal-li-bold">Diseases:</span><span class="modal-diseases"></span></li>
+									<li class="modal-li"><span class="modal-li-bold">Parasites:</span><span class="modal-parasites"></span></li>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -146,4 +170,9 @@
 			</div>
 		</div>
 	</footer>
+	<div class="overlay"></div>
 </body>
+<script src="script.js"></script>
+<script src="popup.js"></script>
+
+</html>
