@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <title>Shelter</title>
     <link rel="stylesheet" href="normalize.css">
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="style.css"> 
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    
+</head>
 
 <body>
     <section class="section section--start-screen">
@@ -68,9 +72,9 @@
         <section class="section section--pets">
             <div class="wrapper">
                 <div class="pets-content-wrapper">
-                    <div class="pets-content">
+                    <div class="pets-content swiper-container swiper-container-initialized swiper-container-horizontal"">
                         <h3 class="heading">Our friends who<br> are looking for a house</h3>
-                        <div class="pets-grid"> </div>
+                        <div class="pets-grid swiper-wrapper"> </div>
                         <form action="../pets/pets.html" method="GET">
                             <button class="btn btn--get-to-know">Get to know the rest</button>
                         </form>
@@ -156,6 +160,7 @@
     </footer>
     <div class="overlay" id="overlay"></div>
 </body>
+
 <script src="script.js"></script>
 
 </html>

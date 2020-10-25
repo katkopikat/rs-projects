@@ -95,7 +95,8 @@ const burgerBtn = document.querySelector('.mobile-menu-btn'),
       mobileMenu = document.querySelector('.mobile-menu-container'),
       mobileMenuMask = document.querySelector('.mobile-menu-wrapper'),
       overlay = document.querySelector('#overlay'),
-      btnCloseModal = document.querySelector('.btn--close');
+      btnCloseModal = document.querySelector('.btn--close'),
+      slider = document.querySelector('.pets-grid');
       //overlayActive = document.querySelector('.overlay overlay-active');
 
 let modalIsOpen = false;
@@ -152,14 +153,13 @@ fullPetsList = (() => {
   })();
 
 const createPets = () => {
-    const petsGrid = document.querySelector('.pets-grid');
-    petsGrid.innerHTML += createPetsCard();
+    slider.innerHTML += createPetsCard();
 }
 
 createPetsCard = () => {
     let str = '';
     for (let i = 0; i < pets.length; i++) {
-        str += `<div class="pets-card" id="${pets[i].name}">
+        str += `<div class="pets-card swiper-slide card" id="${pets[i].name}">
                 <img src="${ pets[i].img }" alt="${ pets[i].name }" id="${pets[i].name}">
                 <span class="pet-card-name">${ pets[i].name }</span>
                 <button class="btn btn--learn-more" id="${pets[i].name}">Learn more</button>
@@ -169,6 +169,8 @@ createPetsCard = () => {
 }
 
 createPets(fullPetsList);
+
+//SWIPER --------------------------------------------------------------
 
 
 //MODAL--------------------------------------------------------------
@@ -250,54 +252,113 @@ const generateModalContent = () => {
     </div>`
 }
 
+if (document.querySelector("body").offsetWidth >= 1280) {
+(function () {
+    var mySwiper = new Swiper(".swiper-container", {
+      loop: true,
+      slidesPerView: 3,
+      slidesPerGroup: 3,
+      spaceBetween: 90,
+      speed:500,
+      
+     // pagination: {
+      //  el: ".swiper-pagination",
+     // },
+  
+      navigation: {
+        nextEl: ".btn--next",
+        prevEl: ".btn--back",
+      },
+    });
+  })();
+
+ }
+
+ if (document.querySelector("body").offsetWidth >= 768 && document.querySelector("body").offsetWidth < 1280) {
+  // itemsPerPage = 6;
+  (function () {
+    var mySwiper = new Swiper(".swiper-container", {
+      loop: true,
+      slidesPerView: 2,
+      slidesPerGroup: 2,
+      spaceBetween: 40,
+      speed:500,
+      navigation: {
+        nextEl: ".btn--next",
+        prevEl: ".btn--back",
+      },
+    });
+  })();
+
+ }
+
+ if (document.querySelector("body").offsetWidth < 768) {
+    // itemsPerPage = 6;
+    (function () {
+      var mySwiper = new Swiper(".swiper-container", {
+        loop: true,
+        slidesPerView: 1,
+        slidesPerGroup: 1,
+        spaceBetween: 15,
+        speed:500,
+        navigation: {
+          nextEl: ".btn--next",
+          prevEl: ".btn--back",
+        },
+      });
+    })();
+  
+   }
+
+  
 //SLIDER-------------------------------------------------
-let currentItem = 0;
-let isEnabled = true;
+// let currentItem = 0;
+// let isEnabled = true;
 
-function changeCurrentItem(n) {
-	currentItem = (n + petsCards.length) % petsCards.length;
-}
+// function changeCurrentItem(n) {
+// 	currentItem = (n + petsCards.length) % petsCards.length;
+// }
 
-function hideItem(direction) {
-	isEnabled = false;
-	petsCards[currentItem].classList.add(direction);
-	petsCards[currentItem].addEventListener('animationend', function() {
-		this.classList.remove('active', direction);
-	});
-}
+// function hideItem(direction) {
+// 	isEnabled = false;
+// 	petsCards[currentItem].classList.add(direction);
+// 	petsCards[currentItem].addEventListener('animationend', function() {
+// 		this.classList.remove('active', direction);
+// 	});
+// }
 
-function showItem(direction) {
-	petsCards[currentItem].classList.add('next', direction);
-	petsCards[currentItem].addEventListener('animationend', function() {
-		this.classList.remove('next', direction);
-		this.classList.add('active');
-		isEnabled = true;
-	});
-}
+// function showItem(direction) {
+// 	petsCards[currentItem].classList.add('next', direction);
+// 	petsCards[currentItem].addEventListener('animationend', function() {
+// 		this.classList.remove('next', direction);
+// 		this.classList.add('active');
+// 		isEnabled = true;
+// 	});
+// }
 
-function nextItem(n) {
-	hideItem('to-left');
-	changeCurrentItem(n + 1);
-	showItem('from-right');
-}
+// function nextItem(n) {
+// 	hideItem('to-left');
+// 	changeCurrentItem(n + 1);
+// 	showItem('from-right');
+// }
 
-function previousItem(n) {
-	hideItem('to-right');
-	changeCurrentItem(n - 1);
-	showItem('from-left');
-}
+// function previousItem(n) {
+// 	hideItem('to-right');
+// 	changeCurrentItem(n - 1);
+// 	showItem('from-left');
+// }
 
-document.querySelector('.btn--back').addEventListener('click', function() {
-        if (isEnabled) {
-            previousItem(currentItem);
-        }
-});
+// document.querySelector('.btn--back').addEventListener('click', function() {
+//         if (isEnabled) {
+//             previousItem(currentItem);
+//         }
+// });
     
-document.querySelector('.btn--next').addEventListener('click', function() {
-        if (isEnabled) {
-            nextItem(currentItem);
-        }
-});
+// document.querySelector('.btn--next').addEventListener('click', function() {
+//         if (isEnabled) {
+//             nextItem(currentItem);
+//         }
+// });
 
 
 // const swipedetect = (el) => {
