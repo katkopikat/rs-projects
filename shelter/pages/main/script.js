@@ -47,7 +47,7 @@ const pets = [
     },
     {
       "name": "Katrine",
-      "img": "../../assets/images/pets-katrine.png",
+      "img": "../../assets/images/pets-katrine.jpg",
       "type": "Cat",
       "breed": "British Shorthair",
       "description": "Katrine is a beautiful girl. She is as soft as the finest velvet with a thick lush fur. Will love you until the last breath she takes as long as you are the one. She is picky about her affection. She loves cuddles and to stretch into your hands for a deeper relaxations.",
@@ -133,7 +133,23 @@ function closeMenu(){
 
 
 //PETS CARD--------------------------------------------------------
-let fullPetsList = [];
+let fullPetsList = []; 
+fullPetsList = (() => {
+    let tempArr = [];
+
+    for (let i = 0; i < 6; i++) {
+      const newPets = pets;
+
+      for (let j = pets.length; j > 0; j--) {
+        let randInd = Math.floor(Math.random() * j);
+        const randElem = newPets.splice(randInd, 1)[0];
+        newPets.push(randElem);
+      }
+
+      tempArr = [...tempArr, ...newPets];
+    }
+    return tempArr;
+  })();
 
 const createPets = () => {
     const petsGrid = document.querySelector('.pets-grid');
@@ -152,7 +168,7 @@ createPetsCard = () => {
     return str;
 }
 
-createPets();
+createPets(fullPetsList);
 
 
 //MODAL--------------------------------------------------------------
@@ -218,22 +234,21 @@ function clearModal(modal) {
     elem.innerHTML = '';
 }
 const generateModalContent = () => {
+//modalWindow.classList.add('.modal-l')
  getId();
  let i = cardClickId;
  const elem = document.querySelector('.modal-window');
- elem.innerHTML += `<img class="modal-img" src="${ pets[i].img }" alt="${ pets[i].name }">
-							<div class="modal-content"> <span class="modal-name">${ pets[i].name}</span> <span class="modal-who-is-it">${ pets[i].type} - ${ pets[i].breed}</span>
-								<p class="modal-description">${ pets[i].description}</p>
-								<ul class="modal-list">
-									<li class="modal-li"><span class="modal-li-bold">Age:</span><span class="modal-age"> ${ pets[i].age}</span></li>
-									<li class="modal-li"><span class="modal-li-bold">Inoculations:</span><span class="modal-inoculations"> ${ pets[i].inoculations}</span></li>
-									<li class="modal-li"><span class="modal-li-bold">Diseases:</span><span class="modal-diseases"> ${ pets[i].diseases}</span></li>
-									<li class="modal-li"><span class="modal-li-bold">Parasites:</span><span class="modal-parasites"> ${ pets[i].parasites}</span></li>
-								</ul>
-							</div>`
- 
+    elem.innerHTML += `<img class="modal-img" src="${ pets[i].img }" alt="${ pets[i].name }">
+    <div class="modal-content"> <span class="modal-name">${ pets[i].name}</span> <span class="modal-who-is-it">${ pets[i].type} - ${ pets[i].breed}</span>
+        <p class="modal-description">${ pets[i].description}</p>
+        <ul class="modal-list">
+            <li class="modal-li"><span class="modal-li-bold">Age:</span><span class="modal-age"> ${ pets[i].age}</span></li>
+            <li class="modal-li"><span class="modal-li-bold">Inoculations:</span><span class="modal-inoculations"> ${ pets[i].inoculations}</span></li>
+            <li class="modal-li"><span class="modal-li-bold">Diseases:</span><span class="modal-diseases"> ${ pets[i].diseases}</span></li>
+            <li class="modal-li"><span class="modal-li-bold">Parasites:</span><span class="modal-parasites"> ${ pets[i].parasites}</span></li>
+        </ul>
+    </div>`
 }
-
 
 //SLIDER-------------------------------------------------
 let currentItem = 0;
