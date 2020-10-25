@@ -93,41 +93,46 @@ const pets = [
 
 const burgerBtn = document.querySelector('.mobile-menu-btn'),
       mobileMenu = document.querySelector('.mobile-menu-container'),
-      overlay = document.querySelector('.overlay'),
-      overlayActive = document.querySelector('.overlay overlay-active');
+      mobileMenuMask = document.querySelector('.mobile-menu-wrapper'),
+      overlay = document.querySelector('#overlay'),
+      btnCloseModal = document.querySelector('.btn--close');
+      //overlayActive = document.querySelector('.overlay overlay-active');
 
 let modalIsOpen = false;
 let menuIsOpen = false;
 
-//BURGER MENU
+//BURGER MENU----------------------------------------------------
 burgerBtn.addEventListener('click', () => {
-    if (menuIsOpen === false) openMenu();
-    else closeMenu();
+    if (menuIsOpen === false) {
+        mobileMenuMask.classList.add("mobile-menu-mask");
+        setTimeout(openMenu, 0);
+    }
+    else {
+        mobileMenuMask.classList.add("mobile-menu-mask");
+        setTimeout(closeMenu, 0);
+}
 });
 
 function openMenu(){
     menuIsOpen = true;
+    //mobileMenuMask.classList.add("mobile-menu-mask");
     mobileMenu.classList.add("mobile-menu-container-anim");
     burgerBtn.classList.add("mobile-menu-btn-rotation");
     overlay.classList.add('overlay-active');
+    document.body.classList.add('noscroll');
 }
 
 function closeMenu(){
     menuIsOpen = false;
+   //mobileMenuMask.classList.remove("mobile-menu-mask");
     mobileMenu.classList.remove("mobile-menu-container-anim");
     burgerBtn.classList.remove("mobile-menu-btn-rotation");
     overlay.classList.remove('overlay-active');
+    document.body.classList.remove('noscroll');
 }
 
-overlay.addEventListener('click', () => {
-    console.log('Клик оверлей')
-    if (modalIsOpen === true) closeModal();
-    if ( menuIsOpen === true) closeMenu();
-})
-    
 
-
-//PETS CARD
+//PETS CARD--------------------------------------------------------
 let fullPetsList = [];
 
 const createPets = () => {
@@ -146,10 +151,11 @@ createPetsCard = () => {
     }
     return str;
 }
+
 createPets();
 
 
-//MODAL
+//MODAL--------------------------------------------------------------
 const petsCards = document.querySelectorAll('.pets-card'),
       closeModalButtons = document.querySelectorAll('.btn--close'),
       modal = document.querySelector('.modal'),
@@ -165,31 +171,25 @@ function getId(e) {
      return cardClickId;
 }
 
-
-
-
 petsCards.forEach(petsCard => {
-    
     petsCard.addEventListener('click', () => {
-        console.log('клик на карточку')
         generateModalContent();
         openModal(modal);
-    
-        
     })
 })
-
 
 function openModal(modal) {
     modalIsOpen = true;
     modal.classList.add('modal-open');
     overlay.classList.add('overlay-active');
+    document.body.classList.add('noscroll');
 }
 
 function closeModal(modal) {
     modalIsOpen = false;
     modal.classList.remove('modal-open');
     overlay.classList.remove('overlay-active');
+    document.body.classList.remove('noscroll');
     clearModal(modal);
 }
 
@@ -197,6 +197,19 @@ closeModalButtons.forEach(item => {
     item.addEventListener('click', () => {
         closeModal(modal);
     })
+})
+
+overlay.addEventListener('click', () => {
+    if (modalIsOpen === true) closeModal(modal);
+    if ( menuIsOpen === true) closeMenu();
+})
+
+overlay.addEventListener('mouseover', () => {
+    btnCloseModal.classList.add('btn--close-active');
+})
+
+overlay.addEventListener('mouseout', () => {
+    btnCloseModal.classList.remove('btn--close-active');
 })
 
 //Генерация контента для модального окна и создание окна
@@ -209,20 +222,20 @@ const generateModalContent = () => {
  let i = cardClickId;
  const elem = document.querySelector('.modal-window');
  elem.innerHTML += `<img class="modal-img" src="${ pets[i].img }" alt="${ pets[i].name }">
-							<div class="modal-content"> <span class="modal-name">${ pets[i].name}</span> <span class="modal-who-is-it">${ pets[i].type}</span>
+							<div class="modal-content"> <span class="modal-name">${ pets[i].name}</span> <span class="modal-who-is-it">${ pets[i].type} - ${ pets[i].breed}</span>
 								<p class="modal-description">${ pets[i].description}</p>
 								<ul class="modal-list">
-									<li class="modal-li"><span class="modal-li-bold">Age:</span><span class="modal-age">${ pets[i].age}</span></li>
-									<li class="modal-li"><span class="modal-li-bold">Inoculations:</span><span class="modal-inoculations">${ pets[i].inoculations}</span></li>
-									<li class="modal-li"><span class="modal-li-bold">Diseases:</span><span class="modal-diseases">${ pets[i].diseases}</span></li>
-									<li class="modal-li"><span class="modal-li-bold">Parasites:</span><span class="modal-parasites">${ pets[i].parasites}</span></li>
+									<li class="modal-li"><span class="modal-li-bold">Age:</span><span class="modal-age"> ${ pets[i].age}</span></li>
+									<li class="modal-li"><span class="modal-li-bold">Inoculations:</span><span class="modal-inoculations"> ${ pets[i].inoculations}</span></li>
+									<li class="modal-li"><span class="modal-li-bold">Diseases:</span><span class="modal-diseases"> ${ pets[i].diseases}</span></li>
+									<li class="modal-li"><span class="modal-li-bold">Parasites:</span><span class="modal-parasites"> ${ pets[i].parasites}</span></li>
 								</ul>
 							</div>`
  
- }
+}
 
 
-//SLIDER
+//SLIDER-------------------------------------------------
 let currentItem = 0;
 let isEnabled = true;
 
@@ -258,7 +271,6 @@ function previousItem(n) {
 	changeCurrentItem(n - 1);
 	showItem('from-left');
 }
-
 
 document.querySelector('.btn--back').addEventListener('click', function() {
         if (isEnabled) {
