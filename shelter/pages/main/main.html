@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="style.css"> 
+
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+   
     
 </head>
 
@@ -19,7 +21,7 @@
                     <nav class="main-nav">
                         <div class="logo"> <span class="logo-text">Cozy House</span> <span class="logo-subtext">Shelter for pets in Boston</span> </div>
                         <ul class="menu">
-                            <li class="menu-item"> <a class="menu-item-link link--active" href="../main/main.html">About the shelter</a> </li>
+                            <li class="menu-item"> <a class="menu-item-link link--active" href="#top">About the shelter</a> </li>
                             <li class="menu-item"> <a class="menu-item-link" href="../pets/pets.html">Our pets </a></li>
                             <li class="menu-item"> <a class="menu-item-link link--disabled" href="#">Help the shelter</a> </li>
                             <li class="menu-item"> <a class="menu-item-link link--disabled" href="#">Contacts</a> </li>
@@ -32,7 +34,7 @@
                         <div class="mobile-menu-wrapper">
                             <div class="mobile-menu-container">
                                 <ul class="mobile-menu-list">
-                                    <li class="mobile-menu-item"> <a class="menu-item-link link--active" href="../main/main.html">About the shelter</a> </li>
+                                    <li class="mobile-menu-item"> <a class="menu-item-link link--active" href="#top">About the shelter</a> </li>
                                     <li class="mobile-menu-item"> <a class="menu-item-link" href="../pets/pets.html">Our pets </a></li>
                                     <li class="mobile-menu-item"> <a class="menu-item-link" href="#">Help the shelter</a> </li>
                                     <li class="mobile-menu-item"> <a class="menu-item-link" href="#">Contacts</a> </li>
@@ -132,35 +134,39 @@
         </section>
     </main>
     <footer class="footer section section--footer">
-        <div class="wrapper">
-            <div class="footer-content-wrapper">
-                <div class="footer-content">
-                    <div class="question">
-                        <h3 class="heading footer-heading heading--question">For questions<br> and suggestions</h3> <span class="mail-link">
-							<a href="mailto:email@shelter.com">
-								<img class="footer-icons" src="../../assets/icons/mail.svg" alt="mail">email@shelter.com</a>
-						</span> <span class="phone-link">
-							<a href="tel:+136745677554">
-								<img class="footer-icons" src="../../assets/icons/phone.svg" alt="phone">+13 674 567 75 54</a>
-						</span> </div>
-                    <div class="visit">
-                        <h3 class="heading footer-heading heading--visit">We are waiting for your visit</h3> <span class="adress-boston">
-							<a href="https://www.google.ru/maps/place/1+Central+St,+Boston,+MA+02109,+%D0%A1%D0%A8%D0%90/@42.3585558,-71.056915,17z/data=!3m1!4b1!4m5!3m4!1s0x89e370868bc2ce7b:0x82fa7db94f5fea9e!8m2!3d42.3585519!4d-71.0547263" target="_blank">
-								<img class="footer-icons" src="../../assets/icons/pin.svg" alt="location">1 Central Street, Boston (entrance from the store)
-							</a>
-						</span> <span class="adress-london">
-							<a href="https://www.google.ru/maps/place/%D0%AE%D0%B3+%D0%9F%D0%B0%D1%80%D0%BA,+%D0%A4%D1%83%D0%BB%D1%85%D1%8D%D0%BC/@51.4686038,-0.1961388,17z/data=!4m5!3m4!1s0x48760f79376fa0e3:0x202ac3af5c1ea4ec!8m2!3d51.4693849!4d-0.1949077" target="_blank">
-								<img class="footer-icons" src="../../assets/icons/pin.svg" alt="location">18 South Park, London
-							</a>
-						</span> </div>
-                    <div class="img-footer"></div>
-                </div>
-            </div>
-        </div>
-    </footer>
+		<div class="wrapper">
+			<div class="footer__content">
+				<div class="footer__contacts">
+					<div class="contacts__title">For questions and suggestions</div>
+					<div class="contacts__email"> <a href="mailto:email@shelter.com"><span class="icon-contact email__icon">
+               <img class="footer-icons" src="../../assets/icons/mail.svg" alt="mail">
+              </span>
+              <span class="email__text">email@shelter.com</span></a> </div>
+					<div class="contacts__phone"> <a href="tel:+13 674 567 75 54"><span class="icon-contact phone__icon">
+                <img class="footer-icons" src="../../assets/icons/phone.svg" alt="phone">
+              </span>
+              <span class="phone__text">+13 674 567 75 54</span></a> </div>
+				</div>
+				<div class="footer__location">
+					<div class="location__title">We are waiting for your visit</div>
+					<div class="location__adress"> <a target="blank" href="https://www.google.com/maps/place/Central+St,+Boston,+MA,+%D0%A1%D0%A8%D0%90/@42.3589255,-71.0548961,17.25z/data=!4m5!3m4!1s0x89e370865345ba21:0x44f6c81aa9436fb7!8m2!3d42.3588393!4d-71.0529417?hl=ru"><span class="icon-location location__icons">
+               <img class="footer-icons" src="../../assets/icons/pin.svg" alt="location">
+              </span>
+              <span class="location__text">1 Central Street, Boston <br>(entrance from the store)</span></a> </div>
+					<div class="location__adress">
+						<a target="blank" href="https://www.google.com/maps/place/%D0%AE%D0%B3+%D0%9F%D0%B0%D1%80%D0%BA,+%D0%A4%D1%83%D0%BB%D1%85%D1%8D%D0%BC/@51.4701067,-0.2004116,15z/data=!4m5!3m4!1s0x48760f79376fa0e3:0x202ac3af5c1ea4ec!8m2!3d51.4693849!4d-0.1949077?hl=ru"> <span class="icon-location location__icons">
+              <img class="footer-icons" src="../../assets/icons/pin.svg" alt="location">
+              </span> <span class="location__text">18 South Park, London </span> </a>
+					</div>
+				</div>
+				<div class="footer__puppy"> <img src="../../assets/images/footer-puppy.png" alt="little puppy" class="puppy__image"> </div>
+			</div>
+		</div>
+	</footer>
     <div class="overlay" id="overlay"></div>
+    <script src="script.js"></script>
 </body>
 
-<script src="script.js"></script>
+
 
 </html>

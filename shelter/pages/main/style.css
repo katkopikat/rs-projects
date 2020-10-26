@@ -436,60 +436,83 @@ p {
   background-color: #FDDCC4;
   cursor: pointer;
 }
-.section--footer {
-  height: 350px;
-  background: url(../../assets/images/noise_transparent.png), radial-gradient(100% 214.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+footer {
+  background: url(../../assets/images/noise_transparent@2x.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
 }
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-}
-.footer-content-wrapper {
-  padding-top: 40px;
-}
-.question,
-.visit {
-  width: 305px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-.footer-heading {
-  font-family: Georgia;
-  line-height: 130%;
-  letter-spacing: 0.06em;
-  color: #FFFFFF;
-  margin: 0;
-}
-.footer span {
-  font-family: Georgia;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  letter-spacing: 0.06em;
-  display: flex;
-  align-items: center;
-  color: #F1CDB3;
-}
-.mail-link > a,
-.phone-link > a,
-.adress-boston > a,
-.adress-london > a {
+footer a {
   text-decoration: none;
-  color: #F1CDB3;
 }
-.footer-icons {
-  padding-right: 20px;
-  vertical-align: middle;
+.footer__content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: 60px 160px;
+  padding-top: 35px;
 }
-.adress-boston > img {
-  float: left;
+.footer__contacts {
+  flex-basis: 278px;
+  margin-top: 17px;
 }
-.img-footer {
-  background-image: url(../../assets/images/footer-puppy.png);
-  background-repeat: no-repeat;
-  height: 310px;
-  width: 300px;
+.contacts__title {
+  color: #fff;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 2.1875rem;
+  line-height: 2.85rem;
+  letter-spacing: 0.129rem;
+}
+.contacts__title + .contacts__email {
+  margin-top: 38px;
+  margin-bottom: 36px;
+}
+.contacts__email a {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.contacts__email a .email__icon {
+  display: block;
+  margin-right: 1.25rem;
+}
+.contacts__phone a {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-decoration: none;
+}
+.footer__location {
+  flex-basis: 302px;
+  margin-top: 17px;
+}
+.location__title {
+  color: #fff;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 2.1875rem;
+  line-height: 2.85rem;
+  letter-spacing: 0.129rem;
+}
+.location__title + .location__adress {
+  margin-top: 2.125rem;
+  margin-bottom: 1.9375rem;
+}
+.footer__puppy .puppy__image {
+  width: 100%;
+  display: block;
+}
+.contacts__email a .email__text,
+.location__adress a .location__text,
+.contacts__phone a .phone__text {
+  color: #f1cdb3;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.4375rem;
+  letter-spacing: 0.075rem;
 }
 .mobile-menu-btn {
   height: 22px;
@@ -659,10 +682,12 @@ p {
   }
   .start-text-content,
   .about-photo,
-  .about-text-content,
-  .img-footer {
+  .about-text-content {
     margin-left: auto;
     margin-right: auto;
+  }
+  footer .wrapper {
+    max-width: 740px;
   }
   .start-text-content {
     margin: 1px 0px 33px 123px;
@@ -686,7 +711,7 @@ p {
     height: 877px;
   }
   .pets-content {
-    margin: 0 -9px;
+    margin: 0 12px;
   }
   .pets-grid {
     width: 621px;
@@ -712,36 +737,6 @@ p {
   .donation-photo {
     margin-top: 40px;
     margin-right: 0px;
-  }
-  .section--footer {
-    height: 639px;
-  }
-  .footer-content {
-    flex-wrap: wrap;
-    padding-top: 17px;
-  }
-  .footer-content-wrapper {
-    padding-top: 0px;
-    width: 685px;
-  }
-  .qustion,
-  .visit {
-    width: 280px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 230px;
-  }
-  .icon-item:nth-child(3n-3) {
-    margin-right: 1px;
-  }
-  .img-footer {
-    margin-left: 169px;
-    margin-top: 66px;
-  }
-  .footer {
-    padding-top: 0px;
-    margin: 0 33px;
   }
   .modal-window {
     height: 350px;
@@ -837,17 +832,16 @@ p {
   }
   .pets-content {
     height: auto;
-    margin: 0px;
-    margin: -30px;
-    margin-top: 42px;
+    margin: 0px -45px;
     padding-top: 0px;
   }
   .pets-content > .heading {
     font-size: 25px;
     text-align: center;
     width: 300px;
-    margin-top: -38px;
+    margin-top: 0px;
     margin-bottom: 42px;
+    padding-top: 25px;
   }
   .pets-grid {
     width: 100%;
@@ -855,7 +849,18 @@ p {
   }
   .pets-card {
     width: 270px;
-    margin: 0 15px;
+    margin: 0px;
+  }
+  .navigation {
+    margin-top: 0;
+    position: relative;
+    top: 250px;
+  }
+  .navigation--back {
+    right: -35px;
+  }
+  .navigation--next {
+    left: -28px;
   }
   .section--help {
     height: 745px;
@@ -920,6 +925,9 @@ p {
     letter-spacing: 0.05em;
     margin: 0;
   }
+  .section--donation {
+    height: 542px;
+  }
   .section--donation .creditcard {
     width: 281px;
     margin: 0;
@@ -935,9 +943,6 @@ p {
   .mobile-menu-btn-rotation {
     transition: all 0.5s ease-out;
     transform: rotate(90deg);
-  }
-  .footer-content {
-    flex-wrap: wrap;
   }
   .modal-window {
     height: auto;

@@ -1,4 +1,4 @@
-//import {pets} from './pets.js';
+//import * as pets from './pets.js';
 
 const pets = [
     {
@@ -96,7 +96,8 @@ const burgerBtn = document.querySelector('.mobile-menu-btn'),
       mobileMenuMask = document.querySelector('.mobile-menu-wrapper'),
       overlay = document.querySelector('#overlay'),
       btnCloseModal = document.querySelector('.btn--close'),
-      slider = document.querySelector('.pets-grid');
+      slider = document.querySelector('.pets-grid'),
+      linksMenu = document.querySelectorAll('.menu-item-link');
       //overlayActive = document.querySelector('.overlay overlay-active');
 
 let modalIsOpen = false;
@@ -109,7 +110,7 @@ burgerBtn.addEventListener('click', () => {
         setTimeout(openMenu, 0);
     }
     else {
-        mobileMenuMask.classList.add("mobile-menu-mask");
+        mobileMenuMask.classList.remove("mobile-menu-mask");
         setTimeout(closeMenu, 0);
 }
 });
@@ -132,6 +133,14 @@ function closeMenu(){
     document.body.classList.remove('noscroll');
 }
 
+linksMenu.forEach(link => {
+  link.addEventListener('click', () => {
+    if (menuIsOpen === true) {
+      mobileMenuMask.classList.remove("mobile-menu-mask");
+        setTimeout(closeMenu, 0);
+}
+})
+})
 
 //PETS CARD--------------------------------------------------------
 let fullPetsList = []; 
@@ -219,11 +228,15 @@ closeModalButtons.forEach(item => {
 
 overlay.addEventListener('click', () => {
     if (modalIsOpen === true) closeModal(modal);
-    if ( menuIsOpen === true) closeMenu();
+    if ( menuIsOpen === true) {
+      mobileMenuMask.classList.remove("mobile-menu-mask");
+      setTimeout(closeMenu, 0);
+    }
 })
 
 overlay.addEventListener('mouseover', () => {
     btnCloseModal.classList.add('btn--close-active');
+    
 })
 
 overlay.addEventListener('mouseout', () => {
@@ -303,7 +316,7 @@ function createSlider(){
             loop: true,
             slidesPerView: 1,
             slidesPerGroup: 1,
-            spaceBetween: 15,
+            spaceBetween: 30,
             speed:500,
             navigation: {
               nextEl: ".btn--next",
