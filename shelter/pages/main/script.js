@@ -96,8 +96,7 @@ const burgerBtn = document.querySelector('.mobile-menu-btn'),
       mobileMenuMask = document.querySelector('.mobile-menu-wrapper'),
       overlay = document.querySelector('#overlay'),
       btnCloseModal = document.querySelector('.btn--close'),
-      slider = document.querySelector('.pets-grid'),
-      linksMenu = document.querySelectorAll('.menu-item-link');
+      slider = document.querySelector('.pets-grid');
       //overlayActive = document.querySelector('.overlay overlay-active');
 
 let modalIsOpen = false;
@@ -133,14 +132,6 @@ function closeMenu(){
     document.body.classList.remove('noscroll');
 }
 
-linksMenu.forEach(link => {
-  link.addEventListener('click', () => {
-    if (menuIsOpen === true) {
-      mobileMenuMask.classList.remove("mobile-menu-mask");
-        setTimeout(closeMenu, 0);
-}
-})
-})
 
 //PETS CARD--------------------------------------------------------
 let fullPetsList = []; 
@@ -230,8 +221,7 @@ overlay.addEventListener('click', () => {
     if (modalIsOpen === true) closeModal(modal);
     if ( menuIsOpen === true) {
       mobileMenuMask.classList.remove("mobile-menu-mask");
-      setTimeout(closeMenu, 0);
-    }
+      setTimeout(closeMenu, 0);}
 })
 
 overlay.addEventListener('mouseover', () => {

@@ -179,6 +179,12 @@ createPetsCard = () => {
 }
 
 createPets(fullPetsList);
+createPets(fullPetsList);
+createPets(fullPetsList);
+createPets(fullPetsList);
+createPets(fullPetsList);
+createPets(fullPetsList);
+
 
 //SWIPER --------------------------------------------------------------
 
@@ -265,213 +271,83 @@ const generateModalContent = () => {
     </div>`
 }
 
+let currentPage = 1;
 
+document.querySelector('.btn-next').addEventListener('click', () => {
+  console.log('rkbr');
+  document.querySelector('.btn-pag--curency').innerText =`${currentPage+1}`;
+})
 
-// function createSlider(){
-//   if (window.innerWidth >= 1280){
-//     (function () {
-//         var mySwiper = new Swiper(".swiper-container", {
-          
-//           loop: true,
-//           slidesPerView: 3,
-//           slidesPerGroup: 3,
-//           spaceBetween: 90,
-//           speed:500,
-          
-//          // pagination: {
-//           //  el: ".swiper-pagination",
-//          // }
-      
-//           navigation: {
-//             nextEl: ".btn--next",
-//             prevEl: ".btn--back",
-//           },
-//         });
-//       })();
-//      }
-    
-    
-//      //if (document.querySelector("body").offsetWidth >= 768 && document.querySelector("body").offsetWidth < 1280) {
-//       if (window.innerWidth >= 768 && window.innerWidth < 1280){
-//       (function () {
-//         var mySwiper = new Swiper(".swiper-container", {
-//           loop: true,
-//           slidesPerView: 2,
-//           slidesPerGroup: 2,
-//           spaceBetween: 40,
-//           speed:500,
-//           navigation: {
-//             nextEl: ".btn--next",
-//             prevEl: ".btn--back",
-//           },
-//         });
-//       })();
-    
-//      }
-    
-//      if (window.innerWidth < 768 ){
-//      //if (document.querySelector("body").offsetWidth < 768) {
-//         (function () {
-//           var mySwiper = new Swiper(".swiper-container", {
-//             loop: true,
-//             slidesPerView: 1,
-//             slidesPerGroup: 1,
-//             spaceBetween: 30,
-//             speed:500,
-//             navigation: {
-//               nextEl: ".btn--next",
-//               prevEl: ".btn--back",
-//             },
-//           });
-//         })();
-      
-//        }
-// // //if (document.querySelector("body").offsetWidth >= 1280) {
-// }
-
-//   createSlider();
-
-// window.addEventListener('resize', () => {
-//   createSlider();
+// document.querySelector('.btn-back').addEventListener('click', () => {
+//   document.querySelector('.btn-pag--curency').innerText =`${currentPage-1}`;
 // })
-  
-//SLIDER-------------------------------------------------
-// let currentItem = 0;
-// let isEnabled = true;
 
-// function changeCurrentItem(n) {
-// 	currentItem = (n + petsCards.length) % petsCards.length;
-// }
+function createSlider(){
 
-// function hideItem(direction) {
-// 	isEnabled = false;
-// 	petsCards[currentItem].classList.add(direction);
-// 	petsCards[currentItem].addEventListener('animationend', function() {
-// 		this.classList.remove('active', direction);
-// 	});
-// }
+if (window.innerWidth >= 1280){
+    (function () {
+        var mySwiper = new Swiper(".swiper-container", {
+          
+          slidesPerView: 4,
+          slidesPerGroup: 4,
+          slidesPerColumn: 2,
+          spaceBetween: 40,
+          speed:500,
+          slidesPerColumnFill: 'row',
+          
+          navigation: {
+            nextEl: ".btn-next",
+            prevEl: ".btn--back",
+          },
+        });
+      })();
+   }
 
-// function showItem(direction) {
-// 	petsCards[currentItem].classList.add('next', direction);
-// 	petsCards[currentItem].addEventListener('animationend', function() {
-// 		this.classList.remove('next', direction);
-// 		this.classList.add('active');
-// 		isEnabled = true;
-// 	});
-// }
-
-// function nextItem(n) {
-// 	hideItem('to-left');
-// 	changeCurrentItem(n + 1);
-// 	showItem('from-right');
-// }
-
-// function previousItem(n) {
-// 	hideItem('to-right');
-// 	changeCurrentItem(n - 1);
-// 	showItem('from-left');
-// }
-
-// document.querySelector('.btn--back').addEventListener('click', function() {
-//         if (isEnabled) {
-//             previousItem(currentItem);
-//         }
-// });
+      if (window.innerWidth >= 768 && window.innerWidth < 1280){
+      (function () {
+        var mySwiper = new Swiper(".swiper-container", {
+          slidesPerView: 2,
+          slidesPerGroup: 2,
+          slidesPerColumn: 3,
+          spaceBetween: 40,
+          speed:500,
+          slidesPerColumnFill: 'row',
+          navigation: {
+            nextEl: ".btn--next",
+            prevEl: ".btn--back",
+          },
+        });
+      })();
     
-// document.querySelector('.btn--next').addEventListener('click', function() {
-//         if (isEnabled) {
-//             nextItem(currentItem);
-//         }
-// });
-
-
-// const swipedetect = (el) => {
+    
+    }
   
-// 	let surface = el;
-// 	let startX = 0;
-// 	let startY = 0;
-// 	let distX = 0;
-// 	let distY = 0;
-// 	let startTime = 0;
-// 	let elapsedTime = 0;
+    if (window.innerWidth < 768 ){
+     //if (document.querySelector("body").offsetWidth < 768) {
+        (function () {
+          var mySwiper = new Swiper(".swiper-container", {
+            slidesPerView: 1,
+            //slidesPerGroup: 1,
+            slidesPerColumn: 3,
+            //direction:'vertical',
+            spaceBetween: 40,
+            speed:500,
+            //slidesPerColumnFill: 'column',
+            navigation: {
+              nextEl: ".btn--next",
+              prevEl: ".btn--back",
+            },
+          });
+        })();
+      
+    }
+//if (document.querySelector("body").offsetWidth >= 1280) {
 
-// 	let threshold = 150;
-// 	let restraint = 100;
-// 	let allowedTime = 300;
+}
 
-// 	surface.addEventListener('mousedown', function(e){
-// 		startX = e.pageX;
-// 		startY = e.pageY;
-// 		startTime = new Date().getTime();
-// 		e.preventDefault();
-// 	}, false);
-
-// 	surface.addEventListener('mouseup', function(e){
-// 		distX = e.pageX - startX;
-// 		distY = e.pageY - startY;
-// 		elapsedTime = new Date().getTime() - startTime;
-// 		if (elapsedTime <= allowedTime){
-// 			if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint){
-// 				if ((distX > 0)) {
-// 					if (isEnabled) {
-// 						previousItem(currentItem);
-// 					}
-// 				} else {
-// 					if (isEnabled) {
-// 						nextItem(currentItem);
-// 					}
-// 				}
-// 			}
-// 		}
-// 		e.preventDefault();
-// 	}, false);
-
-// 	surface.addEventListener('touchstart', function(e){
-// 		if (e.target.classList.contains('arrow') || e.target.classList.contains('control')) {
-// 			if (e.target.classList.contains('left')) {
-// 				if (isEnabled) {
-// 					previousItem(currentItem);
-// 				}
-// 			} else {
-// 				if (isEnabled) {
-// 					nextItem(currentItem);
-// 				}
-// 			}
-// 		}
-// 			var touchobj = e.changedTouches[0];
-// 			startX = touchobj.pageX;
-// 			startY = touchobj.pageY;
-// 			startTime = new Date().getTime();
-// 			e.preventDefault();
-// 	}, false);
-
-// 	surface.addEventListener('touchmove', function(e){
-// 			e.preventDefault();
-// 	}, false);
-
-// 	surface.addEventListener('touchend', function(e){
-// 			var touchobj = e.changedTouches[0];
-// 			distX = touchobj.pageX - startX;
-// 			distY = touchobj.pageY - startY;
-// 			elapsedTime = new Date().getTime() - startTime;
-// 			if (elapsedTime <= allowedTime){
-// 					if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint){
-// 							if ((distX > 0)) {
-// 								if (isEnabled) {
-// 									previousItem(currentItem);
-// 								}
-// 							} else {
-// 								if (isEnabled) {
-// 									nextItem(currentItem);
-// 								}
-// 							}
-// 					}
-// 			}
-// 			e.preventDefault();
-// 	}, false);
-// }
-
-// var el = document.querySelector('.carousel');
-// swipedetect(el);
+createSlider();
 
 
+window.addEventListener('resize', () => {
+  createSlider();
+})

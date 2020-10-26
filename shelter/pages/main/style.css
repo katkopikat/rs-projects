@@ -670,6 +670,8 @@ footer a {
     flex-direction: column;
   }
   .start-img-content {
+    -webkit-transform: scale(0.815);
+    -ms-transform: scale(0.815);
     transform: scale(0.815);
     margin-left: 73px;
   }
