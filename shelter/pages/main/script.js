@@ -252,64 +252,75 @@ const generateModalContent = () => {
     </div>`
 }
 
-if (document.querySelector("body").offsetWidth >= 1280) {
-(function () {
-    var mySwiper = new Swiper(".swiper-container", {
-      loop: true,
-      slidesPerView: 3,
-      slidesPerGroup: 3,
-      spaceBetween: 90,
-      speed:500,
-      
-     // pagination: {
-      //  el: ".swiper-pagination",
-     // },
-  
-      navigation: {
-        nextEl: ".btn--next",
-        prevEl: ".btn--back",
-      },
-    });
-  })();
 
- }
 
- if (document.querySelector("body").offsetWidth >= 768 && document.querySelector("body").offsetWidth < 1280) {
-  // itemsPerPage = 6;
-  (function () {
-    var mySwiper = new Swiper(".swiper-container", {
-      loop: true,
-      slidesPerView: 2,
-      slidesPerGroup: 2,
-      spaceBetween: 40,
-      speed:500,
-      navigation: {
-        nextEl: ".btn--next",
-        prevEl: ".btn--back",
-      },
-    });
-  })();
-
- }
-
- if (document.querySelector("body").offsetWidth < 768) {
-    // itemsPerPage = 6;
+function createSlider(){
+  if (window.innerWidth >= 1280){
     (function () {
-      var mySwiper = new Swiper(".swiper-container", {
-        loop: true,
-        slidesPerView: 1,
-        slidesPerGroup: 1,
-        spaceBetween: 15,
-        speed:500,
-        navigation: {
-          nextEl: ".btn--next",
-          prevEl: ".btn--back",
-        },
-      });
-    })();
-  
-   }
+        var mySwiper = new Swiper(".swiper-container", {
+          
+          loop: true,
+          slidesPerView: 3,
+          slidesPerGroup: 3,
+          spaceBetween: 90,
+          speed:500,
+          
+         // pagination: {
+          //  el: ".swiper-pagination",
+         // }
+      
+          navigation: {
+            nextEl: ".btn--next",
+            prevEl: ".btn--back",
+          },
+        });
+      })();
+     }
+    
+    
+     //if (document.querySelector("body").offsetWidth >= 768 && document.querySelector("body").offsetWidth < 1280) {
+      if (window.innerWidth >= 768 && window.innerWidth < 1280){
+      (function () {
+        var mySwiper = new Swiper(".swiper-container", {
+          loop: true,
+          slidesPerView: 2,
+          slidesPerGroup: 2,
+          spaceBetween: 40,
+          speed:500,
+          navigation: {
+            nextEl: ".btn--next",
+            prevEl: ".btn--back",
+          },
+        });
+      })();
+    
+     }
+    
+     if (window.innerWidth < 768 ){
+     //if (document.querySelector("body").offsetWidth < 768) {
+        (function () {
+          var mySwiper = new Swiper(".swiper-container", {
+            loop: true,
+            slidesPerView: 1,
+            slidesPerGroup: 1,
+            spaceBetween: 15,
+            speed:500,
+            navigation: {
+              nextEl: ".btn--next",
+              prevEl: ".btn--back",
+            },
+          });
+        })();
+      
+       }
+// //if (document.querySelector("body").offsetWidth >= 1280) {
+}
 
+  createSlider();
+
+window.addEventListener('resize', () => {
+  createSlider();
+})
   
 //SLIDER-------------------------------------------------
 // let currentItem = 0;
