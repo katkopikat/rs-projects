@@ -217,6 +217,8 @@ function openModal(modal) {
     modal.classList.add('modal-open');
     overlay.classList.add('overlay-active');
     document.body.classList.add('noscroll');
+    document.querySelector('.header').style.zIndex = 1;
+    
 }
 
 function closeModal(modal) {
@@ -224,7 +226,10 @@ function closeModal(modal) {
     modal.classList.remove('modal-open');
     overlay.classList.remove('overlay-active');
     document.body.classList.remove('noscroll');
+    document.querySelector('.header').style.zIndex = 2;
     clearModal(modal);
+    
+    
 }
 
 closeModalButtons.forEach(item => {
