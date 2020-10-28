@@ -441,6 +441,8 @@ footer {
 }
 footer a {
   text-decoration: none;
+  display: flex;
+  align-items: center;
 }
 .footer__content {
   display: flex;
@@ -475,6 +477,8 @@ footer a {
 }
 .contacts__email a .email__icon {
   display: block;
+}
+.footer-icons {
   margin-right: 1.25rem;
 }
 .contacts__phone a {

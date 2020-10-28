@@ -21,6 +21,9 @@ a {
   width: 100%;
   margin: 0 auto;
 }
+main {
+  padding-top: 120px;
+}
 .heading {
   font-family: Georgia;
   font-weight: normal;
@@ -102,6 +105,7 @@ a {
 .pets-card:hover {
   cursor: pointer;
   background-color: white;
+  box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
 }
 .btn--learn-more {
   background: none;
@@ -148,6 +152,12 @@ a {
   background-color: #F6F6F6;
   height: 120px;
   background-color: #FFFFFF;
+}
+.header {
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  width: 100%;
 }
 .header .logo {
   z-index: 3;
@@ -305,7 +315,6 @@ footer a {
 }
 .contacts__email a .email__icon {
   display: block;
-  margin-right: 1.25rem;
 }
 .contacts__phone a {
   display: flex;
@@ -316,6 +325,10 @@ footer a {
 .footer__location {
   flex-basis: 302px;
   margin-top: 17px;
+}
+.footer a {
+  display: flex;
+  align-items: center;
 }
 .location__title {
   color: #fff;
@@ -329,6 +342,9 @@ footer a {
 .location__title + .location__adress {
   margin-top: 2.125rem;
   margin-bottom: 1.9375rem;
+}
+.footer-icons {
+  margin-right: 1.25rem;
 }
 .footer__puppy .puppy__image {
   width: 100%;
@@ -351,7 +367,7 @@ footer a {
   transform: translate(-50%, -50%) scale(0);
   opacity: 0;
   transition: all 0.3s ease-out;
-  z-index: 7;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -469,12 +485,6 @@ footer a {
   transition: all 0.3s ease-out;
   background-color: rgba(41, 41, 41, 0.6);
 }
-.swiper-container-multirow-column > .swiper-wrapper {
-  flex-direction: row;
-}
-.card {
-  margin-top: 0px;
-}
 @media (max-width: 1280px) {
   .wrapper {
     max-width: 708px;
@@ -486,7 +496,6 @@ footer a {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 2;
   }
   main {
     padding-top: 120px;
