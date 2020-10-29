@@ -134,16 +134,17 @@ main {
   letter-spacing: 0.06em;
   color: #292929;
 }
-.navigation .btn-pag--inactive {
+.navigation .btn-paginator:disabled {
   border: 2px solid #CDCDCD;
   color: #CDCDCD;
+  pointer-events: none;
 }
-.navigation .btn-pag--active {
+.navigation .btn-pag {
   border: 2px solid #F1CDB3;
   background-color: #F6F6F6;
 }
 .navigation .btn-pag--curency,
-.navigation .btn-pag--active:hover {
+.navigation .btn-pag:hover {
   border: none;
   background-color: #F1CDB3;
   cursor: pointer;
@@ -552,7 +553,8 @@ footer a {
     position: static;
   }
   .pets-grid {
-    margin-left: 17px;
+    margin-left: 0px;
+    height: 1475px;
   }
   .heading {
     width: 300px;
@@ -560,8 +562,9 @@ footer a {
     font-size: 25px;
     padding-top: 42px;
   }
-  .pets-card:nth-child(even) {
-    display: none;
+  .pets-card {
+    width: 270px !important;
+    margin-left: 20px;
   }
   .navigation {
     margin: 42px 0px 42px 3px;
