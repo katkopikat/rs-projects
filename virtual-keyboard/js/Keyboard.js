@@ -70,12 +70,12 @@ export default class Keyboard {
         this.handleEvent({ code, type: e.type });
     }
 
-    // если зажалии кнопку и увели - снять выделение
-    // resetButtonState = ({ target: { dataset: { code } } } ) => {
-    //     const keyObj = this.keyButtons.find((key) => key.code === code);
-    //     keyObj.div.classList.remove('active');
-    //     keyObj.div.removeEventListener('mouseleave', this.resetButtonState);
-    // }
+    //если зажалии кнопку и увели - снять выделение
+    resetButtonState = ({ target: { dataset: { code } } } ) => {
+        const keyObj = this.keyButtons.find((key) => key.code === code);
+        keyObj.div.classList.remove('active');
+        keyObj.div.removeEventListener('mouseleave', this.resetButtonState);
+    }
 
 
 
