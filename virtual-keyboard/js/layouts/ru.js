@@ -320,7 +320,7 @@ export default [
       code: 'ArrowRight',
     },
     {
-      small: 'Language',
+      small: 'en|RU',
       shift: null,
       code: 'Language',
     },

@@ -24,7 +24,7 @@ export default class Keyboard {
     init(langCode) { //ru, en
         this.keyBase = language[langCode];
         this.output = create('textarea', 'output', null, main,
-            ['placeholder', 'Start type smth...'],
+            ['placeholder', 'Напишите что-нибудь...'],
             ['rows', 5],
             ['cols', 50],
             ['spellcheck', false],
@@ -57,6 +57,12 @@ export default class Keyboard {
         document.addEventListener('keyup', this.handleEvent);
         this.container.onmousedown = this.preHandleEvent;
         this.container.onmouseup = this.preHandleEvent;
+
+
+        document.querySelector('[data-code="Sound"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-volume-down"></i></div>';
+        document.querySelector('[data-code="Voice"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-microphone"></i></div>';
+    // const voice = document.querySelector('[data-code="Voice"]');
+     //voice.innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-volume-down"></i></div>';
     }
 
     //функция-подготовка к событию, которая берет код нажатого элемента у контейнера кнопки
@@ -71,11 +77,11 @@ export default class Keyboard {
     }
 
     //если зажалии кнопку и увели - снять выделение
-    resetButtonState = ({ target: { dataset: { code } } } ) => {
-        const keyObj = this.keyButtons.find((key) => key.code === code);
-        keyObj.div.classList.remove('active');
-        keyObj.div.removeEventListener('mouseleave', this.resetButtonState);
-    }
+    // resetButtonState = ({ target: { dataset: { code } } } ) => {
+    //     const keyObj = this.keyButtons.find((key) => key.code === code);
+    //     keyObj.div.classList.remove('active');
+    //     keyObj.div.removeEventListener('mouseleave', this.resetButtonState);
+    // }
 
 
 
@@ -115,6 +121,8 @@ export default class Keyboard {
 
             
             if (this.soundOn){  
+                
+ document.querySelector('[data-code="Sound"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-volume-down"></i></div>';
                 if (keyObj.isFuncKey) {
                     audioFn.muted = false;
                     audioFn.play();
@@ -128,6 +136,7 @@ export default class Keyboard {
             } 
             else if (!this.soundOn){
                 document.querySelectorAll("audio").forEach((audio) => {
+                    document.querySelector('[data-code="Sound"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-volume-mute"></i></div>';
                     audio.pause();
                     audio.muted = true;
                 })
