@@ -14,6 +14,7 @@ main{
     justify-content: space-between;
     flex-direction: column;
     height: 100vh;
+    overflow: hidden;
 }
 h1 {
   color: white;
@@ -59,15 +60,17 @@ textarea::placeholder{
   padding: 10px;
   position: relative;
   overflow: hidden;
-  transition: bottom 0.4s;
   max-width: 90%;
   margin-left: auto;
   margin-right: auto;
+  transition: all 0.3s ease-in-out;
 }
 
 
 .keyboard--hidden {
-  bottom: -100%;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(100%);
+
 }
 
 
