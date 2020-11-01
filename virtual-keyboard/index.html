@@ -3,18 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Virtual Keyboard</title>
   <link rel="stylesheet" href="assets/fontawesome/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main>
-  <!--<div class="words" contenteditable=""></div>-->
-  <audio class="audio audioRu" src="assets/sounds/letter_click_ru.mp3"></audio>
-  <audio class="audio audioEn" src="assets/sounds/letter_click_en.mp3"></audio>
-  <audio class="audio audioFn" src="assets/sounds/click_func.mp3"></audio>
-  <script src="js/script.js" type="module"></script>
-  <script src="js/speechRecognize.js" async></script>
-</main>
+    <audio class="audio showKeyboard" src="assets/sounds/showKeyboard.mp3"></audio>
+    <audio class="audio audioFn" src="assets/sounds/click_func.mp3"></audio>
+    <audio class="audio audioBackspace" src="assets/sounds/backspace_click.mp3"></audio>
+    <audio class="audio audioCaps" src="assets/sounds/caps_click.mp3"></audio>
+    <audio class="audio audioEnter" src="assets/sounds/click_enter.mp3"></audio>
+    <audio class="audio audioSpace" src="assets/sounds/space_click.mp3"></audio>
+    <audio class="audio audioRu" src="assets/sounds/letter_click_ru.mp3"></audio>
+    <audio class="audio audioEn" src="assets/sounds/letter_click_en.mp3"></audio>
+
+    <script src="js/script.js" type="module"></script>
+    <script src="js/speechRecognize.js" async></script>
+  </main>
 </body>
 </html>

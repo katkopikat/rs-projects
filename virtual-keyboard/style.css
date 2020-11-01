@@ -137,6 +137,14 @@ textarea::placeholder{
   border-radius: 50%;
 }
 
+i{
+  font-size: 1.3rem;
+}
+
+.fa-microphone-slash,
+.fa-microphone{
+  font-size: 1.2rem;
+}
 [data-fn="true"] > .letter {
   font-size: 1rem;
 }
@@ -248,6 +256,18 @@ textarea::placeholder{
  
 }
 
+@media (max-width: 800px){
+  [data-fn="true"] > .letter {
+    font-size: 0.8rem;
+}
+  .sub.sub-active:not(:empty) ~ .letter.sub-inactive {
+    position: relative;
+    top: 0.2rem;
+    left: -0.4rem;
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 620px){
   .letter {
     font-size: 1.1rem;
@@ -255,5 +275,32 @@ textarea::placeholder{
   }
 [data-fn="true"] > .letter {
     font-size: 0.8rem;
+  }
+  .sub.sub-active:not(:empty) ~ .letter.sub-inactive {
+    position: relative;
+    top: 0.3rem;
+    left: -1rem;
+    font-size: 0.8rem;
+  }
+
+  i{
+    font-size: 1rem;
+  }
+  .fa-microphone-slash,
+.fa-microphone{
+  font-size: 1rem;
+}
+}
+
+@media (max-height: 740px){
+  textarea{
+    margin: 2rem auto;
+  }
+}
+
+@media (max-height: 600px){
+  textarea{
+    margin: 0.5rem auto;
+    min-height: 35vh;
   }
 }

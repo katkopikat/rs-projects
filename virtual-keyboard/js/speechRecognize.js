@@ -8,7 +8,7 @@
         const transcript = Array.from(e.results)
         .map(result => result[0])
         .map(result => result.transcript)
-        .join('');
+        .join('')+ '. ';
 
          if (e.results[0].isFinal) document.querySelector('.output').value += transcript;
     })
