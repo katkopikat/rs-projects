@@ -299,37 +299,7 @@ export default class Keyboard {
 //     recognition.start();
 // }
 
-    speechRecognitionStart(){
-            window.SpeechRecognition = window.SpeechRecognition 
-            || window.webkitSpeechRecognition;
-            const recognition = new SpeechRecognition();
-            recognition.interimResults = true;
-            //document.querySelector('[data-code="Voice"]').classList.add('.active');
-        if (!this.speech) {
-            document.querySelector('[data-code="Voice"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-microphone"></i></div>';
-            console.log('start rec')
-            this.speech = true;
-        //const output = document.querySelector('.output');
-             recognition.addEventListener('result', e =>{  
-            const transcript = Array.from(e.results)
-            .map(result => result[0])
-            .map(result => result.transcript)
-            .join('');
-    
-            if (e.results[0].isFinal) this.output.value += transcript;
 
-            })
-           recognition.addEventListener('end', recognition.start);
-            recognition.start();
-
-    } else {
-        document.querySelector('[data-code="Voice"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-microphone-slash"></i></div>';
-        console.log('stop rec')
-            this.speech = false;
-            recognition.stop()
-        }
-    }
-    
     //speechRecognitionStop(){
      //   recognition.stop();
     //}
