@@ -7,6 +7,7 @@ import * as storage from './storage.js';
 import create from './utils/create.js';
 import language from './layouts/layouts.js'; //{en, ru}
 import Key from './Key.js';
+//import * as microphone from './speechRecognize.js';
 
 //<main>
 const main = document.querySelector('main');
@@ -113,7 +114,7 @@ export default class Keyboard {
             if (type.match(/key/)) e.preventDefault(); //откл стандартное поведение кнопок навешиваем класс:
             if (code.match(/Control|Alt|Caps/) && e.repeat) return;
             if (code.match(/Language/)) this.switchLanguage();
-            if (code.match(/Voice/)) this.speechRecognitionStart();
+           // if (code.match(/Voice/)) this.speechRecognitionStart();
             //     if(!this.speech){
             //         this.speech = true;
             //         this.speechRecognitionStart();
@@ -306,7 +307,7 @@ export default class Keyboard {
             //document.querySelector('[data-code="Voice"]').classList.add('.active');
         if (!this.speech) {
             document.querySelector('[data-code="Voice"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-microphone"></i></div>';
-            console.log('начать запись')
+            console.log('start rec')
             this.speech = true;
         //const output = document.querySelector('.output');
              recognition.addEventListener('result', e =>{  
@@ -323,9 +324,8 @@ export default class Keyboard {
 
     } else {
         document.querySelector('[data-code="Voice"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-microphone-slash"></i></div>';
-        console.log('остановить запись')
+        console.log('stop rec')
             this.speech = false;
-            recognition.addEventListener('end', recognition.stop);
             recognition.stop()
         }
     }
