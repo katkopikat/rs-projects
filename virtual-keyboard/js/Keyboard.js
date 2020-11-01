@@ -18,13 +18,14 @@ export default class Keyboard {
         this.keyPressed = {};
         this.isCaps = false;
         this.soundOn = true;
+        this.speech = false;
         //this.soundOn = false;
     }
 
     init(langCode) { //ru, en
         this.keyBase = language[langCode];
         this.output = create('textarea', 'output', null, main,
-            ['placeholder', 'Start type smth...'],
+            ['placeholder', 'Click here...'],
             ['rows', 5],
             ['cols', 50],
             ['spellcheck', false],
@@ -57,31 +58,48 @@ export default class Keyboard {
         document.addEventListener('keyup', this.handleEvent);
         this.container.onmousedown = this.preHandleEvent;
         this.container.onmouseup = this.preHandleEvent;
+
+
+        document.querySelector('[data-code="Sound"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-volume-down"></i></div>';
+        document.querySelector('[data-code="Voice"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-microphone"></i></div>';
+        document.querySelector('[data-code="ok"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="far fa-check-circle"></i></div>';
+        // const voice = document.querySelector('[data-code="Voice"]');
+        //voice.innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-volume-down"></i></div>';
     }
 
     //функция-подготовка к событию, которая берет код нажатого элемента у контейнера кнопки
     preHandleEvent = (e) => {
         e.stopPropagation();
-        const keyDiv = e.target.closest('.keyboard__key');//ищет ближайший контейнер кнопки
+        const keyDiv = e.target.closest('.keyboard__key'); //ищет ближайший контейнер кнопки
         if (!keyDiv) return;
-        const { dataset: { code } } = keyDiv;//деструктиуризация, замена consr code = keyDiv.dataset.code 
-             //выбрали код кнопки
+        const {
+            dataset: {
+                code
+            }
+        } = keyDiv; //деструктиуризация, замена consr code = keyDiv.dataset.code 
+        //выбрали код кнопки
         keyDiv.addEventListener('mouseleave', this.resetButtonState);
-        this.handleEvent({ code, type: e.type });
+        this.handleEvent({
+            code,
+            type: e.type
+        });
     }
 
     //если зажалии кнопку и увели - снять выделение
-    resetButtonState = ({ target: { dataset: { code } } } ) => {
-        const keyObj = this.keyButtons.find((key) => key.code === code);
-        keyObj.div.classList.remove('active');
-        keyObj.div.removeEventListener('mouseleave', this.resetButtonState);
-    }
+    // resetButtonState = ({ target: { dataset: { code } } } ) => {
+    //     const keyObj = this.keyButtons.find((key) => key.code === code);
+    //     keyObj.div.classList.remove('active');
+    //     keyObj.div.removeEventListener('mouseleave', this.resetButtonState);
+    // }
 
 
 
     handleEvent = (e) => {
         if (e.stopPropagation) e.stopPropagation(); //отменяем дефолтное событие 
-        const {code, type} = e; //деструктурируем объект, обращаясь к полям объекта
+        const {
+            code,
+            type
+        } = e; //деструктурируем объект, обращаясь к полям объекта
         const keyObj = this.keyButtons.find((key) => key.code === code);
         if (!keyObj) return;
         this.output.focus();
@@ -90,44 +108,53 @@ export default class Keyboard {
         после каждого нажатия на кнопку фокус переключается на отпут и появляется каретка.*/
 
         if (type.match(/keydown|mousedown/)) {
+
             if (type.match(/key/)) e.preventDefault(); //откл стандартное поведение кнопок навешиваем класс:
-
-           // if (code.match(/Shift/)) this.shiftKey = true;
-           // if (this.shiftKey) this.switchUpperCase(true);
-
             if (code.match(/Control|Alt|Caps/) && e.repeat) return;
-            if (code.match(/Control/)) this.ctrKey = true;
-            if (code.match(/Alt/)) this.altKey = true;
-            if (code.match(/Control/) && this.altKey) this.switchLanguage();
-            if (code.match(/Control/) && this.altKey) this.switchLanguage();
-            if (code.match(/Alt/) && this.ctrKey) this.switchLanguage();
             if (code.match(/Language/)) this.switchLanguage();
+            if (code.match(/Voice/)) this.speechRecognitionStart();
+            //     if(!this.speech){
+            //         this.speech = true;
+            //         this.speechRecognitionStart();
+            //     } else if(this.speech){
+            //         this.speech = false;
+            //     }
+             
+            // }
+            
 
-         
+            document.querySelector('.output').addEventListener('click', () => {
+                document.querySelector('.keyboard').classList.remove('keyboard--hidden');
+            })
+
             //Звук
             const audioRu = document.querySelector('.audioRu');
             const audioEn = document.querySelector('.audioEn');
             const audioFn = document.querySelector('.audioFn');
 
             //Отключение звука
-            if (code.match(/Sound/) && !this.soundOn)  this.soundOn = true;  
+            if (code.match(/Sound/) && !this.soundOn) this.soundOn = true;
             else if (code.match(/Sound/) && this.soundOn) this.soundOn = false;
 
-            
-            if (this.soundOn){  
+
+            if (this.soundOn) {
+
+                document.querySelector('[data-code="Sound"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-volume-down"></i></div>';
                 if (keyObj.isFuncKey) {
                     audioFn.muted = false;
                     audioFn.play();
                 }
                 if (this.container.dataset.language === 'ru') {
                     audioRu.muted = false;
-                    audioRu.play();}
+                    audioRu.play();
+                }
                 if (this.container.dataset.language === 'en') {
                     audioEn.muted = false;
-                    audioEn.play();}
-            } 
-            else if (!this.soundOn){
+                    audioEn.play();
+                }
+            } else if (!this.soundOn) {
                 document.querySelectorAll("audio").forEach((audio) => {
+                    document.querySelector('[data-code="Sound"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-volume-mute"></i></div>';
                     audio.pause();
                     audio.muted = true;
                 })
@@ -139,26 +166,26 @@ export default class Keyboard {
             if (code.match(/Caps/) && !this.isCaps) {
                 this.isCaps = true;
                 this.switchUpperCase(true);
-            
 
-              } else if (code.match(/Caps/) && this.isCaps) {
+
+            } else if (code.match(/Caps/) && this.isCaps) {
                 this.isCaps = false;
                 this.switchUpperCase(false);
                 keyObj.div.classList.remove('active');
-              } 
+            }
 
-    //Нажимаем на shift
-            if (code.match(/Shift/) && !this.shiftKey){
+            //Нажимаем на shift
+            if (code.match(/Shift/) && !this.shiftKey) {
                 this.shiftKey = true;
                 this.switchUpperCase(true);
                 keyObj.div.classList.add('active');
 
-            } else if (code.match(/Shift/) &&this.shiftKey) {
+            } else if (code.match(/Shift/) && this.shiftKey) {
                 this.shiftKey = false;
                 this.switchUpperCase(false);
                 keyObj.div.classList.remove('active');
             }
-      
+
 
             if (!this.isCaps && !this.shiftKey) {
                 this.printToOutput(keyObj, this.shiftKey ? keyObj.shift : keyObj.small); //нажати ли шифт (нужно ли печатать большую или маленькую)
@@ -169,14 +196,14 @@ export default class Keyboard {
                     this.printToOutput(keyObj, !keyObj.sub.innerHTML ? keyObj.shift : keyObj.small)
                 }
             }
-            
+
             //отпускаем кнопку
         } else if (e.type.match(/keyup|mouseup/)) {
-            
-           // if (code.match(/Shift/)) {
-             //   this.shiftKey = false;
-                //this.switchUpperCase(false);
-       // }
+
+            // if (code.match(/Shift/)) {
+            //   this.shiftKey = false;
+            //this.switchUpperCase(false);
+            // }
             if (code.match(/Control/)) this.ctrlKey = false;
             if (code.match(/Alt/)) this.altKey = false;
             //if (!code.match(/Shift/)) keyObj.div.classList.remove('active');
@@ -213,25 +240,96 @@ export default class Keyboard {
         if (this.isCaps) this.switchUpperCase(true);
     }
 
-    resetButtonState = ({ target: { dataset: { code } } }) => {
-    //    if (code.match('Shift')) {
-    //       this.shiftKey = false;
-    //       this.switchUpperCase(false);
-    //       this.keysPressed[code].div.classList.remove('active');
-    //    }
+    resetButtonState = ({
+        target: {
+            dataset: {
+                code
+            }
+        }
+    }) => {
+        //    if (code.match('Shift')) {
+        //       this.shiftKey = false;
+        //       this.switchUpperCase(false);
+        //       this.keysPressed[code].div.classList.remove('active');
+        //    }
         if (code.match(/Control/)) this.ctrKey = false;
         if (code.match(/Alt/)) this.altKey = false;
-        this.resetPressedButtons(code);
+        //this.resetPressedButtons(code);
         this.output.focus();
-      }
-    
-    resetPressedButtons = (targetCode) => {
-        if (!this.keysPressed[targetCode]) return;
-        if (!this.isCaps) this.keysPressed[targetCode].div.classList.remove('active');
-        this.keysPressed[targetCode].div.removeEventListener('mouseleave', this.resetButtonState);
-        delete this.keysPressed[targetCode];
     }
 
+    // resetPressedButtons = (targetCode) => {
+    //     if (!this.keysPressed[targetCode]) return;
+    //     if (!this.isCaps) this.keysPressed[targetCode].div.classList.remove('active');
+    //     this.keysPressed[targetCode].div.removeEventListener('mouseleave', this.resetButtonState);
+    //     delete this.keysPressed[targetCode];
+    // }
+
+//     speechRecognitionStart(){
+//     console.log('зашли')
+//     window.SpeechRecognition = window.SpeechRecognition 
+//     || window.webkitSpeechRecognition;
+
+//     const recognition = new SpeechRecognition();
+//     recognition.interimResults = true;
+
+//     let p = document.createElement('p');
+//     const words = document.querySelector('.words');
+//     words.appendChild(p);
+
+//     //this.output.value += speech;
+
+//     recognition.addEventListener('result', e =>{
+//       // console.log(e.results);
+//         const transcript = Array.from(e.results)
+//         .map(result => result[0])
+//         .map(result => result.transcript)
+//         .join('');
+
+//         p.textContent = transcript;
+//         if(e.results[0].isFinal){
+//             p = document.createElement('p');
+//             words.appendChild(p);
+//         }
+//         //console.log(transcript)
+//     })
+//     recognition.addEventListener('end', recognition.start);
+//     recognition.start();
+// }
+
+    speechRecognitionStart(){
+            window.SpeechRecognition = window.SpeechRecognition 
+            || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.interimResults = true;
+            //document.querySelector('[data-code="Voice"]').classList.add('.active');
+        if (!this.speech) {
+            console.log('начать запись')
+            this.speech = true;
+        //const output = document.querySelector('.output');
+             recognition.addEventListener('result', e =>{  
+            const transcript = Array.from(e.results)
+            .map(result => result[0])
+            .map(result => result.transcript)
+            .join('');
+    
+            if (e.results[0].isFinal) this.output.value += transcript;
+
+            })
+           recognition.addEventListener('end', recognition.start);
+            recognition.start();
+
+    } else {
+        console.log('остановить запись')
+            this.speech = false;
+            recognition.addEventListener('end', recognition.stop);
+            recognition.stop()
+        }
+    }
+    
+    //speechRecognitionStop(){
+     //   recognition.stop();
+    //}
     switchUpperCase(isTrue) { //isTrue - флаг, чтобы понимать, опустить регистр или поднять
         if (isTrue) {
             // Все кнопки находятся в keyButtons, теперь можем легко итерироваться по ним
@@ -259,17 +357,17 @@ export default class Keyboard {
         } else {
             /*Опускаем регистр в обратном порядке*/
             this.keyButtons.forEach((button) => {
-                    if (button.sub.innerHTML && !button.isFuncKey) {
-                        button.sub.classList.remove('sub-active');
-                        button.letter.classList.remove('sub-inactive');
-                        /*Не трограем функциональнее и берем кнопки с символами,
-                        то возваращаем в исходное */
-                        if (!this.isCaps) button.letter.innerHTML = button.small;
-                        /*Если не зажат капс - то основным символам нижний регистр*/
-                        else if (!this.isCaps) button.letter.innerHTML = button.shift;
-                        /*???!!! если капс зажат - то возвращаем верхний регистр*/
+                if (button.sub.innerHTML && !button.isFuncKey) {
+                    button.sub.classList.remove('sub-active');
+                    button.letter.classList.remove('sub-inactive');
+                    /*Не трограем функциональнее и берем кнопки с символами,
+                    то возваращаем в исходное */
+                    if (!this.isCaps) button.letter.innerHTML = button.small;
+                    /*Если не зажат капс - то основным символам нижний регистр*/
+                    else if (!this.isCaps) button.letter.innerHTML = button.shift;
+                    /*???!!! если капс зажат - то возвращаем верхний регистр*/
 
-                        // если это кнопка без спецсимвола + не  функциональная)     
+                    // если это кнопка без спецсимвола + не  функциональная)     
                 } else if (!button.isFuncKey) {
                     // то если зажат капс
                     if (this.isCaps) button.letter.innerHTML = button.shift;
@@ -278,59 +376,64 @@ export default class Keyboard {
                     // если отжат капс - возвращаем нижний регистр                 
                 }
             });
-    }
+        }
     }
 
     printToOutput(keyObj, symbol) {
 
-    let cursorPosision = this.output.selectionStart;
-    const left = this.output.value.slice(0, cursorPosision);
-    const right = this.output.value.slice(cursorPosision);
+        let cursorPosision = this.output.selectionStart;
+        const left = this.output.value.slice(0, cursorPosision);
+        const right = this.output.value.slice(cursorPosision);
 
-    const fnButtonsHandler = {
-        Tab: () => {
-            if (right !== '') {
-                this.output.value = `${left}\t${right}`;
+        const fnButtonsHandler = {
+            Tab: () => {
+                if (right !== '') {
+                    this.output.value = `${left}\t${right}`;
+                    cursorPosision += 1;
+                } else {
+                    this.output.value = `${left}\t${right}`;
+                    cursorPosision += 4;
+                }
+            },
+            Enter: () => {
+                this.output.value = `${left}\n${right}`;
                 cursorPosision += 1;
-            } else {
-                this.output.value = `${left}\t${right}`;
-                cursorPosision += 4;
-            }
-        },
-        Enter: () => {
-            this.output.value = `${left}\n${right}`;
-            cursorPosision += 1;
-        },
-        Space: () => {
-            this.output.value = `${left} ${right}`
-            cursorPosision += 1;
-        },
-        Backspace: () => {
-            this.output.value = `${left.slice(0, -1)}${right}`;
-            cursorPosision -= 1;
-        },
-        Delete: () => {
-            this.output.value = `${left}${right.slice(1)}`
-        },
-        ArrowLeft: () => {
-            cursorPosision = cursorPosision - 1 >= 0 ? cursorPosision - 1 : 0;
-        },
-        ArrowRight: () => {
-            cursorPosision += 1;
-        },
-      
-    }
-    //обработка функциональных кнопок
-    //если функциональная то:
-    if (fnButtonsHandler[keyObj.code]) fnButtonsHandler[keyObj.code]();
+            },
+            Space: () => {
+                this.output.value = `${left} ${right}`
+                cursorPosision += 1;
+            },
+            Backspace: () => {
+                this.output.value = `${left.slice(0, -1)}${right}`;
+                cursorPosision -= 1;
+            },
+            Delete: () => {
+                this.output.value = `${left}${right.slice(1)}`
+            },
+            ArrowLeft: () => {
+                cursorPosision = cursorPosision - 1 >= 0 ? cursorPosision - 1 : 0;
+            },
+            ArrowRight: () => {
+                cursorPosision += 1;
+            },
+            ok: () => {
+                document.querySelector('.keyboard').classList.add('keyboard--hidden');
+            },
+            //Voice: () => {
+              //  console.log('запись')
+              //  speechRecognition();
+            //},
+        }
+        //обработка функциональных кнопок
+        //если функциональная то:
+        if (fnButtonsHandler[keyObj.code]) fnButtonsHandler[keyObj.code]();
 
-    //если не функциональная то:
-    else if (!keyObj.isFuncKey) {
-        cursorPosision += 1;
-        this.output.value = `${left}${symbol || ''}${right}`;
+        //если не функциональная то:
+        else if (!keyObj.isFuncKey) {
+            cursorPosision += 1;
+            this.output.value = `${left}${symbol || ''}${right}`;
+        }
+        //обновляем позицию курсора
+        this.output.setSelectionRange(cursorPosision, cursorPosision);
     }
-    //обновляем позицию курсора
-    this.output.setSelectionRange(cursorPosision, cursorPosision);
-    }
-
 }

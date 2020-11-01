@@ -15,7 +15,7 @@ export default class Key {
         this.small = small;
         this.shift = shift;
         this.code = code;
-        this.isFuncKey = Boolean(small.match(/Enter|Caps|Ctrl|Alt|Shift|Tab|Back|Del|Language|Sound|Voice|arr/));
+        this.isFuncKey = Boolean(small.match(/Enter|Caps|ok|Shift|Tab|Back|Del|en\|RU|EN\|ru|Sound|Voice|arr/));
         
         if (shift && shift.match(/[^a-zA-Zа-яА-ЯёЁ0-9]/)) { 
             this.sub = create('div', 'sub', this.shift);

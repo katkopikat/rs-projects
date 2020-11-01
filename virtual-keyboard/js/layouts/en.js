@@ -275,9 +275,9 @@ export default [
       code: 'ShiftRight',
     },
     {
-      small: 'Ctrl',
+      small: 'ok',
       shift: null,
-      code: 'ControlLeft',
+      code: 'ok',
     },
     {
       small: 'Alt',
@@ -320,7 +320,7 @@ export default [
       code: 'ArrowRight',
     },
     {
-      small: 'Language',
+      small: 'EN|ru',
       shift: null,
       code: 'Language',
     },
