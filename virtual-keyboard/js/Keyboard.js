@@ -18,6 +18,7 @@ export default class Keyboard {
         this.keyPressed = {};
         this.isCaps = false;
         this.soundOn = true;
+        this.speech = false;
         //this.soundOn = false;
     }
 
@@ -107,18 +108,20 @@ export default class Keyboard {
         после каждого нажатия на кнопку фокус переключается на отпут и появляется каретка.*/
 
         if (type.match(/keydown|mousedown/)) {
+
             if (type.match(/key/)) e.preventDefault(); //откл стандартное поведение кнопок навешиваем класс:
-
-            // if (code.match(/Shift/)) this.shiftKey = true;
-            // if (this.shiftKey) this.switchUpperCase(true);
-
             if (code.match(/Control|Alt|Caps/) && e.repeat) return;
-            //if (code.match(/Control/)) this.ctrKey = true;
-           // if (code.match(/Alt/)) this.altKey = true;
-            //if (code.match(/Control/) && this.altKey) this.switchLanguage();
-            //if (code.match(/Control/) && this.altKey) this.switchLanguage();
-            //if (code.match(/Alt/) && this.ctrKey) this.switchLanguage();
             if (code.match(/Language/)) this.switchLanguage();
+            if (code.match(/Voice/)) this.speechRecognitionStart();
+            //     if(!this.speech){
+            //         this.speech = true;
+            //         this.speechRecognitionStart();
+            //     } else if(this.speech){
+            //         this.speech = false;
+            //     }
+             
+            // }
+            
 
             document.querySelector('.output').addEventListener('click', () => {
                 document.querySelector('.keyboard').classList.remove('keyboard--hidden');
@@ -251,17 +254,82 @@ export default class Keyboard {
         //    }
         if (code.match(/Control/)) this.ctrKey = false;
         if (code.match(/Alt/)) this.altKey = false;
-        this.resetPressedButtons(code);
+        //this.resetPressedButtons(code);
         this.output.focus();
     }
 
-    resetPressedButtons = (targetCode) => {
-        if (!this.keysPressed[targetCode]) return;
-        if (!this.isCaps) this.keysPressed[targetCode].div.classList.remove('active');
-        this.keysPressed[targetCode].div.removeEventListener('mouseleave', this.resetButtonState);
-        delete this.keysPressed[targetCode];
-    }
+    // resetPressedButtons = (targetCode) => {
+    //     if (!this.keysPressed[targetCode]) return;
+    //     if (!this.isCaps) this.keysPressed[targetCode].div.classList.remove('active');
+    //     this.keysPressed[targetCode].div.removeEventListener('mouseleave', this.resetButtonState);
+    //     delete this.keysPressed[targetCode];
+    // }
 
+//     speechRecognitionStart(){
+//     console.log('зашли')
+//     window.SpeechRecognition = window.SpeechRecognition 
+//     || window.webkitSpeechRecognition;
+
+//     const recognition = new SpeechRecognition();
+//     recognition.interimResults = true;
+
+//     let p = document.createElement('p');
+//     const words = document.querySelector('.words');
+//     words.appendChild(p);
+
+//     //this.output.value += speech;
+
+//     recognition.addEventListener('result', e =>{
+//       // console.log(e.results);
+//         const transcript = Array.from(e.results)
+//         .map(result => result[0])
+//         .map(result => result.transcript)
+//         .join('');
+
+//         p.textContent = transcript;
+//         if(e.results[0].isFinal){
+//             p = document.createElement('p');
+//             words.appendChild(p);
+//         }
+//         //console.log(transcript)
+//     })
+//     recognition.addEventListener('end', recognition.start);
+//     recognition.start();
+// }
+
+    speechRecognitionStart(){
+            window.SpeechRecognition = window.SpeechRecognition 
+            || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.interimResults = true;
+            //document.querySelector('[data-code="Voice"]').classList.add('.active');
+        if (!this.speech) {
+            console.log('начать запись')
+            this.speech = true;
+        //const output = document.querySelector('.output');
+             recognition.addEventListener('result', e =>{  
+            const transcript = Array.from(e.results)
+            .map(result => result[0])
+            .map(result => result.transcript)
+            .join('');
+    
+            if (e.results[0].isFinal) this.output.value += transcript;
+
+            })
+           recognition.addEventListener('end', recognition.start);
+            recognition.start();
+
+    } else {
+        console.log('остановить запись')
+            this.speech = false;
+            recognition.addEventListener('end', recognition.stop);
+            recognition.stop()
+        }
+    }
+    
+    //speechRecognitionStop(){
+     //   recognition.stop();
+    //}
     switchUpperCase(isTrue) { //isTrue - флаг, чтобы понимать, опустить регистр или поднять
         if (isTrue) {
             // Все кнопки находятся в keyButtons, теперь можем легко итерироваться по ним
@@ -350,8 +418,11 @@ export default class Keyboard {
             },
             ok: () => {
                 document.querySelector('.keyboard').classList.add('keyboard--hidden');
-            }
-
+            },
+            //Voice: () => {
+              //  console.log('запись')
+              //  speechRecognition();
+            //},
         }
         //обработка функциональных кнопок
         //если функциональная то:
@@ -365,5 +436,4 @@ export default class Keyboard {
         //обновляем позицию курсора
         this.output.setSelectionRange(cursorPosision, cursorPosision);
     }
-
 }
