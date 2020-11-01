@@ -7,10 +7,12 @@ import * as storage from './storage.js';
 import create from './utils/create.js';
 import language from './layouts/layouts.js'; //{en, ru}
 import Key from './Key.js';
+//import * as microphone from './speechRecognize.js';
 
 //<main>
-const main = create('main', '',
-    [create('h1', 'title', 'Virtual Keyboard')])
+const main = document.querySelector('main');
+//const main = create('main', '',
+ //   [create('h1', 'title', 'Virtual Keyboard')])
 
 export default class Keyboard {
     constructor(rowsOrder) {
@@ -61,7 +63,7 @@ export default class Keyboard {
 
 
         document.querySelector('[data-code="Sound"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-volume-down"></i></div>';
-        document.querySelector('[data-code="Voice"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-microphone"></i></div>';
+        document.querySelector('[data-code="Voice"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-microphone-slash"></i></div>';
         document.querySelector('[data-code="ok"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="far fa-check-circle"></i></div>';
         // const voice = document.querySelector('[data-code="Voice"]');
         //voice.innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-volume-down"></i></div>';
@@ -112,7 +114,7 @@ export default class Keyboard {
             if (type.match(/key/)) e.preventDefault(); //откл стандартное поведение кнопок навешиваем класс:
             if (code.match(/Control|Alt|Caps/) && e.repeat) return;
             if (code.match(/Language/)) this.switchLanguage();
-            if (code.match(/Voice/)) this.speechRecognitionStart();
+           // if (code.match(/Voice/)) this.speechRecognitionStart();
             //     if(!this.speech){
             //         this.speech = true;
             //         this.speechRecognitionStart();
@@ -297,36 +299,7 @@ export default class Keyboard {
 //     recognition.start();
 // }
 
-    speechRecognitionStart(){
-            window.SpeechRecognition = window.SpeechRecognition 
-            || window.webkitSpeechRecognition;
-            const recognition = new SpeechRecognition();
-            recognition.interimResults = true;
-            //document.querySelector('[data-code="Voice"]').classList.add('.active');
-        if (!this.speech) {
-            console.log('начать запись')
-            this.speech = true;
-        //const output = document.querySelector('.output');
-             recognition.addEventListener('result', e =>{  
-            const transcript = Array.from(e.results)
-            .map(result => result[0])
-            .map(result => result.transcript)
-            .join('');
-    
-            if (e.results[0].isFinal) this.output.value += transcript;
 
-            })
-           recognition.addEventListener('end', recognition.start);
-            recognition.start();
-
-    } else {
-        console.log('остановить запись')
-            this.speech = false;
-            recognition.addEventListener('end', recognition.stop);
-            recognition.stop()
-        }
-    }
-    
     //speechRecognitionStop(){
      //   recognition.stop();
     //}
