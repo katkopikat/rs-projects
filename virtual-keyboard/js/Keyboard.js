@@ -9,8 +9,9 @@ import language from './layouts/layouts.js'; //{en, ru}
 import Key from './Key.js';
 
 //<main>
-const main = create('main', '',
-    [create('h1', 'title', 'Virtual Keyboard')])
+const main = document.querySelector('main');
+//const main = create('main', '',
+ //   [create('h1', 'title', 'Virtual Keyboard')])
 
 export default class Keyboard {
     constructor(rowsOrder) {
@@ -61,7 +62,7 @@ export default class Keyboard {
 
 
         document.querySelector('[data-code="Sound"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-volume-down"></i></div>';
-        document.querySelector('[data-code="Voice"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-microphone"></i></div>';
+        document.querySelector('[data-code="Voice"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-microphone-slash"></i></div>';
         document.querySelector('[data-code="ok"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="far fa-check-circle"></i></div>';
         // const voice = document.querySelector('[data-code="Voice"]');
         //voice.innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-volume-down"></i></div>';
@@ -304,6 +305,7 @@ export default class Keyboard {
             recognition.interimResults = true;
             //document.querySelector('[data-code="Voice"]').classList.add('.active');
         if (!this.speech) {
+            document.querySelector('[data-code="Voice"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-microphone"></i></div>';
             console.log('начать запись')
             this.speech = true;
         //const output = document.querySelector('.output');
@@ -320,6 +322,7 @@ export default class Keyboard {
             recognition.start();
 
     } else {
+        document.querySelector('[data-code="Voice"]').innerHTML = '<div class="sub"></div><div class="letter"><i class="fas fa-microphone-slash"></i></div>';
         console.log('остановить запись')
             this.speech = false;
             recognition.addEventListener('end', recognition.stop);
