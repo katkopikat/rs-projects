@@ -1,0 +1,292 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #171717;
+}
+
+.puzzle {
+    margin: 0px auto;
+    width: 500px;
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    transition: flex 300ms ease;
+
+}
+/*#puzzle-wrapper {
+    display: grid;
+    position: relative;
+    margin: 3rem auto;
+    max-width: 45vh;
+    padding: 0.1rem;
+    border: 1px dashed #444;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 1fr;
+}*/
+
+
+
+.game__name {
+    font-family: 'Spartan', sans-serif;
+    color: white;
+    font-size: 5rem;
+    font-weight: 500;
+}
+
+.header {
+    display: flex;
+    margin-left: 4rem;
+    margin-top: 4rem;
+    padding-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.status__item {
+    margin-right: 1rem;
+}
+
+.time {
+    color: #2AB6E1;
+}
+
+.moves {
+    color: #E502F1;
+}
+
+.menu__btn {
+    color: #05D9DD;
+}
+
+.menu__btn:hover {
+    color: white;
+    cursor: pointer;
+}
+
+
+.menu {
+    color: white;
+    font-size: 1.3rem;
+    display: none;
+}
+.menu--open{
+    display: inline-block;
+}
+.menu__item {
+    margin-bottom: 0.2rem;
+    list-style-type: none;
+}
+
+.item--new_game {
+    margin-left: 4rem;
+}
+
+.item--save_game {
+    margin-left: 8rem;
+}
+
+.item--scores {
+    margin-left: 12rem;
+}
+
+.item--settings {
+    margin-left: 16rem;
+}
+
+.item--rules {
+    margin-left: 20rem;
+}
+
+li:hover {
+    color: #05D9DD;
+    cursor: pointer;
+}
+
+.cell {
+    height: 24%;
+    width: 24%;
+    margin: 0.1rem;
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    
+    user-select: none;
+    text-align: center;
+    font-family: 'Spartan', sans-serif;
+    color: white;
+ 
+}
+
+.empty{
+    color: #171717;
+    background-color: #171717;
+    pointer-events: none;
+
+}
+
+.cell__img4{
+    height: 24%;
+    width: 24%;
+    margin: 0.1rem;
+
+    transition: order 1s;
+}
+[data-id="1"] {
+    background-color: #05D9DD;
+}
+
+[data-id="2"] {
+    background-color: #2AB6E1;
+}
+
+[data-id="3"] {
+    background-color: #287EE0;
+}
+
+[data-id="4"] {
+    background-color: #354DD5;
+}
+
+[data-id="5"] {
+    background-color: #24BBE0;
+}
+
+[data-id="6"] {
+    background-color: #5989E5;
+}
+
+[data-id="7"] {
+    background-color: #4757F2;
+}
+
+[data-id="8"] {
+    background-color: #2E3AB4;
+}
+
+[data-id="9"] {
+    background-color: #B93CF2;
+}
+
+[data-id="10"] {
+    background-color: #8574F2;
+}
+
+[data-id="11"] {
+    background-color: #3B57E6;
+}
+
+[data-id="12"] {
+    background-color: #282896;
+}
+
+[data-id="13"] {
+    background-color: #E502F1;
+}
+
+[data-id="14"] {
+    background-color: #A10FD5;
+}
+
+[data-id="15"] {
+    background-color: #631BBC;
+}
+
+
+/*--------------Rules-----------------*/
+.rules {
+    position: relative;
+    color: white;
+    font-size: 1rem;
+    max-width: 40vw;
+    margin: 0 auto;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.inactive {
+    display: none;
+}
+
+.rules>h2 {
+    font-family: 'Spartan', sans-serif;
+    color: white;
+    font-size: 3rem;
+    font-weight: 500;
+    margin-left: 1.7rem;
+    padding-top: 1.7rem;
+}
+
+.rules p {
+    margin-left: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.corner {
+    position: relative;
+}
+
+.line {
+    position: absolute;
+    width: 8.4rem;
+    height: 0.15rem;
+    background-color: white;
+}
+
+.line--vertical {
+    transform: rotate(90deg);
+    position: absolute;
+    left: -4.2rem;
+    top: 4.15rem;
+}
+
+.btn__close {
+    position: absolute;
+    right: 0rem;
+    top: 0.3rem;
+    width: 3rem;
+    height: 3rem;
+    transition: all 0.2s ease-in;
+}
+
+.btn__close:hover {
+    transform: rotate(-45deg);
+    transition: all 0.2s ease-in;
+    cursor: pointer;
+}
+
+.close__line {
+    position: absolute;
+    width: 2rem;
+    height: 0.15rem;
+    background-color: white;
+}
+
+.close-line--vert {
+    transform: rotate(90deg);
+    position: absolute;
+    left: 0rem;
+    top: 0rem;
+}
+
+.solve{
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.disabled {
+    pointer-events: none;
+}
+
+.clickable {
+    pointer-events: auto;
+    cursor: pointer;
+}
