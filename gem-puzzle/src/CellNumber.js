@@ -8,6 +8,7 @@ export default class Cell {
         this.container = this.createDiv();
         let wrapper = document.querySelector('.puzzle');
         wrapper.appendChild(this.container);
+        //document.querySelector('.empty').ondragover = this.allowDrop;
 
     }
 
@@ -27,13 +28,20 @@ export default class Cell {
         div.innerText = `${this.index+1}`;
         div.dataset.id = `${this.index+1}`;
         div.dataset.pos = `${this.index+1}`;
+        //div.draggable = true;
+        
+        //document.querySelector('.empty').draggable = false;
         //div.style.left = `${left}px`;
         // div.style.top = `${top}px`;
         // div.onclick = () => {
         //     console.log(`Элемент  ${div.dataset.id} с позицией  ${div.style.order}`);
         //     this.moveItems(); 
         // }
+        
+
 
         return div;
     }
+
+
 }

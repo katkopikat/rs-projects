@@ -125,18 +125,11 @@ li:hover {
  
 }
 
-.empty{
-    color: #171717;
-    background-color: #171717;
-    pointer-events: none;
-
-}
 
 .cell__img4{
     height: 24%;
     width: 24%;
     margin: 0.1rem;
-
     transition: order 1s;
 }
 [data-id="1"] {
@@ -289,4 +282,13 @@ li:hover {
 .clickable {
     pointer-events: auto;
     cursor: pointer;
+}
+
+
+.empty{
+    color: #171717;
+    background-color: #171717;
+    pointer-events: auto;
+    cursor: none;
+
 }

@@ -1,6 +1,3 @@
-import {
-    configs
-} from 'eslint-plugin-prettier';
 import CellNumber from './CellNumber';
 
 
@@ -26,14 +23,20 @@ export default class NumberPuzzle {
         this.countMoves = 0;
         this.limitLeft = [];
         this.limitRight = [];
+        this.allowBtnForClick = [];
 
         this.init();
         this.generateCells();
-        this.showSolve();
+        this.emptyPos = +this.getEmptyPosition();
         this.setLimite();
         this.addClickable();
-      
-        this.emptyPos = +this.getEmptyPosition();
+        this.randomizeItem();
+       
+        this.showSolve();
+
+       
+        document.querySelector('.empty').ondragover = this.allowDrop;
+        document.querySelector('.empty').ondrop = this.drop;
 
     }
 
@@ -63,27 +66,18 @@ export default class NumberPuzzle {
         this.clickItems();
     }
 
-    //     clickEvent() {
-    //         document.querySelectorAll('.cell').forEach(item => {
-    //         item.addEventListener('', () => {
-    //          // generateModalContent();
-    // //openModal(modal);
-    // console.log('click');
-    //         })
-    //       });
-    //     }
-
     setLimite() {
         for (let i = 1; i <= this.size * this.size; i += this.size) { //Ограничение слева
             this.limitLeft.push(i);
-           
+
         }
         for (let i = this.size; i <= this.size * this.size; i += this.size) { //Ограничение справа
             this.limitRight.push(i);
         }
 
-        return this.limitLeft, this.limitRight ;
+        return this.limitLeft, this.limitRight;
     }
+
     getEmptyPosition() {
         let pos = document.querySelector('.empty').style.order;
         return pos;
@@ -97,29 +91,45 @@ export default class NumberPuzzle {
         if ((this.emptyPos - this.size) >= 1) {
             tempTop = document.querySelector(`[data-pos="${this.emptyPos - this.size}"]`);
             tempTop.classList.add('clickable');
+            tempTop.draggable = true;
+            this.allowBtnForClick.push(this.emptyPos - this.size);
         }
 
         //вниз
         if (this.emptyPos + this.size <= this.size * this.size) {
-            tempBottom = document.querySelector(`[data-pos="${this.emptyPos + this.size}"]`)
+            tempBottom = document.querySelector(`[data-pos="${this.emptyPos + this.size}"]`);
             tempBottom.classList.add('clickable');
+            tempBottom.draggable = true;
+            this.allowBtnForClick.push(this.emptyPos + this.size);
         }
 
-         //влево
-        if (!this.limitLeft.includes( this.emptyPos)) { 
+        //влево
+        if (!this.limitLeft.includes(this.emptyPos)) {
             tempLeft = document.querySelector(`[data-pos="${this.emptyPos - 1}"]`);
             tempLeft.classList.add('clickable');
-         }      
+            tempLeft.draggable = true;
+            this.allowBtnForClick.push(this.emptyPos - 1);
+        }
 
-         //вправо
-        if (!this.limitRight.includes( this.emptyPos)) {
+        //вправо
+        if (!this.limitRight.includes(this.emptyPos)) {
             tempRight = document.querySelector(`[data-pos="${this.emptyPos + 1}"]`);
             tempRight.classList.add('clickable');
-        }   
+            tempRight.draggable = true;
+            this.allowBtnForClick.push(this.emptyPos + 1);
+        }
+        //console.log(`Массив доступных кнопок: ${this.allowBtnForClick}`)
+        return  this.allowBtnForClick;
+
     }
 
     deleteClickable() {
-        document.querySelectorAll('.clickable').forEach(item => item.classList.remove('clickable'));
+        this.allowBtnForClick = [];
+        document.querySelectorAll('.clickable').forEach(item => {
+            item.classList.remove('clickable');
+            item.draggable = false;
+        });
+        return this.allowBtnForClick;
     }
 
     clickItems() {
@@ -144,24 +154,108 @@ export default class NumberPuzzle {
 
                 //===================== ОГРАНИЧЕНИ
             });
-        })
+        });
 
 
         return this.arrPosition;
     }
 
+    autoClickItems() {
+
+        //let empty = document.querySelector('.empty');
+        //let grid = document.querySelectorAll('.cell');
+
+       let RandomNumbBtn = this.allowBtnForClick[this.getRandomInt(0, this.allowBtnForClick.length)];//+
+       //console.log(`Выбранная кнопка: ${RandomNumbBtn}`)
+       let randomBtn = document.querySelector(`[data-pos="${RandomNumbBtn}"]`);
+        //console.log(randomBtn)
+        let empty = document.querySelector('.empty');
+        let grid = document.querySelectorAll('.cell');
+
+
+        grid.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                let curPos = item.style.order;
+
+                item.style.order = this.emptyPos;
+                item.dataset.pos = this.emptyPos;
+
+                document.querySelector('.empty').style.order = curPos;
+                document.querySelector('.empty').dataset.pos = curPos;
+
+                //this.arrPosition.push(`${index+1},${curPos},${this.emptyPos}`);
+                //this.countMoves += 1;
+                //this.updateMoves();
+                this.deleteClickable();
+                this.addClickable();
+
+                //===================== ОГРАНИЧЕНИ
+            });
+        });
+
+        randomBtn.click();
+        //console.log(this.arrPosition)
+        //return this.arrPosition;
+
+    }
+
+    removeDuplicateSteps(){
+        //console.log(this.arrPosition.length)
+        for(let i = 0; i< this.arrPosition.length; i++){
+            if(this.arrPosition[i] == this.arrPosition[i-1] ){
+               console.log(`${this.arrPosition[i]} и ${this.arrPosition[i-1]}`);
+                this.arrPosition.splice(i, 1);
+             } 
+         }   
+     return this.arrPosition;
+    }
+
+    getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
+    }
+
+    randomizeItem(){
+       // console.log(`Массив доступных кнопок: ${this.allowBtnForClick}`)
+      let randomNumb = this.getRandomInt(100, 300);
+      console.log(randomNumb);
+       for(let i = 0; i < randomNumb; i++){
+           this.autoClickItems();
+       }
+    }
+
+    dragItems() {
+
+    }
+    allowDrop (event) {
+        event.preventDefault();
+    }
+
+    drag (event) {
+        event.dataTransfer.setData('id', event.tardet.id);
+    }
+
+    drop (event) {
+        let itemId = event.dataTransfer.getData('id');
+        console.log(itemId);
+        //event.target.append()
+    }
 
     updateMoves() {
         document.querySelector('.moves').innerText = `Moves: ${this.countMoves}`;
     }
 
     reverseHistory() {
-
+        console.log(this.arrPosition.length);
+      this.removeDuplicateSteps();
+        console.log(this.arrPosition.length);
+        console.log(this.arrPosition);
         let arr = this.arrPosition.reverse();
         let i = 0;
 
         function delay() {
-            return new Promise(resolve => setTimeout(resolve, 250));
+            return new Promise(resolve => setTimeout(resolve, 100));
         }
 
         async function delayedLog(item) {
@@ -190,6 +284,6 @@ export default class NumberPuzzle {
     showSolve() {
         document.querySelector('.solve').addEventListener('click', () => {
             this.reverseHistory();
-        })
+        });
     }
 }
