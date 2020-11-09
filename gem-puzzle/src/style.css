@@ -287,8 +287,18 @@ li:hover {
 
 .empty{
     color: #171717;
+    background-image: none !important;
     background-color: #171717;
     pointer-events: auto;
     cursor: none;
 
 }
+
+
+/* #empty{
+    background-image: none !important;
+    background-color: #171717;
+    pointer-events: auto;
+    cursor: none;
+
+} */
