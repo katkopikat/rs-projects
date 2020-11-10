@@ -35,7 +35,7 @@ export default class NumberPuzzle extends Game {
         this.setLimite();
         this.addClickable();
         this.randomizeItem();
-       
+
         this.showSolve();
 
         document.querySelector('.empty').ondragover = this.allowDrop;
@@ -48,6 +48,7 @@ export default class NumberPuzzle extends Game {
             this.cells.push(new CellNumber(this, i));
         }
         document.querySelector(`[data-id="${this.size*this.size}"]`).classList.add('empty');
+        
         this.clickItems();
     }
 

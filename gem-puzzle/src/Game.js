@@ -117,7 +117,8 @@ export default class Game {
         let grid = document.querySelectorAll('.cell');
 
         grid.forEach((item, index) => {
-            item.addEventListener('click', () => {
+            item.addEventListener('click', function (e){
+                console.log(e.target);
                 let curPos = item.style.order;
 
                 item.style.order = this.emptyPos;
@@ -135,50 +136,36 @@ export default class Game {
                 //===================== ОГРАНИЧЕНИ
             });
         });
-
-
         return this.arrPosition;
     }
 
     autoClickItems() {
 
-        //let empty = document.querySelector('.empty');
-        //let grid = document.querySelectorAll('.cell');
-
        let RandomNumbBtn = this.allowBtnForClick[this.getRandomInt(0, this.allowBtnForClick.length)];//+
-       console.log(`Выбранная кнопка: ${RandomNumbBtn}`)
        let randomBtn = document.querySelector(`[data-pos="${RandomNumbBtn}"]`);
-        //console.log(randomBtn)
         let empty = document.querySelector('.empty');
         let grid = document.querySelectorAll('.cell');
-
 
         grid.forEach((item, index) => {
             item.addEventListener('click', () => {
                 let curPos = item.style.order;
-
                 item.style.order = this.emptyPos;
                 item.dataset.pos = this.emptyPos;
-
                 document.querySelector('.empty').style.order = curPos;
                 document.querySelector('.empty').dataset.pos = curPos;
 
                 //this.arrPosition.push(`${index+1},${curPos},${this.emptyPos}`);
-                //this.countMoves += 1;
-                //this.updateMoves();
                 this.deleteClickable();
                 this.addClickable();
-
-                //===================== ОГРАНИЧЕНИ
             });
         });
 
         randomBtn.click();
-        //console.log(this.arrPosition)
-        //return this.arrPosition;
+        this.countMoves = 0;
+
 
     }
-
+    
     removeDuplicateSteps(){
         //console.log(this.arrPosition.length)
         for(let i = 0; i< this.arrPosition.length; i++){
@@ -226,10 +213,10 @@ export default class Game {
     }
 
     reverseHistory() {
-        console.log(this.arrPosition.length);
-      this.removeDuplicateSteps();
-        console.log(this.arrPosition.length);
-        console.log(this.arrPosition);
+       // console.log(this.arrPosition.length);
+        this.removeDuplicateSteps();
+        //console.log(this.arrPosition.length);
+        //console.log(this.arrPosition);
         let arr = this.arrPosition.reverse();
         let i = 0;
 
@@ -259,7 +246,6 @@ export default class Game {
         processArray(arr);
 
     }
-
     showSolve() {
         document.querySelector('.solve').addEventListener('click', () => {
             this.reverseHistory();
