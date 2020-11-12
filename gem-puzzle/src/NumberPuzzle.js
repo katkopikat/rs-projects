@@ -31,15 +31,13 @@ export default class NumberPuzzle extends Game {
 
         this.init();
         this.generateCells();
-        this.emptyPos = +this.getEmptyPosition();
         this.setLimite();
         this.addClickable();
         this.randomizeItem();
-
         this.showSolve();
 
-        document.querySelector('.empty').ondragover = this.allowDrop;
-        document.querySelector('.empty').ondrop = this.drop;
+        //document.querySelector('.empty').ondragover = this.allowDrop;
+       // document.querySelector('.empty').ondrop = this.drop;
 
     }
 

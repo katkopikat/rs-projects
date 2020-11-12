@@ -28,7 +28,7 @@ let randomImg = setRandomImg(1, 151);
 if (mode === 'numberMode') {
    //CSSLoad('style8.css');
     const numberPuzzle = new NumberPuzzle(
-        document.querySelector('#puzzle-wrapper'), 600, 4);
+        document.querySelector('#puzzle-wrapper'), 600, 3);
     
 }
 

@@ -35,7 +35,6 @@ export default function createEnvironment() {
 
     });
 
- 
     // document.querySelector('.item--rules').addEventListener('click', () => {
     //     console.log('rules');
     //     let rules = document.createElement('div');

@@ -12,17 +12,29 @@ export default class Game {
         this.limitLeft = [];
         this.limitRight = [];
         this.allowBtnForClick = [];
+        this.emptyPos;
 
+        // this.setLimite();
+        // this.emptyPos = +this.getEmptyPosition();
+        // this.addClickable();
+        // this.randomizeItem();
+ 
+        // this.showSolve();
+        // this.saveGame();
+        // this.gameIsSolved();
+      
+        //this.emptyPos = 0;
+  
         // this.init();
         // this.generateCells();
-        // this.emptyPos = +this.getEmptyPosition();
+        
         // this.setLimite();
         // this.addClickable();
         // this.randomizeItem();
-       
+
         // this.showSolve();
 
-       
+
         // document.querySelector('.empty').ondragover = this.allowDrop;
         // document.querySelector('.empty').ondrop = this.drop;
 
@@ -59,19 +71,20 @@ export default class Game {
     }
 
     getEmptyPosition() {
-        let pos = document.querySelector('.empty').style.order;
-        return pos;
+        this.emptyPos  = document.querySelector('.empty').style.order;
+        return this.emptyPos;
     }
 
     addClickable() {
         this.emptyPos = +this.getEmptyPosition();
+        console.log(`Пустой элемент ана месте ${this.emptyPos}`);
         let tempTop, tempBottom, tempLeft, tempRight;
 
         //вверх
         if ((this.emptyPos - this.size) >= 1) {
             tempTop = document.querySelector(`[data-pos="${this.emptyPos - this.size}"]`);
             tempTop.classList.add('clickable');
-            tempTop.draggable = true;
+
             this.allowBtnForClick.push(this.emptyPos - this.size);
         }
 
@@ -79,7 +92,6 @@ export default class Game {
         if (this.emptyPos + this.size <= this.size * this.size) {
             tempBottom = document.querySelector(`[data-pos="${this.emptyPos + this.size}"]`);
             tempBottom.classList.add('clickable');
-            tempBottom.draggable = true;
             this.allowBtnForClick.push(this.emptyPos + this.size);
         }
 
@@ -87,7 +99,6 @@ export default class Game {
         if (!this.limitLeft.includes(this.emptyPos)) {
             tempLeft = document.querySelector(`[data-pos="${this.emptyPos - 1}"]`);
             tempLeft.classList.add('clickable');
-            tempLeft.draggable = true;
             this.allowBtnForClick.push(this.emptyPos - 1);
         }
 
@@ -95,11 +106,10 @@ export default class Game {
         if (!this.limitRight.includes(this.emptyPos)) {
             tempRight = document.querySelector(`[data-pos="${this.emptyPos + 1}"]`);
             tempRight.classList.add('clickable');
-            tempRight.draggable = true;
             this.allowBtnForClick.push(this.emptyPos + 1);
         }
         //console.log(`Массив доступных кнопок: ${this.allowBtnForClick}`)
-        return  this.allowBtnForClick;
+        return this.allowBtnForClick;
 
     }
 
@@ -113,12 +123,12 @@ export default class Game {
     }
 
     clickItems() {
+      
         let empty = document.querySelector('.empty');
         let grid = document.querySelectorAll('.cell');
 
         grid.forEach((item, index) => {
-            item.addEventListener('click', function (e){
-                console.log(e.target);
+            item.addEventListener('click', () => {
                 let curPos = item.style.order;
 
                 item.style.order = this.emptyPos;
@@ -130,51 +140,33 @@ export default class Game {
                 this.arrPosition.push(`${index+1},${curPos},${this.emptyPos}`);
                 this.countMoves += 1;
                 this.updateMoves();
+                this.gameIsSolved();
                 this.deleteClickable();
                 this.addClickable();
-
-                //===================== ОГРАНИЧЕНИ
             });
         });
+        
+       // this.solveGame();
+      // console.log('конец клика')
         return this.arrPosition;
     }
 
     autoClickItems() {
-
-       let RandomNumbBtn = this.allowBtnForClick[this.getRandomInt(0, this.allowBtnForClick.length)];//+
-       let randomBtn = document.querySelector(`[data-pos="${RandomNumbBtn}"]`);
+        let RandomNumbBtn = this.allowBtnForClick[this.getRandomInt(0, this.allowBtnForClick.length)]; //+
+        let randomBtn = document.querySelector(`[data-pos="${RandomNumbBtn}"]`);
         let empty = document.querySelector('.empty');
         let grid = document.querySelectorAll('.cell');
-
-        grid.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                let curPos = item.style.order;
-                item.style.order = this.emptyPos;
-                item.dataset.pos = this.emptyPos;
-                document.querySelector('.empty').style.order = curPos;
-                document.querySelector('.empty').dataset.pos = curPos;
-
-                //this.arrPosition.push(`${index+1},${curPos},${this.emptyPos}`);
-                this.deleteClickable();
-                this.addClickable();
-            });
-        });
-
-        randomBtn.click();
-        this.countMoves = 0;
-
-
+        randomBtn.click(this.clickItems);
     }
-    
-    removeDuplicateSteps(){
-        //console.log(this.arrPosition.length)
-        for(let i = 0; i< this.arrPosition.length; i++){
-            if(this.arrPosition[i] == this.arrPosition[i-1] ){
-               console.log(`${this.arrPosition[i]} и ${this.arrPosition[i-1]}`);
+
+
+    removeDuplicateSteps() {
+        for (let i = 0; i < this.arrPosition.length; i++) {
+            if (this.arrPosition[i] == this.arrPosition[i - 1]) {
                 this.arrPosition.splice(i, 1);
-             } 
-         }   
-     return this.arrPosition;
+            }
+        }
+        return this.arrPosition;
     }
 
     getRandomInt(min, max) {
@@ -183,40 +175,37 @@ export default class Game {
         return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
     }
 
-    randomizeItem(){
-      let randomNumb = this.getRandomInt(100, 300);
-      console.log(randomNumb);
-       for(let i = 0; i < randomNumb; i++){
-           this.autoClickItems();
-       }
+    randomizeItem() {
+        let randomNumb = this.getRandomInt(0, 10);
+
+        for (let i = 0; i < randomNumb; i++) {
+            this.autoClickItems();
+        }
     }
 
-    dragItems() {
+    // dragItems() {
 
-    }
-    allowDrop (event) {
-        event.preventDefault();
-    }
+    // }
+    // allowDrop(event) {
+    //     event.preventDefault();
+    // }
 
-    drag (event) {
-        event.dataTransfer.setData('id', event.tardet.id);
-    }
+    // drag(event) {
+    //     event.dataTransfer.setData('id', event.tardet.id);
+    // }
 
-    drop (event) {
-        let itemId = event.dataTransfer.getData('id');
-        console.log(itemId);
-        //event.target.append()
-    }
+    // drop(event) {
+    //     let itemId = event.dataTransfer.getData('id');
+    //     console.log(itemId);
+    //     //event.target.append()
+    // }
 
     updateMoves() {
         document.querySelector('.moves').innerText = `Moves: ${this.countMoves}`;
     }
 
     reverseHistory() {
-       // console.log(this.arrPosition.length);
         this.removeDuplicateSteps();
-        //console.log(this.arrPosition.length);
-        //console.log(this.arrPosition);
         let arr = this.arrPosition.reverse();
         let i = 0;
 
@@ -245,10 +234,43 @@ export default class Game {
         }
         processArray(arr);
 
+
     }
     showSolve() {
         document.querySelector('.solve').addEventListener('click', () => {
             this.reverseHistory();
         });
     }
+
+    saveGame() {
+        document.querySelector('.item--save_game').addEventListener('click', () => {
+           // console.log('записать в local')
+            //console.log(this.arrPosition)
+            localStorage.setItem('game', this.arrPosition);
+
+        });
+    }
+
+
+    //document.querySelector('.empty').style.order = curPos;
+   // document.querySelector('.empty').dataset.pos = curPos;
+
+   gameIsSolved(){
+        for (let i = 1; i <= this.size*this.size; i++) {
+            let pos = document.querySelector(`[data-pos="${i}"]`).dataset.pos;
+            let id = document.querySelector(`[data-pos="${i}"]`).dataset.id;
+            if (pos == id && i == this.size*this.size) {
+                console.log(`You win for ##:## ${this.countMoves} moves!`)
+            } else if (pos == id ) {
+               // console.log('pos = id');
+                continue
+         } else {
+               // console.log('еще не закончили');
+                break;
+            };
+         
+        }
+    }
+
+
 }
