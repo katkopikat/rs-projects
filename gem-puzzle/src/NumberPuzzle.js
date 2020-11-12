@@ -24,7 +24,7 @@ export default class NumberPuzzle extends Game {
         this.historyMovesOrder = [];
         this.historyMovesOrderEmpty = [];
         this.arrPosition = [];
-        this.countMoves = 0;
+      
         this.limitLeft = [];
         this.limitRight = [];
         this.allowBtnForClick = [];
@@ -34,6 +34,7 @@ export default class NumberPuzzle extends Game {
         this.setLimite();
         this.addClickable();
         this.randomizeItem();
+        this.countMoves = 0;
         this.showSolve();
 
         //document.querySelector('.empty').ondragover = this.allowDrop;

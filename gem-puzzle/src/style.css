@@ -144,18 +144,15 @@ li:hover {
     height: 24%;
     width: 24%;
     margin: 0.1rem;
-
-
+  
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.5rem;
-    
     user-select: none;
     text-align: center;
     font-family: 'Spartan', sans-serif;
     color: white;
- 
 }
 
 
@@ -163,7 +160,6 @@ li:hover {
     height: 24%;
     width: 24%;
     margin: 0.1rem;
-    transition: order 1s;
 }
 [data-id="1"] {
     background-color: #05D9DD;
@@ -315,6 +311,7 @@ li:hover {
 .clickable {
     pointer-events: auto;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
 
@@ -323,7 +320,6 @@ li:hover {
     background-image: none !important;
     background-color: #171717;
     pointer-events: auto;
-    cursor: none;
 
 }
 

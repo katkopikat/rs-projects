@@ -1,8 +1,10 @@
+import { formatWithCursor } from "prettier";
+
 export default class Game {
     constructor(container, width, size) {
         this.parentConteiner = container;
         this.width = width;
-        //this.size = 4;
+        this.size = size;
         this.cells = [];
         this.historyMoves = [];
         this.historyMovesOrder = [];
@@ -13,6 +15,7 @@ export default class Game {
         this.limitRight = [];
         this.allowBtnForClick = [];
         this.emptyPos;
+        this.isAutoClick = false;
 
         // this.setLimite();
         // this.emptyPos = +this.getEmptyPosition();
@@ -77,7 +80,6 @@ export default class Game {
 
     addClickable() {
         this.emptyPos = +this.getEmptyPosition();
-        console.log(`Пустой элемент ана месте ${this.emptyPos}`);
         let tempTop, tempBottom, tempLeft, tempRight;
 
         //вверх
@@ -123,26 +125,71 @@ export default class Game {
     }
 
     clickItems() {
-      
+       
+        //console.log('количесвто шагов' + this.countMoves)
         let empty = document.querySelector('.empty');
         let grid = document.querySelectorAll('.cell');
 
         grid.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                let curPos = item.style.order;
+            item.addEventListener('click', (e) => {
+            
+                let distanse = parseInt(item.style.width) + 3.2;
+                if(!this.isAutoClick){
 
-                item.style.order = this.emptyPos;
-                item.dataset.pos = this.emptyPos;
+                if (e.target.style.order == this.emptyPos+1){
+                    console.log('анимация влево')
+                    item.style.transform = `translateX(-${distanse}px)`;
 
-                document.querySelector('.empty').style.order = curPos;
-                document.querySelector('.empty').dataset.pos = curPos;
+                } else if (e.target.style.order == this.emptyPos-1){
+                    console.log('анимация вправо')
+                    item.style.transform = `translateX(${distanse}px)`;
 
-                this.arrPosition.push(`${index+1},${curPos},${this.emptyPos}`);
-                this.countMoves += 1;
-                this.updateMoves();
-                this.gameIsSolved();
-                this.deleteClickable();
-                this.addClickable();
+                } else if (e.target.style.order == this.emptyPos + this.size){
+                    console.log('анимация вверх')
+                    item.style.transform = `translateY(-${distanse}px)`;
+
+                } else if (e.target.style.order == this.emptyPos - this.size){
+                    console.log('анимация вниз')
+                    item.style.transform = `translateY(${distanse}px)`;
+                } 
+
+
+
+                setTimeout( () =>{
+
+                    item.style.setProperty('transition', 'none');
+                    item.style.setProperty('transform','none');
+
+                    console.log('продолжаем смену ордер')
+                    let curPos = item.style.order;
+                    item.style.order = this.emptyPos;
+                    item.dataset.pos = this.emptyPos;
+                    document.querySelector('.empty').style.order = curPos;
+                    document.querySelector('.empty').dataset.pos = curPos;
+                    this.arrPosition.push(`${index+1},${curPos},${this.emptyPos}`);
+                    this.countMoves++;
+                    this.updateMoves();
+                    this.gameIsSolved();
+                    this.deleteClickable();
+                    this.addClickable();
+
+                }, 350)
+                    
+                
+            } else {           
+                        let curPos = item.style.order;
+                        item.style.order = this.emptyPos;
+                        item.dataset.pos = this.emptyPos;
+                        document.querySelector('.empty').style.order = curPos;
+                        document.querySelector('.empty').dataset.pos = curPos;
+                        this.arrPosition.push(`${index+1},${curPos},${this.emptyPos}`);
+                        this.countMoves++;
+                        this.updateMoves();
+                        this.gameIsSolved();
+                        this.deleteClickable();
+                        this.addClickable();
+          
+                }              
             });
         });
         
@@ -157,6 +204,7 @@ export default class Game {
         let empty = document.querySelector('.empty');
         let grid = document.querySelectorAll('.cell');
         randomBtn.click(this.clickItems);
+       
     }
 
 
@@ -177,10 +225,18 @@ export default class Game {
 
     randomizeItem() {
         let randomNumb = this.getRandomInt(0, 10);
-
         for (let i = 0; i < randomNumb; i++) {
-            this.autoClickItems();
-        }
+            this.isAutoClick = true;
+            this.autoClickItems();     
+        } 
+        //this.isAutoClick = fasle;
+        this.updateAfterAutoClick();
+        return this.countMoves;
+    }
+
+    updateAfterAutoClick(){
+     this.isAutoClick = false
+       return this.isAutoClick;
     }
 
     // dragItems() {
