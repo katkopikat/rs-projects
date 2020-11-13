@@ -1,4 +1,6 @@
-import { formatWithCursor } from "prettier";
+import {
+    formatWithCursor
+} from "prettier";
 
 export default class Game {
     constructor(container, width, size) {
@@ -21,16 +23,16 @@ export default class Game {
         // this.emptyPos = +this.getEmptyPosition();
         // this.addClickable();
         // this.randomizeItem();
- 
+
         // this.showSolve();
         // this.saveGame();
         // this.gameIsSolved();
-      
+
         //this.emptyPos = 0;
-  
+
         // this.init();
         // this.generateCells();
-        
+
         // this.setLimite();
         // this.addClickable();
         // this.randomizeItem();
@@ -61,6 +63,7 @@ export default class Game {
         return div;
     }
 
+    //SET LIMIT FOR MOVE ITEMS
     setLimite() {
         for (let i = 1; i <= this.size * this.size; i += this.size) { //Ограничение слева
             this.limitLeft.push(i);
@@ -73,11 +76,13 @@ export default class Game {
         return this.limitLeft, this.limitRight;
     }
 
+    //get position empty elements
     getEmptyPosition() {
-        this.emptyPos  = document.querySelector('.empty').style.order;
+        this.emptyPos = document.querySelector('.empty').style.order;
         return this.emptyPos;
     }
 
+    //make clickable items near empty item 
     addClickable() {
         this.emptyPos = +this.getEmptyPosition();
         let tempTop, tempBottom, tempLeft, tempRight;
@@ -115,6 +120,7 @@ export default class Game {
 
     }
 
+    //delete cleckable property  
     deleteClickable() {
         this.allowBtnForClick = [];
         document.querySelectorAll('.clickable').forEach(item => {
@@ -124,59 +130,50 @@ export default class Game {
         return this.allowBtnForClick;
     }
 
+    //ADD EVENT LISTENER FOR ITEM, MOVE ITEMS AND ANIMATION
     clickItems() {
-       
-        //console.log('количесвто шагов' + this.countMoves)
         let empty = document.querySelector('.empty');
         let grid = document.querySelectorAll('.cell');
 
         grid.forEach((item, index) => {
             item.addEventListener('click', (e) => {
-            
+                item.style.setProperty('transition', 'all 0.3s ease-in-out');
                 let distanse = parseInt(item.style.width) + 3.2;
-                if(!this.isAutoClick){
 
-                if (e.target.style.order == this.emptyPos+1){
-                    console.log('анимация влево')
-                    item.style.transform = `translateX(-${distanse}px)`;
+                //animation
+                if (!this.isAutoClick) {
+                    if (e.target.style.order == this.emptyPos + 1) {
+                        item.style.transform = `translateX(-${distanse}px)`;
 
-                } else if (e.target.style.order == this.emptyPos-1){
-                    console.log('анимация вправо')
-                    item.style.transform = `translateX(${distanse}px)`;
+                    } else if (e.target.style.order == this.emptyPos - 1) {
+                        item.style.transform = `translateX(${distanse}px)`;
 
-                } else if (e.target.style.order == this.emptyPos + this.size){
-                    console.log('анимация вверх')
-                    item.style.transform = `translateY(-${distanse}px)`;
+                    } else if (e.target.style.order == this.emptyPos + this.size) {
+                        item.style.transform = `translateY(-${distanse}px)`;
 
-                } else if (e.target.style.order == this.emptyPos - this.size){
-                    console.log('анимация вниз')
-                    item.style.transform = `translateY(${distanse}px)`;
-                } 
+                    } else if (e.target.style.order == this.emptyPos - this.size) {
+                        item.style.transform = `translateY(${distanse}px)`;
+                    }
 
+        //chahge flex:order
+                    setTimeout(() => {
+                        item.style.setProperty('transition', 'none');
+                        item.style.setProperty('transform', 'none');
 
+                        let curPos = item.style.order;
+                        item.style.order = this.emptyPos;
+                        item.dataset.pos = this.emptyPos;
+                        empty.style.order = curPos;
+                        empty.dataset.pos = curPos;
+                        this.arrPosition.push(`${index+1},${curPos},${this.emptyPos}`);
+                        this.countMoves++;
+                        this.updateMoves();
+                        this.gameIsSolved();
+                        this.deleteClickable();
+                        this.addClickable();
+                    }, 350)
 
-                setTimeout( () =>{
-
-                    item.style.setProperty('transition', 'none');
-                    item.style.setProperty('transform','none');
-
-                    console.log('продолжаем смену ордер')
-                    let curPos = item.style.order;
-                    item.style.order = this.emptyPos;
-                    item.dataset.pos = this.emptyPos;
-                    document.querySelector('.empty').style.order = curPos;
-                    document.querySelector('.empty').dataset.pos = curPos;
-                    this.arrPosition.push(`${index+1},${curPos},${this.emptyPos}`);
-                    this.countMoves++;
-                    this.updateMoves();
-                    this.gameIsSolved();
-                    this.deleteClickable();
-                    this.addClickable();
-
-                }, 350)
-                    
-                
-            } else {           
+                } else {
                         let curPos = item.style.order;
                         item.style.order = this.emptyPos;
                         item.dataset.pos = this.emptyPos;
@@ -188,26 +185,13 @@ export default class Game {
                         this.gameIsSolved();
                         this.deleteClickable();
                         this.addClickable();
-          
-                }              
+                }
             });
         });
-        
-       // this.solveGame();
-      // console.log('конец клика')
         return this.arrPosition;
     }
 
-    autoClickItems() {
-        let RandomNumbBtn = this.allowBtnForClick[this.getRandomInt(0, this.allowBtnForClick.length)]; //+
-        let randomBtn = document.querySelector(`[data-pos="${RandomNumbBtn}"]`);
-        let empty = document.querySelector('.empty');
-        let grid = document.querySelectorAll('.cell');
-        randomBtn.click(this.clickItems);
-       
-    }
-
-
+    //remove 2 duplicate steps
     removeDuplicateSteps() {
         for (let i = 0; i < this.arrPosition.length; i++) {
             if (this.arrPosition[i] == this.arrPosition[i - 1]) {
@@ -217,26 +201,39 @@ export default class Game {
         return this.arrPosition;
     }
 
+    //RANDOM ITEM:
+    //get random number
     getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
     }
 
+    //make n-random autoclick for ransomize items on the field
     randomizeItem() {
-        let randomNumb = this.getRandomInt(0, 10);
+        let randomNumb = this.getRandomInt(150, 0);
         for (let i = 0; i < randomNumb; i++) {
             this.isAutoClick = true;
-            this.autoClickItems();     
-        } 
-        //this.isAutoClick = fasle;
+            this.autoClickItems();
+        }
         this.updateAfterAutoClick();
         return this.countMoves;
     }
+    //autoclick, when we push on random allow item
+    autoClickItems() {
+        let RandomNumbBtn = this.allowBtnForClick[this.getRandomInt(0, this.allowBtnForClick.length)]; //+
+        let randomBtn = document.querySelector(`[data-pos="${RandomNumbBtn}"]`);
+        randomBtn.click(this.clickItems);
+    }
+    //remove autoclick-flag
+    updateAfterAutoClick() {
+        this.isAutoClick = false
+        return this.isAutoClick;
+    }
 
-    updateAfterAutoClick(){
-     this.isAutoClick = false
-       return this.isAutoClick;
+    //update moves
+    updateMoves() {
+        document.querySelector('.moves').innerText = `Moves: ${this.countMoves}`;
     }
 
     // dragItems() {
@@ -256,10 +253,9 @@ export default class Game {
     //     //event.target.append()
     // }
 
-    updateMoves() {
-        document.querySelector('.moves').innerText = `Moves: ${this.countMoves}`;
-    }
+  
 
+    //solve animation (reverse animation)
     reverseHistory() {
         this.removeDuplicateSteps();
         let arr = this.arrPosition.reverse();
@@ -273,10 +269,8 @@ export default class Game {
             await delay();
 
             let ArrOneStep = arr[i].split(',');
-
             let temp = document.querySelector(`[data-id="${ArrOneStep[0]}"]`);
             temp.style.order = `${ArrOneStep[1]}`;
-
             let tempEmpty = document.querySelector('.empty');
             tempEmpty.style.order = `${ArrOneStep[2]}`;
 
@@ -289,9 +283,8 @@ export default class Game {
             }
         }
         processArray(arr);
-
-
     }
+
     showSolve() {
         document.querySelector('.solve').addEventListener('click', () => {
             this.reverseHistory();
@@ -300,7 +293,7 @@ export default class Game {
 
     saveGame() {
         document.querySelector('.item--save_game').addEventListener('click', () => {
-           // console.log('записать в local')
+            // console.log('записать в local')
             //console.log(this.arrPosition)
             localStorage.setItem('game', this.arrPosition);
 
@@ -309,24 +302,16 @@ export default class Game {
 
 
     //document.querySelector('.empty').style.order = curPos;
-   // document.querySelector('.empty').dataset.pos = curPos;
+    // document.querySelector('.empty').dataset.pos = curPos;
 
-   gameIsSolved(){
+    gameIsSolved(){
         for (let i = 1; i <= this.size*this.size; i++) {
             let pos = document.querySelector(`[data-pos="${i}"]`).dataset.pos;
             let id = document.querySelector(`[data-pos="${i}"]`).dataset.id;
             if (pos == id && i == this.size*this.size) {
-                console.log(`You win for ##:## ${this.countMoves} moves!`)
-            } else if (pos == id ) {
-               // console.log('pos = id');
-                continue
-         } else {
-               // console.log('еще не закончили');
-                break;
-            };
-         
+                console.log(`You win for ##:## ${this.countMoves} moves!`);} 
+            else if (pos == id ) continue;
+            else break;
         }
     }
-
-
 }
