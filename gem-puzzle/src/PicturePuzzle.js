@@ -1,4 +1,3 @@
-
 import Cell from './Cell';
 import Game from './Game';
 
@@ -17,13 +16,14 @@ import Game from './Game';
 
 //createEnvironment();
 export default class PicturePuzzle extends Game{
-    constructor(container, imageSrc, width, size) {
-        super(container, width, size);
+    constructor(container, imageSrc, width, size, mode) {
+        super(container, width, size, mode);
         this.imageSrc = imageSrc;
         this.parentConteiner = container;
         this.width = width;
         this.height = width;
         this.size = size;
+        this.mode = mode;
         this.cells = [];
         this.historyMoves = [];
         this.historyMovesOrder = [];
@@ -41,8 +41,8 @@ export default class PicturePuzzle extends Game{
         const img = new Image();
         img.onload = () => {
            this.height = img.height * this.width / img.width;
-            this.container.style.width = `${this.width}px`;
-            this.container.style.height = `${this.height}px`;
+            this.container.style.width = `${this.width}rem`;
+            this.container.style.height = `${this.height}rem`;
            
         };
 

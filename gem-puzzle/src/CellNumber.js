@@ -29,8 +29,8 @@ export default class Cell {
         div.innerText = `${this.index+1}`;
         div.dataset.id = `${this.index+1}`;
         div.dataset.pos = `${this.index+1}`;
-        div.style.height = `${this.puzzle.height /this.puzzle.size - 4}px`;
-        div.style.width = `${this.puzzle.width /this.puzzle.size - 4}px`;
+        div.style.height = `${this.puzzle.height /this.puzzle.size - 0.2}rem`;
+        div.style.width = `${this.puzzle.width /this.puzzle.size - 0.2}rem`;
         //div.draggable = true;
         
         //document.querySelector('.empty').draggable = false;

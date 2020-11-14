@@ -9,6 +9,14 @@ body {
     background-color: #171717;
 }
 
+.wrapper{
+    margin: 0px auto;
+    width: auto;
+}
+
+.puzzle-wrapper{
+    transition: all 0.3s ease-in-out;
+}
 .puzzle {
     margin: 0px auto;
     width: 500px;
@@ -41,7 +49,7 @@ body {
 .header {
     display: flex;
     margin-left: 4rem;
-    margin-top: 4rem;
+    margin-top: 2rem;
     padding-bottom: 0.5rem;
     font-size: 1.2rem;
     color: white;
@@ -70,68 +78,55 @@ body {
 
 
 .menu {
-    color: white;
-    font-size: 1.3rem;
-    padding-left: 9.5rem;
+    transition: all 0.3s ease-in-out;
 }  
    
 .menu__item {
-    opacity: 0;
+    font-size: 1.1rem;
+    color: #4A4A4A;
     margin-bottom: 0.2rem;
     list-style-type: none;
-    transition: all 0.5s cubic-bezier(1, 0, 0, 1) 0s;
+    opacity: 0;
+    margin-top: -1.5rem;
 }
 
-.item--new_game {
-    visibility: visible;
-
-    margin-left: 0rem;
-}
-
-.item--save_game {
-    visibility: visible;
-
-    margin-left: 0rem;
-}
-
-.item--scores {
-    margin-left: 0rem;
-}
-
-.item--settings {
-    margin-left: 0rem;
-}
-
-.item--rules {
-    margin-left: 0rem;
-}
 
 
 .item--new--open {
-    transition: all 0.5s cubic-bezier(1, 0, 0, 1) 0s;
-    margin-left: 4rem;
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0s;
+    margin-top: 0rem;
     opacity: 1;
+
 }
 .item--save--open {
-    transition: all 0.5s cubic-bezier(1, 0, 0, 1) 0.1s;
-    margin-left: 8rem;
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.1s;
+    margin-top: 0rem;
     opacity: 1;
+
 }
 .item--scores--open  {
-    transition: all 0.5s cubic-bezier(1, 0, 0, 1) 0.2s;
-    margin-left: 12rem;
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.2s;
+    margin-top: 0rem;
     opacity: 1;
+
 }
 
 .item--settings--open  {
-    transition: all 0.5s cubic-bezier(1, 0, 0, 1) 0.3s;
-    margin-left: 16rem;
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.3s;
+    margin-top: 0rem;
     opacity: 1;
+
 }
 
 .item--rules--open  {
-    transition: all 0.5s cubic-bezier(1, 0, 0, 1) 0.4s;
-    margin-left: 20rem;
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.4s;
+    margin-top: 0rem;
+    opacity: 1;
+
+}
+.item--solution--open  {
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.5s;
+    margin-top: 0rem;
     opacity: 1;
 }
 
@@ -223,34 +218,41 @@ li:hover {
 
 
 /*--------------Rules-----------------*/
-.rules {
+.rules,
+.settings,
+.win {
     position: relative;
     color: white;
     font-size: 1rem;
     max-width: 40vw;
     margin: 0 auto;
-    padding-top: 3rem;
     padding-bottom: 3rem;
 }
 
-.inactive {
-    display: none;
-}
 
-.rules>h2 {
+
+h2 {
     font-family: 'Spartan', sans-serif;
     color: white;
     font-size: 3rem;
     font-weight: 500;
     margin-left: 1.7rem;
     padding-top: 1.7rem;
+    padding-bottom: 1rem;
 }
+.win > h2{
+    padding-bottom: 0;
 
+} 
 .rules p {
     margin-left: 2rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
+.winText{
+    margin-left: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.5rem;
+}
 .corner {
     position: relative;
 }
@@ -272,7 +274,7 @@ li:hover {
 .btn__close {
     position: absolute;
     right: 0rem;
-    top: 0.3rem;
+    top: 0rem;
     width: 3rem;
     height: 3rem;
     transition: all 0.2s ease-in;
@@ -304,6 +306,58 @@ li:hover {
     cursor: pointer;
 }
 
+/* [data-mode="active_mode"],
+[data-size="active_size"],
+[data-sound="active_sound"]{
+    color: #05D9DD;
+    opacity: 1;
+} */
+
+.settings__item:hover {
+    cursor: pointer;
+    color: #05D9DD;
+}
+
+.active_sound,
+.active_mode,
+.active_size {
+    cursor: pointer;
+    color: #05D9DD;
+    opacity: 1;
+}
+
+
+/* [data-size="active_size"],
+[data-sound="active_sound"]{
+    color: #05D9DD;
+    opacity: 1;
+} */
+
+
+.type_block,
+.size_block,
+.sound_block{
+    display: inline-block;
+    margin-left: 2rem;
+    margin-bottom: 0.8rem;
+}
+
+.btn__type{
+    padding-right: 2rem;
+}
+.btn__size{
+    padding-right: 2.8rem;
+}
+.btn__sound{
+    padding-right: 1.7rem;
+}
+
+/* .type_block > span,
+.size_block > span,
+.sound_block > span{
+} */
+
+
 .disabled {
     pointer-events: none;
 }
@@ -323,8 +377,16 @@ li:hover {
 
 }
 
+.settings > span {
+    color: white;
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-
+.inactive {
+    transition: all 0.3s ease-in-out;
+    display: none;
+}
 
 /* #empty{
     background-image: none !important;

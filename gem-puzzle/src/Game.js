@@ -1,12 +1,9 @@
-import {
-    formatWithCursor
-} from "prettier";
-
 export default class Game {
-    constructor(container, width, size) {
+    constructor(container, width, size, mode) {
         this.parentConteiner = container;
         this.width = width;
         this.size = size;
+        this.mode = mode;
         this.cells = [];
         this.historyMoves = [];
         this.historyMovesOrder = [];
@@ -18,31 +15,8 @@ export default class Game {
         this.allowBtnForClick = [];
         this.emptyPos;
         this.isAutoClick = false;
-
-        // this.setLimite();
-        // this.emptyPos = +this.getEmptyPosition();
-        // this.addClickable();
-        // this.randomizeItem();
-
-        // this.showSolve();
-        // this.saveGame();
-        // this.gameIsSolved();
-
-        //this.emptyPos = 0;
-
-        // this.init();
-        // this.generateCells();
-
-        // this.setLimite();
-        // this.addClickable();
-        // this.randomizeItem();
-
-        // this.showSolve();
-
-
-        // document.querySelector('.empty').ondragover = this.allowDrop;
-        // document.querySelector('.empty').ondrop = this.drop;
-
+        this.audioOn = true;
+        this.openMenu();
     }
 
     init() {
@@ -55,24 +29,16 @@ export default class Game {
         div.className = 'puzzle';
         div.style.position = 'relative';
         div.style.margin = '0 auto';
-        div.style.width = `${this.width}px`;
-        // div.style.height = `${this.width}px`;
-        //this.height = img.height * this.width /  this.container.width;
-        // div.style.width = `${this.width}px`;
-        // div.style.height = `${this.height}px`;
+        div.style.width = `${this.width}rem`;
         return div;
     }
 
     //SET LIMIT FOR MOVE ITEMS
     setLimite() {
         for (let i = 1; i <= this.size * this.size; i += this.size) { //Ограничение слева
-            this.limitLeft.push(i);
-
-        }
+            this.limitLeft.push(i);} 
         for (let i = this.size; i <= this.size * this.size; i += this.size) { //Ограничение справа
-            this.limitRight.push(i);
-        }
-
+            this.limitRight.push(i);} 
         return this.limitLeft, this.limitRight;
     }
 
@@ -91,7 +57,6 @@ export default class Game {
         if ((this.emptyPos - this.size) >= 1) {
             tempTop = document.querySelector(`[data-pos="${this.emptyPos - this.size}"]`);
             tempTop.classList.add('clickable');
-
             this.allowBtnForClick.push(this.emptyPos - this.size);
         }
 
@@ -115,7 +80,6 @@ export default class Game {
             tempRight.classList.add('clickable');
             this.allowBtnForClick.push(this.emptyPos + 1);
         }
-        //console.log(`Массив доступных кнопок: ${this.allowBtnForClick}`)
         return this.allowBtnForClick;
 
     }
@@ -134,28 +98,36 @@ export default class Game {
     clickItems() {
         let empty = document.querySelector('.empty');
         let grid = document.querySelectorAll('.cell');
+        let audio = document.querySelector('.audio');
+        // audio.muted = true;
 
         grid.forEach((item, index) => {
             item.addEventListener('click', (e) => {
+
+
                 item.style.setProperty('transition', 'all 0.3s ease-in-out');
-                let distanse = parseInt(item.style.width) + 3.2;
+                let distanse = parseInt(item.style.width) + 1;
 
                 //animation
                 if (!this.isAutoClick) {
+                    if (this.audioOn) {
+                        // audio.muted = false;
+                        audio.play();
+                    }
                     if (e.target.style.order == this.emptyPos + 1) {
-                        item.style.transform = `translateX(-${distanse}px)`;
+                        item.style.transform = `translateX(-${distanse}rem)`;
 
                     } else if (e.target.style.order == this.emptyPos - 1) {
-                        item.style.transform = `translateX(${distanse}px)`;
+                        item.style.transform = `translateX(${distanse}rem)`;
 
                     } else if (e.target.style.order == this.emptyPos + this.size) {
-                        item.style.transform = `translateY(-${distanse}px)`;
+                        item.style.transform = `translateY(-${distanse}rem)`;
 
                     } else if (e.target.style.order == this.emptyPos - this.size) {
-                        item.style.transform = `translateY(${distanse}px)`;
+                        item.style.transform = `translateY(${distanse}rem)`;
                     }
 
-        //chahge flex:order
+                    //chahge flex:order
                     setTimeout(() => {
                         item.style.setProperty('transition', 'none');
                         item.style.setProperty('transform', 'none');
@@ -174,30 +146,17 @@ export default class Game {
                     }, 350)
 
                 } else {
-                        let curPos = item.style.order;
-                        item.style.order = this.emptyPos;
-                        item.dataset.pos = this.emptyPos;
-                        document.querySelector('.empty').style.order = curPos;
-                        document.querySelector('.empty').dataset.pos = curPos;
-                        this.arrPosition.push(`${index+1},${curPos},${this.emptyPos}`);
-                        this.countMoves++;
-                        this.updateMoves();
-                        this.gameIsSolved();
-                        this.deleteClickable();
-                        this.addClickable();
+                    let curPos = item.style.order;
+                    item.style.order = this.emptyPos;
+                    item.dataset.pos = this.emptyPos;
+                    document.querySelector('.empty').style.order = curPos;
+                    document.querySelector('.empty').dataset.pos = curPos;
+                    this.arrPosition.push(`${index+1},${curPos},${this.emptyPos}`);
+                    this.deleteClickable();
+                    this.addClickable();
                 }
             });
         });
-        return this.arrPosition;
-    }
-
-    //remove 2 duplicate steps
-    removeDuplicateSteps() {
-        for (let i = 0; i < this.arrPosition.length; i++) {
-            if (this.arrPosition[i] == this.arrPosition[i - 1]) {
-                this.arrPosition.splice(i, 1);
-            }
-        }
         return this.arrPosition;
     }
 
@@ -211,7 +170,7 @@ export default class Game {
 
     //make n-random autoclick for ransomize items on the field
     randomizeItem() {
-        let randomNumb = this.getRandomInt(150, 0);
+        let randomNumb = this.getRandomInt(4, 7);
         for (let i = 0; i < randomNumb; i++) {
             this.isAutoClick = true;
             this.autoClickItems();
@@ -236,25 +195,15 @@ export default class Game {
         document.querySelector('.moves').innerText = `Moves: ${this.countMoves}`;
     }
 
-    // dragItems() {
-
-    // }
-    // allowDrop(event) {
-    //     event.preventDefault();
-    // }
-
-    // drag(event) {
-    //     event.dataTransfer.setData('id', event.tardet.id);
-    // }
-
-    // drop(event) {
-    //     let itemId = event.dataTransfer.getData('id');
-    //     console.log(itemId);
-    //     //event.target.append()
-    // }
-
-  
-
+    //remove 2 duplicate steps
+    removeDuplicateSteps() {
+        for (let i = 0; i < this.arrPosition.length; i++) {
+            if (this.arrPosition[i] == this.arrPosition[i - 1]) {
+                this.arrPosition.splice(i, 1);
+            }
+        }
+        return this.arrPosition;
+    }
     //solve animation (reverse animation)
     reverseHistory() {
         this.removeDuplicateSteps();
@@ -286,7 +235,7 @@ export default class Game {
     }
 
     showSolve() {
-        document.querySelector('.solve').addEventListener('click', () => {
+        document.querySelector('.item--solution').addEventListener('click', () => {
             this.reverseHistory();
         });
     }
@@ -300,18 +249,105 @@ export default class Game {
         });
     }
 
-
-    //document.querySelector('.empty').style.order = curPos;
-    // document.querySelector('.empty').dataset.pos = curPos;
-
-    gameIsSolved(){
-        for (let i = 1; i <= this.size*this.size; i++) {
+    gameIsSolved() {
+        for (let i = 1; i <= this.size * this.size; i++) {
             let pos = document.querySelector(`[data-pos="${i}"]`).dataset.pos;
             let id = document.querySelector(`[data-pos="${i}"]`).dataset.id;
-            if (pos == id && i == this.size*this.size) {
-                console.log(`You win for ##:## ${this.countMoves} moves!`);} 
-            else if (pos == id ) continue;
+            if (pos == id && i == this.size * this.size) {
+                this.showWinMessage();
+                console.log(`You win for ##:## ${this.countMoves} moves!`);
+            } else if (pos == id) continue;
             else break;
         }
+    }
+
+    openMenu() {
+        document.querySelector('.menu__btn').addEventListener('click', () => {
+            document.querySelector('.menu').classList.remove('inactive');
+            console.log('click');
+            document.querySelector('.item--new_game').classList.add('item--new--open');
+            document.querySelector('.item--save_game').classList.add('item--save--open');
+            document.querySelector('.item--scores').classList.add('item--scores--open');
+            document.querySelector('.item--settings').classList.add('item--settings--open');
+            document.querySelector('.item--rules').classList.add('item--rules--open');
+            document.querySelector('.item--solution').classList.add('item--solution--open');
+        });
+        this.showRules();
+        //this.showSettings();
+
+    }
+
+    // soundToggle() {
+    //     let soundOn = document.querySelector('.sound--on'),
+    //         soundOff = document.querySelector('.sound--off');
+
+    //     //sound off
+    //     soundOff.addEventListener('click', () => {
+    //         soundOn.classList.remove('active_sound');
+    //         soundOff.classList.add('active_sound');
+    //         this.audioOn = false;
+    //     })
+
+    //     //sound on
+    //     soundOn.addEventListener('click', () => {
+    //         soundOff.classList.remove('active_sound');
+    //         soundOn.classList.add('active_sound');
+    //         this.audioOn = true;
+    //     })
+    // }
+
+    showWinMessage() {
+            let win= document.createElement('div');
+            win.classList.add('win');
+            win.innerHTML =
+                `<span class="corner">
+                <span class="line line--horizontal"></span>
+                <span class="line line--vertical"></span>
+            </span>
+            <h2>You won!</h2>
+            <p class="winText">You won in ##:## and ${this.countMoves} moves!</p>
+            <span class="btn__close">
+                <span class="close__line close-line--vert"></span>
+                <span class="close__line close-line--horiz"></span>
+            </span>`;
+            document.querySelector('.header').after(win);
+
+            setTimeout(() => {
+                document.querySelector('.btn__close').addEventListener('click', () => {
+                    win.remove();
+                })
+            }, 500);
+    }
+
+
+    showRules() {
+        document.querySelector('.item--rules').addEventListener('click', () => {
+            let rules = document.createElement('div');
+            rules.classList.add('rules');
+
+            rules.innerHTML =
+                `<span class="corner">
+                <span class="line line--horizontal"></span>
+                <span class="line line--vertical"></span>
+            </span>
+            <h2>Rules</h2>
+             <p>The object of the puzzle is to place the tiles in order<br>
+                by making sliding moves that use the empty space.<br>
+                <br>
+                You can save your game and load it later.<br>
+                Or you can just use pause button.<br>
+                Also you can choose game field size of color in Settings</p>
+            <span class="btn__close">
+                <span class="close__line close-line--vert"></span>
+                <span class="close__line close-line--horiz"></span>
+            </span>`;
+            document.querySelector('.header').after(rules);
+
+            setTimeout(() => {
+                document.querySelector('.btn__close').addEventListener('click', () => {
+                    rules.remove();
+                })
+            }, 500);
+        })
     }
 }

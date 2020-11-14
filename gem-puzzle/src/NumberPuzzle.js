@@ -13,12 +13,13 @@ import Game from './Game';
 // let moves = document.querySelector('moves');
 
 export default class NumberPuzzle extends Game {
-    constructor(container, width, size) {
-        super(container, width, size);
+    constructor(container, width, size, mode) {
+        super(container, width, size, mode);
         this.parentConteiner = container;
         this.width = width;
         this.height = width;
         this.size = size;
+        this.mode = mode;
         this.cells = [];
         this.historyMoves = [];
         this.historyMovesOrder = [];
