@@ -220,7 +220,8 @@ li:hover {
 /*--------------Rules-----------------*/
 .rules,
 .settings,
-.win {
+.win,
+.score {
     position: relative;
     color: white;
     font-size: 1rem;
@@ -229,7 +230,13 @@ li:hover {
     padding-bottom: 3rem;
 }
 
-
+.score > ul{
+    margin-left: 2rem;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.2rem;
+    list-style: none;
+}
 
 h2 {
     font-family: 'Spartan', sans-serif;
@@ -242,7 +249,6 @@ h2 {
 }
 .win > h2{
     padding-bottom: 0;
-
 } 
 .rules p {
     margin-left: 2rem;
@@ -250,8 +256,7 @@ h2 {
 }
 .winText{
     margin-left: 2rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1.5rem;
+
 }
 .corner {
     position: relative;

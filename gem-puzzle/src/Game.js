@@ -261,6 +261,8 @@ export default class Game {
         }
     }
 
+  
+
     openMenu() {
         document.querySelector('.menu__btn').addEventListener('click', () => {
             document.querySelector('.menu').classList.remove('inactive');
@@ -273,6 +275,7 @@ export default class Game {
             document.querySelector('.item--solution').classList.add('item--solution--open');
         });
         this.showRules();
+        this.showScore();
         //this.showSettings();
 
     }
@@ -295,6 +298,7 @@ export default class Game {
     //         this.audioOn = true;
     //     })
     // }
+   
 
     showWinMessage() {
             let win= document.createElement('div');
@@ -317,8 +321,8 @@ export default class Game {
                     win.remove();
                 })
             }, 500);
+            this.saveResult();
     }
-
 
     showRules() {
         document.querySelector('.item--rules').addEventListener('click', () => {
@@ -350,4 +354,63 @@ export default class Game {
             }, 500);
         })
     }
+    saveResult() {
+        let countPlace = 1;
+           for(let i=0; i<localStorage.length; i++) {
+               let key = localStorage.key(i);
+               if(key.match(/place/)){
+                countPlace++;
+               }
+            }
+        localStorage.setItem(`place${countPlace}`, `.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}`);
+    }
+
+    showScore() {
+        let countPlace = 1;
+        for(let i=0; i < localStorage.length; i++) {
+            let key = localStorage.key(i);
+            if(key.match(/place/)){
+             countPlace++;
+            }
+         }
+
+        document.querySelector('.item--scores').addEventListener('click', () => {
+            let score = document.createElement('div');
+            score.classList.add('score');
+
+            let currencyResalt = localStorage.getItem('place_1');
+            score.innerHTML =
+                `<span class="corner">
+                <span class="line line--horizontal"></span>
+                <span class="line line--vertical"></span>
+            </span>
+            <h2>Best scores</h2>
+         <ul>
+         <li class="score_position">#.........Field.........Mode.........Time.........Steps</li>
+         <li class="score_position">1${currencyResalt}</li>
+         <li class="score_position">2.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
+         <li class="score_position">3.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
+         <li class="score_position">4.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
+         <li class="score_position">5.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
+         <li class="score_position">6.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
+         <li class="score_position">7.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
+         <li class="score_position">8.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
+         <li class="score_position">9.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
+         <li class="score_position">10.......${this.size}...........${this.mode}.........##:##..........${this.countMoves}</li>
+         </ul>
+            <span class="btn__close">
+                <span class="close__line close-line--vert"></span>
+                <span class="close__line close-line--horiz"></span>
+            </span>`;
+            document.querySelector('.header').after(score);
+
+            setTimeout(() => {
+                document.querySelector('.btn__close').addEventListener('click', () => {
+                    score.remove();
+                })
+            }, 500);
+        })
+    }
+
+
 }

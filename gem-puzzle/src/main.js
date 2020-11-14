@@ -17,23 +17,26 @@ createEnvironment();
 //CSSLoad('style8.css');
 
 
-let mode = 'number',
+let mode = '',
     size = 4;
 
-createNumberPuzzle() 
+createNumberPuzzle()
 showSettings();
-
+newGame();
 function createNumberPuzzle() {
-const numberPuzzle = new NumberPuzzle(
+    console.log(mode);
+    const numberPuzzle = new NumberPuzzle(
         document.querySelector('#puzzle-wrapper'), 36, size, 'number');
 }
 
 function createPictirePuzzle() {
+    console.log(mode);
     const setRandomImg = (min, max) => {
-        return Math.floor(Math.random() * (max - min) + min);};
-        let randomImg = setRandomImg(1, 151);
+        return Math.floor(Math.random() * (max - min) + min);
+    };
+    let randomImg = setRandomImg(1, 151);
 
- const picturePuzzle = new PicturePuzzle (
+    const picturePuzzle = new PicturePuzzle(
         document.querySelector('#puzzle-wrapper'),
         `https://raw.githubusercontent.com/irinainina/image-data/master/box/${randomImg}.jpg`,
         36, size, 'picture')
@@ -88,7 +91,7 @@ function showSettings() {
                 item.addEventListener('click', () => {
                     size = index + 3;
                     document.querySelector('.puzzle').remove();
-                    if(mode == 'number'){
+                    if (mode == 'number') {
                         createNumberPuzzle();
                     } else createPictirePuzzle();
                 })
@@ -98,7 +101,7 @@ function showSettings() {
                 mode = 'number';
                 mode_picture.classList.remove('active_mode');
                 mode_number.classList.add('active_mode');
-                document.querySelector('.puzzle').remove(); 
+                document.querySelector('.puzzle').remove();
                 createNumberPuzzle();
                 return mode;
             })
@@ -113,13 +116,37 @@ function showSettings() {
             })
 
             document.querySelector('.btn__close').addEventListener('click', () => {
-                    settings.remove();
+                settings.remove();
 
-               
+
             }, 500);
         })
     })
 }
+
+function newGame() {
+    document.querySelector('.item--new_game').addEventListener('click', () => {
+console.log(mode);
+        if (mode == 'number') {
+            mode = 'number';
+            //mode_picture.classList.remove('active_mode');
+            //mode_number.classList.add('active_mode');
+            document.querySelector('.puzzle').remove();
+            createNumberPuzzle();
+            return mode;
+        } else {
+            mode = 'picture';
+            //mode_picture.classList.add('active_mode');
+           // mode_number.classList.remove('active_mode');
+            document.querySelector('.puzzle').remove();
+            createPictirePuzzle();
+            return mode;
+        }
+
+    })
+}
+
+
 
 // const picturePuzzle = new PicturePuzzle(
 //         document.querySelector('#puzzle-wrapper'),
