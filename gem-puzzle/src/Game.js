@@ -16,6 +16,7 @@ export default class Game {
         this.emptyPos;
         this.isAutoClick = false;
         this.audioOn = true;
+        this.saveGame();
         this.openMenu();
     }
 
@@ -36,9 +37,11 @@ export default class Game {
     //SET LIMIT FOR MOVE ITEMS
     setLimite() {
         for (let i = 1; i <= this.size * this.size; i += this.size) { //Ограничение слева
-            this.limitLeft.push(i);} 
+            this.limitLeft.push(i);
+        }
         for (let i = this.size; i <= this.size * this.size; i += this.size) { //Ограничение справа
-            this.limitRight.push(i);} 
+            this.limitRight.push(i);
+        }
         return this.limitLeft, this.limitRight;
     }
 
@@ -89,25 +92,23 @@ export default class Game {
         this.allowBtnForClick = [];
         document.querySelectorAll('.clickable').forEach(item => {
             item.classList.remove('clickable');
-            item.draggable = false;
+            //item.draggable = false;
         });
         return this.allowBtnForClick;
     }
 
     //ADD EVENT LISTENER FOR ITEM, MOVE ITEMS AND ANIMATION
     clickItems() {
-        let empty = document.querySelector('.empty');
-        let grid = document.querySelectorAll('.cell');
-        let audio = document.querySelector('.audio');
+        const empty = document.querySelector('.empty'),
+            grid = document.querySelectorAll('.cell'),
+            audio = document.querySelector('.audio');
         // audio.muted = true;
 
         grid.forEach((item, index) => {
             item.addEventListener('click', (e) => {
 
-
                 item.style.setProperty('transition', 'all 0.3s ease-in-out');
                 let distanse = parseInt(item.style.width) + 1;
-
                 //animation
                 if (!this.isAutoClick) {
                     if (this.audioOn) {
@@ -242,12 +243,35 @@ export default class Game {
 
     saveGame() {
         document.querySelector('.item--save_game').addEventListener('click', () => {
-            // console.log('записать в local')
+            console.log('записать в local')
             //console.log(this.arrPosition)
-            localStorage.setItem('game', this.arrPosition);
+            localStorage.setItem('savedgame', this.arrPosition);
 
         });
     }
+
+    // loadGame(){
+
+    //     let lastGameStr = localStorage.getItem('savedgame');
+    //         let lastGameArr = lastGameStr.match(/\d{1,2}\,\d{1,2}\,\d{1,2}/g);
+
+    //         for (let i = 0; i < lastGameArr.length; i++){
+    //             let ArrOneStep = lastGameArr[i].split(',');
+    //             console.log(ArrOneStep)
+    //             let temp = document.querySelector(`[data-id="${ArrOneStep[0]}"]`);
+
+
+    //             temp.style.order = `${ArrOneStep[1]}`;
+    //             temp.dataset.pos = `${ArrOneStep[1]}`;
+
+    //             let tempEmpty = document.querySelector('.empty');
+    //             tempEmpty.style.order = `${ArrOneStep[2]}`;
+    //             tempEmpty.dataset.pos = `${ArrOneStep[2]}`;
+
+    //             this.deleteClickable();
+    //             this.addClickable();
+    //         }
+    // }
 
     gameIsSolved() {
         for (let i = 1; i <= this.size * this.size; i++) {
@@ -260,8 +284,6 @@ export default class Game {
             else break;
         }
     }
-
-  
 
     openMenu() {
         document.querySelector('.menu__btn').addEventListener('click', () => {
@@ -276,35 +298,23 @@ export default class Game {
         });
         this.showRules();
         this.showScore();
+        this.closeMenu();
         //this.showSettings();
 
     }
+    closeMenu(){
+        console.log('закрыть меню')
+        document.querySelector('.close--menu').addEventListener('click', () => {
+        document.querySelector('.menu').classList.add('inactive');
 
-    // soundToggle() {
-    //     let soundOn = document.querySelector('.sound--on'),
-    //         soundOff = document.querySelector('.sound--off');
-
-    //     //sound off
-    //     soundOff.addEventListener('click', () => {
-    //         soundOn.classList.remove('active_sound');
-    //         soundOff.classList.add('active_sound');
-    //         this.audioOn = false;
-    //     })
-
-    //     //sound on
-    //     soundOn.addEventListener('click', () => {
-    //         soundOff.classList.remove('active_sound');
-    //         soundOn.classList.add('active_sound');
-    //         this.audioOn = true;
-    //     })
-    // }
-   
+        })
+    }
 
     showWinMessage() {
-            let win= document.createElement('div');
-            win.classList.add('win');
-            win.innerHTML =
-                `<span class="corner">
+        let win = document.createElement('div');
+        win.classList.add('win');
+        win.innerHTML =
+            `<span class="corner">
                 <span class="line line--horizontal"></span>
                 <span class="line line--vertical"></span>
             </span>
@@ -314,14 +324,14 @@ export default class Game {
                 <span class="close__line close-line--vert"></span>
                 <span class="close__line close-line--horiz"></span>
             </span>`;
-            document.querySelector('.header').after(win);
+        document.querySelector('.header').after(win);
 
-            setTimeout(() => {
-                document.querySelector('.btn__close').addEventListener('click', () => {
-                    win.remove();
-                })
-            }, 500);
-            this.saveResult();
+        setTimeout(() => {
+            document.querySelector('.btn__close').addEventListener('click', () => {
+                win.remove();
+            })
+        }, 500);
+        this.saveResult();
     }
 
     showRules() {
@@ -354,31 +364,25 @@ export default class Game {
             }, 500);
         })
     }
+
     saveResult() {
         let countPlace = 1;
-           for(let i=0; i<localStorage.length; i++) {
-               let key = localStorage.key(i);
-               if(key.match(/place/)){
+        for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i);
+            if (key.match(/place/)) {
                 countPlace++;
-               }
             }
+        }
         localStorage.setItem(`place${countPlace}`, `.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}`);
     }
 
     showScore() {
-        let countPlace = 1;
-        for(let i=0; i < localStorage.length; i++) {
-            let key = localStorage.key(i);
-            if(key.match(/place/)){
-             countPlace++;
-            }
-         }
 
         document.querySelector('.item--scores').addEventListener('click', () => {
             let score = document.createElement('div');
             score.classList.add('score');
 
-            let currencyResalt = localStorage.getItem('place_1');
+            let currencyResalt = localStorage.getItem(`place${countPlace}`);
             score.innerHTML =
                 `<span class="corner">
                 <span class="line line--horizontal"></span>
@@ -387,22 +391,34 @@ export default class Game {
             <h2>Best scores</h2>
          <ul>
          <li class="score_position">#.........Field.........Mode.........Time.........Steps</li>
-         <li class="score_position">1${currencyResalt}</li>
-         <li class="score_position">2.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
-         <li class="score_position">3.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
-         <li class="score_position">4.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
-         <li class="score_position">5.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
-         <li class="score_position">6.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
-         <li class="score_position">7.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
-         <li class="score_position">8.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
-         <li class="score_position">9.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}</li>
-         <li class="score_position">10.......${this.size}...........${this.mode}.........##:##..........${this.countMoves}</li>
+         <li class="score_position">1..............................................</li>
+         <li class="score_position">2..............................................</li>
+         <li class="score_position">3..............................................</li>
+         <li class="score_position">4..............................................</li>
+         <li class="score_position">5..............................................</li>
+         <li class="score_position">6..............................................</li>
+         <li class="score_position">7..............................................</li>
+         <li class="score_position">8..............................................</li>
+         <li class="score_position">9..............................................</li>
+         <li class="score_position">10.............................................</li>
          </ul>
             <span class="btn__close">
                 <span class="close__line close-line--vert"></span>
                 <span class="close__line close-line--horiz"></span>
             </span>`;
             document.querySelector('.header').after(score);
+
+
+            // let countPlace = 1;
+            // for(let i=0; i < localStorage.length; i++) {
+            //     let key = localStorage.key(i);
+            //     if(key.match(/place/)){
+            //         if(key.slice(-4))
+            //      //countPlace++;
+            //     }
+            //  }
+
+
 
             setTimeout(() => {
                 document.querySelector('.btn__close').addEventListener('click', () => {

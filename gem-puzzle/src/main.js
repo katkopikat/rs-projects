@@ -3,26 +3,13 @@ import PicturePuzzle from './PicturePuzzle';
 import NumberPuzzle from './NumberPuzzle';
 import createEnvironment from './environment';
 
+let mode = '', size = 4;
+
 createEnvironment();
-
-// function CSSLoad(file) {
-//     var link = document.createElement("link");
-//     link.setAttribute("rel", "stylesheet");
-//     link.setAttribute("type", "text/css");
-//     link.setAttribute("href", file);
-//     document.getElementsByTagName("head")[0].appendChild(link);
-// }
-
-//if (mode === 'numberMode') {
-//CSSLoad('style8.css');
-
-
-let mode = '',
-    size = 4;
-
 createNumberPuzzle()
 showSettings();
 newGame();
+
 function createNumberPuzzle() {
     console.log(mode);
     const numberPuzzle = new NumberPuzzle(
@@ -53,13 +40,11 @@ function showSettings() {
             <span class="line line--vertical"></span>
         </span>
         <h2>Settings</h2>
-
         <span class="type_block">
          <span class="btn__type">mode: </span>
             <span class="settings__item mode--number active_mode" data-mode="active_mode">number</span>
             <span class="settings__item mode--picture" data-mode="inactive_mode">picture</span>
         </span><br>
-
         <span class="size_block">
         <span class="btn__size">field: </span>
             <span class="settings__item size__item size3" data-size="inactive_size"> 3x3 </span>
@@ -69,13 +54,12 @@ function showSettings() {
             <span class="settings__item size__item size7" data-size="inactive_size"> 7x7 </span>
             <span class="settings__item size__item size8" data-size="inactive_size"> 8x8 </span>
 </span><br>
-
 <span class="sound_block">
         <span class="btn__sound">sound: </span>
             <span class="settings__item sound--on active_sound " data-sound="active_sound">on</span>
             <span class="settings__item sound--off" data-sound="inactive_sound">off</span>
 </span>
-        <span class="btn__close">
+        <span class="btn__close close-settings">
             <span class="close__line close-line--vert"></span>
             <span class="close__line close-line--horiz"></span>
         </span>`;
@@ -83,9 +67,12 @@ function showSettings() {
 
 
         setTimeout(() => {
-            let mode_picture = document.querySelector('.mode--picture'),
-                mode_number = document.querySelector('.mode--number'),
-                sizes = document.querySelectorAll('.size__item');
+            const mode_picture = document.querySelector('.mode--picture'),
+                  mode_number = document.querySelector('.mode--number'),
+                  sizes = document.querySelectorAll('.size__item'),
+                  soundOn = document.querySelector('.sound--on'),
+                  soundOff = document.querySelector('.sound--off'),
+                  audio = document.querySelector('.audio');
 
             sizes.forEach((item, index) => {
                 item.addEventListener('click', () => {
@@ -115,12 +102,29 @@ function showSettings() {
                 return mode;
             })
 
-            document.querySelector('.btn__close').addEventListener('click', () => {
-                settings.remove();
+        //sound off
+        soundOff.addEventListener('click', () => {
+            soundOn.classList.remove('active_sound');
+            soundOff.classList.add('active_sound');
+            audio.muted = true;
+            //this.audioOn = false;
+        })
 
+        //sound on
+        soundOn.addEventListener('click', () => {
+            soundOff.classList.remove('active_sound');
+            soundOn.classList.add('active_sound');
+            audio.muted = false;
+            
+           // this.audioOn = true;
+        })
+    
+            document.querySelector('.close-settings').addEventListener('click', () => {
+                settings.remove();
+            })
 
             }, 500);
-        })
+      
     })
 }
 
@@ -145,13 +149,3 @@ console.log(mode);
 
     })
 }
-
-
-
-// const picturePuzzle = new PicturePuzzle(
-//         document.querySelector('#puzzle-wrapper'),
-//         `https://raw.githubusercontent.com/irinainina/image-data/master/box/${randomImg}.jpg`,
-//         36, size, 'picture')
-// })
-
-//close settings

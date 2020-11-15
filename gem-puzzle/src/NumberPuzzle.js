@@ -1,17 +1,5 @@
 import CellNumber from './CellNumber';
 import Game from './Game';
-
-
-
-//     newGameBtn = document.querySelector('item--new_game'), 
-//     saveGameBtn = document.querySelector('item--save_game'), 
-//     scoresBtn = document.querySelector('item--scores'), 
-//     settingsBtn = document.querySelector('item--settings'), 
-//     rulesBtn = document.querySelector('item--rules');
-
-
-// let moves = document.querySelector('moves');
-
 export default class NumberPuzzle extends Game {
     constructor(container, width, size, mode) {
         super(container, width, size, mode);
@@ -34,13 +22,10 @@ export default class NumberPuzzle extends Game {
         this.generateCells();
         this.setLimite();
         this.addClickable();
+      //  this.loadGame();
         this.randomizeItem();
         this.countMoves = 0;
         this.showSolve();
-
-        //document.querySelector('.empty').ondragover = this.allowDrop;
-       // document.querySelector('.empty').ondrop = this.drop;
-
     }
 
     generateCells() {
@@ -48,9 +33,6 @@ export default class NumberPuzzle extends Game {
             this.cells.push(new CellNumber(this, i));
         }
         document.querySelector(`[data-id="${this.size*this.size}"]`).classList.add('empty');
-        
         this.clickItems();
     }
-
-
 }

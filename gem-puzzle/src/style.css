@@ -79,6 +79,7 @@ body {
 
 .menu {
     transition: all 0.3s ease-in-out;
+    margin-bottom: 2rem;
 }  
    
 .menu__item {
@@ -90,7 +91,13 @@ body {
     margin-top: -1.5rem;
 }
 
-
+.close--menu{
+    margin-top: 1rem;
+    transform: scale(0.7);
+    position: relative;
+    left: -12.5rem;
+    opacity: 0.5;
+}
 
 .item--new--open {
     transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0s;
