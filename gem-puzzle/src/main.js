@@ -13,7 +13,7 @@ newGame();
 
 function createNumberPuzzle() {
     const numberPuzzle = new NumberPuzzle(
-        document.querySelector('#puzzle-wrapper'), 36, size, 'number');
+        document.querySelector('#puzzle-wrapper'), 30, size, 'number');
     return mode = 'number';
 }
 
@@ -26,7 +26,7 @@ function createPictirePuzzle() {
     const picturePuzzle = new PicturePuzzle(
         document.querySelector('#puzzle-wrapper'),
         `https://raw.githubusercontent.com/irinainina/image-data/master/box/${randomImg}.jpg`,
-        36, size, 'picture')
+        30, size, 'picture')
 
     return  mode = 'picture';
 }

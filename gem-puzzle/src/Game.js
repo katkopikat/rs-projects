@@ -170,7 +170,8 @@ export default class Game {
     randomizeItem() {
         let randomNumb;
         if (this.size == 3) randomNumb = this.getRandomInt(30, 60);
-        if (this.size == 4) randomNumb = this.getRandomInt(100, 150);
+        //if (this.size == 4) randomNumb = this.getRandomInt(100, 150);
+        if (this.size == 4) randomNumb = this.getRandomInt(5, 10);
         if (this.size == 5 || this.size == 6 || this.size == 7) randomNumb = this.getRandomInt(150, 200);
         if (this.size == 8) randomNumb = this.getRandomInt(200, 250);
 
@@ -202,25 +203,24 @@ export default class Game {
 
     //remove 2 duplicate steps
     removeDuplicateSteps() {
-
         let arr = this.arrPosition.reverse();
-        for (let i = 0; i < arr.length; i++) {
-        // if (arr[i] == arr[i - 1]) {
-        //     console.log('2 одинаковых')
-        //     arr.splice(i, 1);
-        // }
-
-            let ArrOneStep = arr[i].split(',');
-            let ArrOneStepback = arr[i+1].split(',');
-
-            if (ArrOneStep[0] == ArrOneStepback[0] &&
-                ArrOneStep[1] == ArrOneStepback[2] && 
-                ArrOneStep[2] == ArrOneStepback[1]) {
-                    console.log(`туда-сюда: ${ArrOneStep} и ${ArrOneStepback}`)
-                arr.splice(i, 2);     
-            }
-
+        try {
+            for (let i = 0; i < arr.length; i++) {
+                    let ArrOneStep = arr[i].split(',');
+                    let ArrOneStepback = arr[i+1].split(',');
+        
+                    if (ArrOneStep[0] == ArrOneStepback[0] &&
+                        ArrOneStep[1] == ArrOneStepback[2] && 
+                        ArrOneStep[2] == ArrOneStepback[1]) {
+                        arr.splice(i, 2);     
+                    }
+        
+                }
+        } catch(e) {
+            console.log('')
         }
+  
+     
         console.log(arr)
         return this.arrPosition = arr;
     }
@@ -228,18 +228,10 @@ export default class Game {
     reverseHistory() {
         this.removeDuplicateSteps();
         let arr = this.arrPosition;
-        console.log(arr.length);//.reverse();
-       // let size = this.size;
         let i = 0;
-       // const grid = document.querySelectorAll('.cell');
-       
-
-       // grid.forEach(item => {
-       //     item.style.setProperty('transition', 'all 0.25s ease-in-out');
-       // })
 
         function delay() {
-            return new Promise(resolve => setTimeout(resolve, 350));
+            return new Promise(resolve => setTimeout(resolve, 250));
         }
 
         async function delayedLog(item) {
@@ -247,33 +239,12 @@ export default class Game {
 
             let ArrOneStep = arr[i].split(',');
 
-           
-            //console.log(ArrOneStep)
             let tempEmpty = document.querySelector('.empty');
-            
-
             let temp = document.querySelector(`[data-id="${ArrOneStep[0]}"]`);
 
-            // let distanse = parseInt(temp.style.width) + 1;
+            temp.style.order = `${ArrOneStep[1]}`;
+            tempEmpty.style.order = `${ArrOneStep[2]}`;
 
-            // if (ArrOneStep[2] == (ArrOneStep[1] + 1) ) {
-            //     temp.style.transform = `translateX(-${distanse}rem)`;
-
-            // } else if (ArrOneStep[2] == (ArrOneStep[1]- 1)) {
-            //     temp.style.transform = `translateX(${distanse}rem)`;
-
-            // } else if (ArrOneStep[2]== (ArrOneStep[1] + size) ) {
-            //     temp.style.transform = `translateY(-${distanse}rem)`;
-
-            // } else if (ArrOneStep[2] == (ArrOneStep[1] - size) ) {
-            //     temp.style.transform = `translateY(${distanse}rem)`;
-            // }
-
-           // setTimeout(()=>{
-                tempEmpty.style.order = `${ArrOneStep[2]}`;
-                temp.style.order = `${ArrOneStep[1]}`;
-           // },300)
-           
             i++;
         }
 
@@ -349,7 +320,6 @@ export default class Game {
             let id = document.querySelector(`[data-pos="${i}"]`).dataset.id;
             if (pos == id && i == this.size * this.size) {
                 this.showWinMessage();
-                console.log(`You win for ##:## ${this.countMoves} moves!`);
             } else if (pos == id) continue;
             else break;
         }
@@ -383,13 +353,14 @@ export default class Game {
     showWinMessage() {
         let win = document.createElement('div');
         win.classList.add('win');
+        const time = document.querySelector('.time').innerText;
         win.innerHTML =
             `<span class="corner">
                 <span class="line line--horizontal"></span>
                 <span class="line line--vertical"></span>
             </span>
             <h2>You won!</h2>
-            <p class="winText">You won in ##:## and ${this.countMoves} moves!</p>
+            <p class="winText">You won in ${time} and ${this.countMoves} moves!</p>
             <span class="btn__close">
                 <span class="close__line close-line--vert"></span>
                 <span class="close__line close-line--horiz"></span>
