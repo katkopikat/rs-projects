@@ -16,6 +16,8 @@ export default class Game {
         this.emptyPos;
         this.isAutoClick = false;
         this.audioOn = true;
+        this.gameIsPaused = false;
+        this.clearTimer()
         this.saveGame();
         this.openMenu();
     }
@@ -34,7 +36,7 @@ export default class Game {
         return div;
     }
 
-    //SET LIMIT FOR MOVE ITEMS
+    //se limites for moves
     setLimite() {
         for (let i = 1; i <= this.size * this.size; i += this.size) { //Ограничение слева
             this.limitLeft.push(i);
@@ -62,21 +64,18 @@ export default class Game {
             tempTop.classList.add('clickable');
             this.allowBtnForClick.push(this.emptyPos - this.size);
         }
-
         //вниз
         if (this.emptyPos + this.size <= this.size * this.size) {
             tempBottom = document.querySelector(`[data-pos="${this.emptyPos + this.size}"]`);
             tempBottom.classList.add('clickable');
             this.allowBtnForClick.push(this.emptyPos + this.size);
         }
-
         //влево
         if (!this.limitLeft.includes(this.emptyPos)) {
             tempLeft = document.querySelector(`[data-pos="${this.emptyPos - 1}"]`);
             tempLeft.classList.add('clickable');
             this.allowBtnForClick.push(this.emptyPos - 1);
         }
-
         //вправо
         if (!this.limitRight.includes(this.emptyPos)) {
             tempRight = document.querySelector(`[data-pos="${this.emptyPos + 1}"]`);
@@ -112,7 +111,6 @@ export default class Game {
                 //animation
                 if (!this.isAutoClick) {
                     if (this.audioOn) {
-                        // audio.muted = false;
                         audio.play();
                     }
                     if (e.target.style.order == this.emptyPos + 1) {
@@ -168,10 +166,15 @@ export default class Game {
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
     }
-
     //make n-random autoclick for ransomize items on the field
     randomizeItem() {
-        let randomNumb = this.getRandomInt(4, 7);
+        let randomNumb;
+        if (this.size == 3) randomNumb = this.getRandomInt(30, 60);
+        if (this.size == 4) randomNumb = this.getRandomInt(100, 150);
+        if (this.size == 5 || this.size == 6 || this.size == 7) randomNumb = this.getRandomInt(150, 200);
+        if (this.size == 8) randomNumb = this.getRandomInt(200, 250);
+
+        console.log(randomNumb);
         for (let i = 0; i < randomNumb; i++) {
             this.isAutoClick = true;
             this.autoClickItems();
@@ -187,7 +190,8 @@ export default class Game {
     }
     //remove autoclick-flag
     updateAfterAutoClick() {
-        this.isAutoClick = false
+        this.isAutoClick = false;
+        this.startTimer();
         return this.isAutoClick;
     }
 
@@ -198,32 +202,78 @@ export default class Game {
 
     //remove 2 duplicate steps
     removeDuplicateSteps() {
-        for (let i = 0; i < this.arrPosition.length; i++) {
-            if (this.arrPosition[i] == this.arrPosition[i - 1]) {
-                this.arrPosition.splice(i, 1);
+
+        let arr = this.arrPosition.reverse();
+        for (let i = 0; i < arr.length; i++) {
+        // if (arr[i] == arr[i - 1]) {
+        //     console.log('2 одинаковых')
+        //     arr.splice(i, 1);
+        // }
+
+            let ArrOneStep = arr[i].split(',');
+            let ArrOneStepback = arr[i+1].split(',');
+
+            if (ArrOneStep[0] == ArrOneStepback[0] &&
+                ArrOneStep[1] == ArrOneStepback[2] && 
+                ArrOneStep[2] == ArrOneStepback[1]) {
+                    console.log(`туда-сюда: ${ArrOneStep} и ${ArrOneStepback}`)
+                arr.splice(i, 2);     
             }
+
         }
-        return this.arrPosition;
+        console.log(arr)
+        return this.arrPosition = arr;
     }
     //solve animation (reverse animation)
     reverseHistory() {
         this.removeDuplicateSteps();
-        let arr = this.arrPosition.reverse();
+        let arr = this.arrPosition;
+        console.log(arr.length);//.reverse();
+       // let size = this.size;
         let i = 0;
+       // const grid = document.querySelectorAll('.cell');
+       
+
+       // grid.forEach(item => {
+       //     item.style.setProperty('transition', 'all 0.25s ease-in-out');
+       // })
 
         function delay() {
-            return new Promise(resolve => setTimeout(resolve, 100));
+            return new Promise(resolve => setTimeout(resolve, 350));
         }
 
         async function delayedLog(item) {
             await delay();
 
             let ArrOneStep = arr[i].split(',');
-            let temp = document.querySelector(`[data-id="${ArrOneStep[0]}"]`);
-            temp.style.order = `${ArrOneStep[1]}`;
-            let tempEmpty = document.querySelector('.empty');
-            tempEmpty.style.order = `${ArrOneStep[2]}`;
 
+           
+            //console.log(ArrOneStep)
+            let tempEmpty = document.querySelector('.empty');
+            
+
+            let temp = document.querySelector(`[data-id="${ArrOneStep[0]}"]`);
+
+            // let distanse = parseInt(temp.style.width) + 1;
+
+            // if (ArrOneStep[2] == (ArrOneStep[1] + 1) ) {
+            //     temp.style.transform = `translateX(-${distanse}rem)`;
+
+            // } else if (ArrOneStep[2] == (ArrOneStep[1]- 1)) {
+            //     temp.style.transform = `translateX(${distanse}rem)`;
+
+            // } else if (ArrOneStep[2]== (ArrOneStep[1] + size) ) {
+            //     temp.style.transform = `translateY(-${distanse}rem)`;
+
+            // } else if (ArrOneStep[2] == (ArrOneStep[1] - size) ) {
+            //     temp.style.transform = `translateY(${distanse}rem)`;
+            // }
+
+           // setTimeout(()=>{
+                tempEmpty.style.order = `${ArrOneStep[2]}`;
+                temp.style.order = `${ArrOneStep[1]}`;
+           // },300)
+           
             i++;
         }
 
@@ -241,10 +291,30 @@ export default class Game {
         });
     }
 
+    startTimer() {
+        let timeMinute = 0,
+            seconds = 0,
+            minutes = 0;
+        let timer = setInterval(() => {
+            seconds = timeMinute % 60
+            minutes = Math.trunc(timeMinute / 60 % 60)
+
+            let secText = seconds > 9 ? "" + seconds : "0" + seconds;
+            let minText = minutes > 9 ? "" + minutes : "0" + minutes;
+
+            document.querySelector('.time').innerText = `Time: ${minText}:${secText}`;
+            ++timeMinute;
+        }, 1000)
+    }
+
+    clearTimer() {
+
+    }
+
     saveGame() {
         document.querySelector('.item--save_game').addEventListener('click', () => {
             console.log('записать в local')
-            //console.log(this.arrPosition)
+
             localStorage.setItem('savedgame', this.arrPosition);
 
         });
@@ -288,25 +358,25 @@ export default class Game {
     openMenu() {
         document.querySelector('.menu__btn').addEventListener('click', () => {
             document.querySelector('.menu').classList.remove('inactive');
-            console.log('click');
             document.querySelector('.item--new_game').classList.add('item--new--open');
             document.querySelector('.item--save_game').classList.add('item--save--open');
             document.querySelector('.item--scores').classList.add('item--scores--open');
             document.querySelector('.item--settings').classList.add('item--settings--open');
             document.querySelector('.item--rules').classList.add('item--rules--open');
             document.querySelector('.item--solution').classList.add('item--solution--open');
+
         });
+
         this.showRules();
         this.showScore();
         this.closeMenu();
+        return this.gameIsPaused;
         //this.showSettings();
-
     }
-    closeMenu(){
-        console.log('закрыть меню')
-        document.querySelector('.close--menu').addEventListener('click', () => {
-        document.querySelector('.menu').classList.add('inactive');
 
+    closeMenu() {
+        document.querySelector('.close--menu').addEventListener('click', () => {
+            document.querySelector('.menu').classList.add('inactive');
         })
     }
 
@@ -408,7 +478,6 @@ export default class Game {
             </span>`;
             document.querySelector('.header').after(score);
 
-
             // let countPlace = 1;
             // for(let i=0; i < localStorage.length; i++) {
             //     let key = localStorage.key(i);
@@ -418,8 +487,6 @@ export default class Game {
             //     }
             //  }
 
-
-
             setTimeout(() => {
                 document.querySelector('.btn__close').addEventListener('click', () => {
                     score.remove();
@@ -427,6 +494,4 @@ export default class Game {
             }, 500);
         })
     }
-
-
 }

@@ -8,6 +8,7 @@ export default class NumberPuzzle extends Game {
         this.height = width;
         this.size = size;
         this.mode = mode;
+      
         this.cells = [];
         this.historyMoves = [];
         this.historyMovesOrder = [];

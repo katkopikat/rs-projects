@@ -20,18 +20,20 @@ export default class Cell {
 
         div.style.backgroundImage = `url(${this.puzzle.imageSrc})`;
         div.style.backgroundSize = `${this.puzzle.width}rem ${this.puzzle.height}rem`;
-        //div.style.position = 'absolute';
-       // div.style.border = '1px solid #FFF';
+
+        div.innerText = `${this.index+1}`;   
+        div.style.color = 'rgba(255,255,255,0.3)'
+
         let blockWidth = this.puzzle.width /this.puzzle.size;
         let blockHeight = this.puzzle.height /this.puzzle.size;
   
+    
         const left = blockWidth * (this.index % this.puzzle.size);
         const top = blockHeight * (Math.floor(this.index / this.puzzle.size) );
 
         div.style.height = `${this.puzzle.height /this.puzzle.size - 0.2}rem`;
         div.style.width = `${this.puzzle.width /this.puzzle.size - 0.2}rem`;
-        //div.style.left = `${left}px`;
-       // div.style.top = `${top}px`;
+
        div.style.backgroundPosition = `-${left}rem -${top}rem`;
 
         return div;

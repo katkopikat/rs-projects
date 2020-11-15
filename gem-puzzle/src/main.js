@@ -3,7 +3,8 @@ import PicturePuzzle from './PicturePuzzle';
 import NumberPuzzle from './NumberPuzzle';
 import createEnvironment from './environment';
 
-let mode = '', size = 4;
+let mode = '',
+    size = 4;
 
 createEnvironment();
 createNumberPuzzle()
@@ -11,22 +12,23 @@ showSettings();
 newGame();
 
 function createNumberPuzzle() {
-    console.log(mode);
     const numberPuzzle = new NumberPuzzle(
         document.querySelector('#puzzle-wrapper'), 36, size, 'number');
+    return mode = 'number';
 }
 
 function createPictirePuzzle() {
-    console.log(mode);
     const setRandomImg = (min, max) => {
-        return Math.floor(Math.random() * (max - min) + min);
-    };
+        return Math.floor(Math.random() * (max - min) + min);};
+
     let randomImg = setRandomImg(1, 151);
 
     const picturePuzzle = new PicturePuzzle(
         document.querySelector('#puzzle-wrapper'),
         `https://raw.githubusercontent.com/irinainina/image-data/master/box/${randomImg}.jpg`,
         36, size, 'picture')
+
+    return  mode = 'picture';
 }
 
 function showSettings() {
@@ -68,15 +70,18 @@ function showSettings() {
 
         setTimeout(() => {
             const mode_picture = document.querySelector('.mode--picture'),
-                  mode_number = document.querySelector('.mode--number'),
-                  sizes = document.querySelectorAll('.size__item'),
-                  soundOn = document.querySelector('.sound--on'),
-                  soundOff = document.querySelector('.sound--off'),
-                  audio = document.querySelector('.audio');
+                mode_number = document.querySelector('.mode--number'),
+                sizes = document.querySelectorAll('.size__item'),
+                soundOn = document.querySelector('.sound--on'),
+                soundOff = document.querySelector('.sound--off'),
+                audio = document.querySelector('.audio');
 
             sizes.forEach((item, index) => {
+                console.log(mode)
                 item.addEventListener('click', () => {
                     size = index + 3;
+                    document.querySelector('.active_size').classList.remove('active_size');
+                    item.classList.add('active_size');
                     document.querySelector('.puzzle').remove();
                     if (mode == 'number') {
                         createNumberPuzzle();
@@ -102,49 +107,41 @@ function showSettings() {
                 return mode;
             })
 
-        //sound off
-        soundOff.addEventListener('click', () => {
-            soundOn.classList.remove('active_sound');
-            soundOff.classList.add('active_sound');
-            audio.muted = true;
-            //this.audioOn = false;
-        })
+            //sound off
+            soundOff.addEventListener('click', () => {
+                soundOn.classList.remove('active_sound');
+                soundOff.classList.add('active_sound');
+                audio.muted = true;
+                //this.audioOn = false;
+            })
 
-        //sound on
-        soundOn.addEventListener('click', () => {
-            soundOff.classList.remove('active_sound');
-            soundOn.classList.add('active_sound');
-            audio.muted = false;
-            
-           // this.audioOn = true;
-        })
-    
+            //sound on
+            soundOn.addEventListener('click', () => {
+                soundOff.classList.remove('active_sound');
+                soundOn.classList.add('active_sound');
+                audio.muted = false;
+
+                // this.audioOn = true;
+            })
+
             document.querySelector('.close-settings').addEventListener('click', () => {
                 settings.remove();
             })
 
-            }, 500);
-      
+        }, 500);
+
     })
 }
 
 function newGame() {
     document.querySelector('.item--new_game').addEventListener('click', () => {
-console.log(mode);
+        console.log(mode);
         if (mode == 'number') {
-            mode = 'number';
-            //mode_picture.classList.remove('active_mode');
-            //mode_number.classList.add('active_mode');
             document.querySelector('.puzzle').remove();
             createNumberPuzzle();
-            return mode;
         } else {
-            mode = 'picture';
-            //mode_picture.classList.add('active_mode');
-           // mode_number.classList.remove('active_mode');
             document.querySelector('.puzzle').remove();
             createPictirePuzzle();
-            return mode;
         }
 
     })

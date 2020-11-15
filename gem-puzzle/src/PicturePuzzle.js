@@ -63,7 +63,7 @@ export default class PicturePuzzle extends Game{
 
     generateCells() {
         for (let i = 0; i < this.size * this.size; i++) {
-            this.cells.push(new Cell(this, i));   
+            this.cells.push(new Cell(this, i));
         }
          document.querySelector(`[data-id="${this.size*this.size}"]`).classList.add('empty');
          //document.querySelector(`[data-id="${this.size*this.size}"]`).setAttribute('id','empty');

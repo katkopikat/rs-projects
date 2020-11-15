@@ -2,7 +2,7 @@ export default class Timer {
     constructor() {
         this.seconds = 0;
         this.minutes = 0;
-        this.createTimer();
+        //this.createTimer();
         this.time = document.querySelector('.time');
     }
 
