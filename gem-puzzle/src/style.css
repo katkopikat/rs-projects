@@ -1,0 +1,398 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #171717;
+}
+
+.content{
+    width: 100%;
+    margin: 0 auto;
+}
+.wrapper{
+max-width: 1024px;
+margin: 0 auto;
+
+}
+.puzzle-wrapper{
+    transition: all 0.3s ease-in-out;
+}
+.puzzle {
+    margin: 0px auto;
+    width: 500px;
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    transition: flex 300ms ease;
+
+}
+
+.game__name {
+    font-family: 'Spartan', sans-serif;
+    color: white;
+    font-size: 5rem;
+    font-weight: 500;
+}
+
+.header {
+    display: flex;
+    margin-left: 4rem;
+    margin-top: 2rem;
+    padding-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.status__item {
+    margin-right: 1rem;
+}
+
+.time {
+    color: #2AB6E1;
+}
+
+.moves {
+    color: #E502F1;
+}
+
+.menu__btn {
+    color: #05D9DD;
+}
+
+.menu__btn:hover {
+    color: white;
+    cursor: pointer;
+}
+
+
+.menu {
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 2rem;
+}  
+   
+.menu__item {
+    font-size: 1.1rem;
+    color: #4A4A4A;
+    margin-bottom: 0.2rem;
+    list-style-type: none;
+    opacity: 0;
+    margin-top: -1.5rem;
+}
+
+.close--menu{
+    margin-top: 1rem;
+    transform: scale(0.7);
+    position: relative;
+    left: -12.5rem;
+    opacity: 0.5;
+}
+
+.item--new--open {
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0s;
+    margin-top: 0rem;
+    opacity: 1;
+
+}
+.item--save--open {
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.1s;
+    margin-top: 0rem;
+    opacity: 1;
+
+}
+.item--scores--open  {
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.2s;
+    margin-top: 0rem;
+    opacity: 1;
+
+}
+
+.item--settings--open  {
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.3s;
+    margin-top: 0rem;
+    opacity: 1;
+
+}
+
+.item--rules--open  {
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.4s;
+    margin-top: 0rem;
+    opacity: 1;
+
+}
+.item--solution--open  {
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.5s;
+    margin-top: 0rem;
+    opacity: 1;
+}
+
+li:hover {
+    color: #05D9DD;
+    cursor: pointer;
+}
+
+.cell {
+    height: 24%;
+    width: 24%;
+    margin: 0.1rem;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    user-select: none;
+    text-align: center;
+    font-family: 'Spartan', sans-serif;
+    color: white;
+}
+
+
+.cell__img4{
+    height: 24%;
+    width: 24%;
+    margin: 0.1rem;
+}
+[data-id="1"] {
+    background-color: #05D9DD;
+}
+
+[data-id="2"] {
+    background-color: #2AB6E1;
+}
+
+[data-id="3"] {
+    background-color: #287EE0;
+}
+
+[data-id="4"] {
+    background-color: #354DD5;
+}
+
+[data-id="5"] {
+    background-color: #24BBE0;
+}
+
+[data-id="6"] {
+    background-color: #5989E5;
+}
+
+[data-id="7"] {
+    background-color: #4757F2;
+}
+
+[data-id="8"] {
+    background-color: #2E3AB4;
+}
+
+[data-id="9"] {
+    background-color: #B93CF2;
+}
+
+[data-id="10"] {
+    background-color: #8574F2;
+}
+
+[data-id="11"] {
+    background-color: #3B57E6;
+}
+
+[data-id="12"] {
+    background-color: #282896;
+}
+
+[data-id="13"] {
+    background-color: #E502F1;
+}
+
+[data-id="14"] {
+    background-color: #A10FD5;
+}
+
+[data-id="15"] {
+    background-color: #631BBC;
+}
+
+
+/*--------------Rules-----------------*/
+.rules,
+.settings,
+.win,
+.score {
+    position: relative;
+    color: white;
+    font-size: 1rem;
+    max-width: 40vw;
+    margin: 0 auto;
+    padding-bottom: 3rem;
+}
+
+.score > ul{
+    margin-left: 2rem;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.2rem;
+    list-style: none;
+}
+
+h2 {
+    font-family: 'Spartan', sans-serif;
+    color: white;
+    font-size: 3rem;
+    font-weight: 500;
+    margin-left: 1.7rem;
+    padding-top: 1.7rem;
+    padding-bottom: 1rem;
+}
+.win > h2{
+    padding-bottom: 0;
+} 
+.rules p {
+    margin-left: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.winText{
+    margin-left: 2rem;
+
+}
+.corner {
+    position: relative;
+}
+
+.line {
+    position: absolute;
+    width: 8.4rem;
+    height: 0.15rem;
+    background-color: white;
+}
+
+.line--vertical {
+    transform: rotate(90deg);
+    position: absolute;
+    left: -4.2rem;
+    top: 4.15rem;
+}
+
+.btn__close {
+    position: absolute;
+    right: 0rem;
+    top: 0rem;
+    width: 3rem;
+    height: 3rem;
+    transition: all 0.2s ease-in;
+}
+
+.btn__close:hover {
+    transform: rotate(-45deg);
+    transition: all 0.2s ease-in;
+    cursor: pointer;
+}
+
+.close__line {
+    position: absolute;
+    width: 2rem;
+    height: 0.15rem;
+    background-color: white;
+}
+
+.close-line--vert {
+    transform: rotate(90deg);
+    position: absolute;
+    left: 0rem;
+    top: 0rem;
+}
+
+.solve{
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* [data-mode="active_mode"],
+[data-size="active_size"],
+[data-sound="active_sound"]{
+    color: #05D9DD;
+    opacity: 1;
+} */
+
+.settings__item:hover {
+    cursor: pointer;
+    color: #05D9DD;
+}
+
+.active_sound,
+.active_mode,
+.active_size {
+    cursor: pointer;
+    color: #05D9DD;
+    opacity: 1;
+}
+
+
+/* [data-size="active_size"],
+[data-sound="active_sound"]{
+    color: #05D9DD;
+    opacity: 1;
+} */
+
+
+.type_block,
+.size_block,
+.sound_block{
+    display: inline-block;
+    margin-left: 2rem;
+    margin-bottom: 0.8rem;
+}
+
+.btn__type{
+    padding-right: 2rem;
+}
+.btn__size{
+    padding-right: 2.8rem;
+}
+.btn__sound{
+    padding-right: 1.7rem;
+}
+
+/* .type_block > span,
+.size_block > span,
+.sound_block > span{
+} */
+
+
+.disabled {
+    pointer-events: none;
+}
+
+.clickable {
+    pointer-events: auto;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+
+.empty{
+    color: #171717;
+    background-image: none !important;
+    background-color: #171717;
+    pointer-events: auto;
+
+}
+
+.settings > span {
+    color: white;
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.inactive {
+    transition: all 0.3s ease-in-out;
+    display: none;
+}
+
+ .empty{
+ color: rgba(255,255,255,0) !important;
+ }
+ 
