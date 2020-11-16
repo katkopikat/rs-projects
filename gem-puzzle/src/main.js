@@ -13,7 +13,7 @@ newGame();
 
 function createNumberPuzzle() {
     const numberPuzzle = new NumberPuzzle(
-        document.querySelector('#puzzle-wrapper'), 30, size, 'number');
+        document.querySelector('.puzzle-wrapper'), 30, size, 'number');
     return mode = 'number';
 }
 
@@ -24,7 +24,7 @@ function createPictirePuzzle() {
     let randomImg = setRandomImg(1, 151);
 
     const picturePuzzle = new PicturePuzzle(
-        document.querySelector('#puzzle-wrapper'),
+        document.querySelector('.puzzle-wrapper'),
         `https://raw.githubusercontent.com/irinainina/image-data/master/box/${randomImg}.jpg`,
         30, size, 'picture')
 
@@ -77,7 +77,7 @@ function showSettings() {
                 audio = document.querySelector('.audio');
 
             sizes.forEach((item, index) => {
-                console.log(mode)
+
                 item.addEventListener('click', () => {
                     size = index + 3;
                     document.querySelector('.active_size').classList.remove('active_size');
@@ -130,12 +130,13 @@ function showSettings() {
 
         }, 500);
 
+        
+
     })
 }
 
 function newGame() {
     document.querySelector('.item--new_game').addEventListener('click', () => {
-        console.log(mode);
         if (mode == 'number') {
             document.querySelector('.puzzle').remove();
             createNumberPuzzle();
