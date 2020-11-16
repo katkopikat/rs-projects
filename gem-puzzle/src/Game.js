@@ -18,7 +18,7 @@ export default class Game {
         this.audioOn = true;
         this.gameIsPaused = false;
         this.timerId;
-       
+
         this.saveGame();
         this.openMenu();
     }
@@ -92,7 +92,6 @@ export default class Game {
         this.allowBtnForClick = [];
         document.querySelectorAll('.clickable').forEach(item => {
             item.classList.remove('clickable');
-            //item.draggable = false;
         });
         return this.allowBtnForClick;
     }
@@ -102,7 +101,6 @@ export default class Game {
         const empty = document.querySelector('.empty'),
             grid = document.querySelectorAll('.cell'),
             audio = document.querySelector('.audio');
-        // audio.muted = true;
 
         grid.forEach((item, index) => {
             item.addEventListener('click', (e) => {
@@ -143,7 +141,7 @@ export default class Game {
                         this.gameIsSolved();
                         this.deleteClickable();
                         this.addClickable();
-                        if( this.countMoves == 1 ){
+                        if (this.countMoves == 1) {
                             this.startTimer();
                         }
                     }, 350)
@@ -157,13 +155,13 @@ export default class Game {
                     this.arrPosition.push(`${index+1},${curPos},${this.emptyPos}`);
                     this.deleteClickable();
                     this.addClickable();
-                    if( this.countMoves == 1 ){
+                    if (this.countMoves == 1) {
                         this.startTimer();
                     }
                 }
             });
         });
-     
+
         return this.arrPosition;
     }
 
@@ -200,7 +198,6 @@ export default class Game {
     //remove autoclick-flag
     updateAfterAutoClick() {
         this.isAutoClick = false;
-       // this.clearTimer();
         return this.isAutoClick;
     }
 
@@ -274,7 +271,7 @@ export default class Game {
         let timeMinute = 0,
             seconds = 0,
             minutes = 0;
-            this.timerId = setInterval(() => {
+        this.timerId = setInterval(() => {
             seconds = timeMinute % 60
             minutes = Math.trunc(timeMinute / 60 % 60)
 
@@ -287,17 +284,15 @@ export default class Game {
     }
 
     clearTimer() {
-
-        setTimeout(() => { clearInterval(this.timerId ) }, 0);
+        setTimeout(() => {
+            clearInterval(this.timerId)
+        }, 0);
     }
-
 
     saveGame() {
         document.querySelector('.item--save_game').addEventListener('click', () => {
-            console.log('записать в local')
-
+            console.log('Игра записана в localStorage')
             localStorage.setItem('savedgame', this.arrPosition);
-
         });
     }
 
@@ -326,8 +321,8 @@ export default class Game {
 
     gameIsSolved() {
         for (let i = 1; i <= this.size * this.size; i++) {
-            let pos = document.querySelector(`[data-pos="${i}"]`).dataset.pos;
-            let id = document.querySelector(`[data-pos="${i}"]`).dataset.id;
+            const pos = document.querySelector(`[data-pos="${i}"]`).dataset.pos;
+            const id = document.querySelector(`[data-pos="${i}"]`).dataset.id;
             if (pos == id && i == this.size * this.size) {
                 this.showWinMessage();
                 this.clearTimer();
@@ -345,14 +340,12 @@ export default class Game {
             document.querySelector('.item--settings').classList.add('item--settings--open');
             document.querySelector('.item--rules').classList.add('item--rules--open');
             document.querySelector('.item--solution').classList.add('item--solution--open');
-
         });
 
         this.showRules();
         this.showScore();
         this.closeMenu();
         return this.gameIsPaused;
-        //this.showSettings();
     }
 
     closeMenu() {
@@ -427,8 +420,11 @@ export default class Game {
             if (key.match(/place/)) {
                 countPlace++;
             }
+            
         }
-        localStorage.setItem(`place${countPlace}`, `.........${this.size}...........${this.mode}.........##:##...........${this.countMoves}`);
+        const time = document.querySelector('.time').innerText.replace("Time:", '');
+            localStorage.setItem(`place${countPlace}`, 
+            `.............${this.countMoves}.............${time}............${this.size}..........${this.mode}`);
     }
 
     showScore() {
@@ -437,41 +433,41 @@ export default class Game {
             let score = document.createElement('div');
             score.classList.add('score');
 
-            let currencyResalt = localStorage.getItem(`place${countPlace}`);
             score.innerHTML =
                 `<span class="corner">
                 <span class="line line--horizontal"></span>
                 <span class="line line--vertical"></span>
             </span>
             <h2>Best scores</h2>
-         <ul>
-         <li class="score_position">#.........Field.........Mode.........Time.........Steps</li>
-         <li class="score_position">1..............................................</li>
-         <li class="score_position">2..............................................</li>
-         <li class="score_position">3..............................................</li>
-         <li class="score_position">4..............................................</li>
-         <li class="score_position">5..............................................</li>
-         <li class="score_position">6..............................................</li>
-         <li class="score_position">7..............................................</li>
-         <li class="score_position">8..............................................</li>
-         <li class="score_position">9..............................................</li>
-         <li class="score_position">10.............................................</li>
+         <ul class="scores__list">
+         <li class="score_position position_heading">#.........Steps.........Time.........Field.........Mode</li>
          </ul>
-            <span class="btn__close btn__close--scrore">
+            <span class="btn__close btn__close--score">
                 <span class="close__line close-line--vert"></span>
                 <span class="close__line close-line--horiz"></span>
             </span>`;
             document.querySelector('.header').after(score);
 
-            // let countPlace = 1;
-            // for(let i=0; i < localStorage.length; i++) {
-            //     let key = localStorage.key(i);
-            //     if(key.match(/place/)){
-            //         if(key.slice(-4))
-            //      //countPlace++;
-            //     }
-            //  }
+            let allHiastory = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                let key = localStorage.key(i);
+                if (key.match(/place/)) {
+                    allHiastory.push( localStorage.getItem(`place${i+1}`) );
+                }
+            }
+            allHiastory.sort((a, b) => a - b)
 
+            for (let i = 0; i < allHiastory.length; i++) {
+                if( i < 10){
+                    let scoreLi = document.createElement('li');
+                    scoreLi.classList.add('score_position');
+                    scoreLi.classList.add(`position${i+1}`);
+
+                    const curPos = document.querySelector('.scores__list').lastChild;
+                    curPos.after(scoreLi);
+                    scoreLi.innerText =`${i+1}${allHiastory[i]}`;
+                }
+            }
             setTimeout(() => {
                 document.querySelector('.btn__close--score').addEventListener('click', () => {
                     score.remove();
