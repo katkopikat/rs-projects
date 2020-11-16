@@ -18,13 +18,15 @@ export default class NumberPuzzle extends Game {
         this.limitLeft = [];
         this.limitRight = [];
         this.allowBtnForClick = [];
-
         this.init();
         this.generateCells();
         this.setLimite();
         this.addClickable();
       //  this.loadGame();
+        //this.clearTimer()
+
         this.randomizeItem();
+        
         this.countMoves = 0;
         this.showSolve();
     }
