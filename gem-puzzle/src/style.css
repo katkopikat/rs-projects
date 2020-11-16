@@ -436,8 +436,9 @@ h2{
     }
     }
 
-    @media (max-width: 768px){}
+    @media (max-width: 768px){
 .rules, .settings, .win, .score {
     font-size: 0.8rem;
     max-width: 83vw;
 }
+    }
