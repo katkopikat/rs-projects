@@ -34,6 +34,8 @@ export default class Game {
         div.style.position = 'relative';
         div.style.margin = '2rem auto';
         div.style.width = `${this.width}rem`;
+        document.querySelector('.wrapper').append(div);
+
         return div;
     }
 
@@ -106,7 +108,7 @@ export default class Game {
             item.addEventListener('click', (e) => {
 
                 item.style.setProperty('transition', 'all 0.3s ease-in-out');
-                let distanse = parseInt(item.style.width) + 1;
+                let distanse = parseInt(item.style.width) + 0.6;
                 //animation
                 if (!this.isAutoClick) {
                     if (this.audioOn) {
@@ -176,12 +178,11 @@ export default class Game {
     randomizeItem() {
         let randomNumb;
         if (this.size == 3) randomNumb = this.getRandomInt(30, 60);
-        //if (this.size == 4) randomNumb = this.getRandomInt(100, 150);
-        if (this.size == 4) randomNumb = this.getRandomInt(5, 10);
+        if (this.size == 4) randomNumb = this.getRandomInt(100, 150);
+        //if (this.size == 4) randomNumb = this.getRandomInt(5, 10);
         if (this.size == 5 || this.size == 6 || this.size == 7) randomNumb = this.getRandomInt(150, 200);
         if (this.size == 8) randomNumb = this.getRandomInt(200, 250);
 
-        console.log(randomNumb);
         for (let i = 0; i < randomNumb; i++) {
             this.isAutoClick = true;
             this.autoClickItems();
@@ -224,9 +225,6 @@ export default class Game {
         } catch (e) {
             console.log('')
         }
-
-
-        console.log(arr)
         return this.arrPosition = arr;
     }
     //solve animation (reverse animation)
@@ -403,15 +401,38 @@ export default class Game {
                 <span class="close__line close-line--horiz"></span>
             </span>`;
             document.querySelector('.header').after(rules);
-
+           
             setTimeout(() => {
+       
                 document.querySelector('.btn__close--rules').addEventListener('click', () => {
                     rules.remove();
                     document.querySelector('.menu').classList.add('inactive');
                 })
-            }, 500);
+            }, 1000);
         })
     }
+
+//     hideBlocksMenu(){
+        
+//         document.addEventListener('click', function(e) {
+//             if (e.target.class != 'rules') {
+//                 document.querySelector('.rules').remove();
+//             }
+
+
+//           });
+
+//    document.addEventListener('click', function(e) {
+//             if (e.target.class != 'score') {
+//                 document.querySelector('.score').remove();
+//             }
+//         });
+ 
+//         // document.querySelector('.btn__close--rules').onblur = function () {
+//         //     document.querySelector('.rules').remove();
+//         //     document.querySelector('.menu').classList.add('inactive');
+//         // }
+//     }
 
     saveResult() {
         let countPlace = 1;
@@ -420,15 +441,14 @@ export default class Game {
             if (key.match(/place/)) {
                 countPlace++;
             }
-            
+
         }
         const time = document.querySelector('.time').innerText.replace("Time:", '');
-            localStorage.setItem(`place${countPlace}`, 
+        localStorage.setItem(`place${countPlace}`,
             `.............${this.countMoves}.............${time}............${this.size}..........${this.mode}`);
     }
 
     showScore() {
-
         document.querySelector('.item--scores').addEventListener('click', () => {
             let score = document.createElement('div');
             score.classList.add('score');
@@ -452,28 +472,36 @@ export default class Game {
             for (let i = 0; i < localStorage.length; i++) {
                 let key = localStorage.key(i);
                 if (key.match(/place/)) {
-                    allHiastory.push( localStorage.getItem(`place${i+1}`) );
+                    allHiastory.push(localStorage.getItem(`place${i+1}`));
                 }
             }
             allHiastory.sort((a, b) => a - b)
 
             for (let i = 0; i < allHiastory.length; i++) {
-                if( i < 10){
+                if (i < 10) {
                     let scoreLi = document.createElement('li');
                     scoreLi.classList.add('score_position');
                     scoreLi.classList.add(`position${i+1}`);
 
                     const curPos = document.querySelector('.scores__list').lastChild;
                     curPos.after(scoreLi);
-                    scoreLi.innerText =`${i+1}${allHiastory[i]}`;
+                    scoreLi.innerText = `${i+1}${allHiastory[i]}`;
                 }
             }
             setTimeout(() => {
-                document.querySelector('.btn__close--score').addEventListener('click', () => {
-                    score.remove();
-                    document.querySelector('.menu').classList.add('inactive');
-                })
-            }, 500);
+                this.hideBlocksMenu();
+            //     document.querySelector('.btn__close--rules').addEventListener('click', () => {
+            //         rules.remove();
+            //         document.querySelector('.menu').classList.add('inactive');
+            //     })
+            }, 2000);
+
+            // setTimeout(() => {
+            //     document.querySelector('.btn__close--score').addEventListener('click', () => {
+            //         score.remove();
+            //         document.querySelector('.menu').classList.add('inactive');
+            //     })
+            // }, 500);
         })
     }
 }

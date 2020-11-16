@@ -231,7 +231,7 @@ li:hover {
     position: relative;
     color: white;
     font-size: 1rem;
-    max-width: 40vw;
+    max-width: 38vw;
     margin: 2rem auto;
     margin-bottom: 3rem;
 }
@@ -386,13 +386,6 @@ h2 {
 }
 
 
-.empty {
-    color: #171717;
-    background-image: none !important;
-    background-color: #171717;
-    pointer-events: auto;
-
-}
 
 .settings>span {
     color: white;
@@ -409,13 +402,40 @@ h2 {
     color: rgba(255, 255, 255, 0) !important;
 }
 
+
+
+.cell5, .cell7 {
+    background-color: #2AB6E1;
+}
+
+.cell6, .cell8 {
+    background-color: #8574F2;
+}
+
+.cell7  {
+    background-color: #354DD5;
+    font-size: 1.1rem;
+}
+
+.cell8  {
+    background-color: #4757F2;
+    font-size: 1rem;
+}
+
+.empty {
+    color: #171717;
+    background-image: none !important;
+    background-color: #171717;
+    pointer-events: auto;
+
+}
 @media (max-width: 1024px){
 .rules,
 .settings,
 .win,
 .score {
     font-size: 1rem;
-    max-width: 55vw;
+    max-width: 53vw;
 }
 h2{
     font-size: 2.7rem;
@@ -426,7 +446,7 @@ h2{
 @media (max-width: 768px){
     .rules,.settings,.win,.score {
         font-size: 0.9rem;
-        max-width: 70vw;
+        max-width: 62vw;
     
     }
     h2 {font-size: 2.3rem; }
@@ -439,6 +459,25 @@ h2{
     @media (max-width: 768px){
 .rules, .settings, .win, .score {
     font-size: 0.8rem;
-    max-width: 83vw;
+    max-width: 72vw;
 }
+    }
+
+@media (max-width: 500px){
+.rules, .settings, .win, .score {
+font-size: 0.8rem;
+max-width: 80vw;
+}
+
+
+.settings>span{
+        font-size: 0.8rem;
+
+    }
+
+    .score>ul{
+        font-size: 0.8rem;
+
+    }
+
     }

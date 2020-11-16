@@ -1,7 +1,13 @@
 export default function createEnvironment() {
+    let content = document.createElement('div');
+    content.className = "content";
+    document.body.prepend(content)
+
+    let wrapper = document.createElement('div');
+    wrapper.className = "wrapper";
+    content.prepend(wrapper);
 
     let header = document.createElement('div');
-    let wrapper = document.querySelector('.wrapper')
     header.className = "header";
     header.innerHTML = `<span class="header__wrapper"> 
                     <h1 class="game__name">#Gem<br> Puzzle</h1>
@@ -24,5 +30,10 @@ export default function createEnvironment() {
                     </ul>
                     </span>
                     <audio class="audio" src="assets/sounds/move.mp3"></audio>`;
-                    wrapper.prepend(header);
+    wrapper.prepend(header);
+
+   let puzzleContainer = document.createElement('div');  
+   puzzleContainer.className = "puzzle-wrapper";    
+   wrapper.append(puzzleContainer);  
+       
 }
