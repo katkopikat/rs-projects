@@ -17,7 +17,8 @@ export default class Game {
         this.isAutoClick = false;
         this.audioOn = true;
         this.gameIsPaused = false;
-        this.clearTimer()
+        this.timerId;
+       
         this.saveGame();
         this.openMenu();
     }
@@ -31,7 +32,7 @@ export default class Game {
         const div = document.createElement('div');
         div.className = 'puzzle';
         div.style.position = 'relative';
-        div.style.margin = '0 auto';
+        div.style.margin = '2rem auto';
         div.style.width = `${this.width}rem`;
         return div;
     }
@@ -142,6 +143,9 @@ export default class Game {
                         this.gameIsSolved();
                         this.deleteClickable();
                         this.addClickable();
+                        if( this.countMoves == 1 ){
+                            this.startTimer();
+                        }
                     }, 350)
 
                 } else {
@@ -153,9 +157,13 @@ export default class Game {
                     this.arrPosition.push(`${index+1},${curPos},${this.emptyPos}`);
                     this.deleteClickable();
                     this.addClickable();
+                    if( this.countMoves == 1 ){
+                        this.startTimer();
+                    }
                 }
             });
         });
+     
         return this.arrPosition;
     }
 
@@ -192,7 +200,7 @@ export default class Game {
     //remove autoclick-flag
     updateAfterAutoClick() {
         this.isAutoClick = false;
-        this.startTimer();
+       // this.clearTimer();
         return this.isAutoClick;
     }
 
@@ -206,21 +214,21 @@ export default class Game {
         let arr = this.arrPosition.reverse();
         try {
             for (let i = 0; i < arr.length; i++) {
-                    let ArrOneStep = arr[i].split(',');
-                    let ArrOneStepback = arr[i+1].split(',');
-        
-                    if (ArrOneStep[0] == ArrOneStepback[0] &&
-                        ArrOneStep[1] == ArrOneStepback[2] && 
-                        ArrOneStep[2] == ArrOneStepback[1]) {
-                        arr.splice(i, 2);     
-                    }
-        
+                let ArrOneStep = arr[i].split(',');
+                let ArrOneStepback = arr[i + 1].split(',');
+
+                if (ArrOneStep[0] == ArrOneStepback[0] &&
+                    ArrOneStep[1] == ArrOneStepback[2] &&
+                    ArrOneStep[2] == ArrOneStepback[1]) {
+                    arr.splice(i, 2);
                 }
-        } catch(e) {
+
+            }
+        } catch (e) {
             console.log('')
         }
-  
-     
+
+
         console.log(arr)
         return this.arrPosition = arr;
     }
@@ -266,7 +274,7 @@ export default class Game {
         let timeMinute = 0,
             seconds = 0,
             minutes = 0;
-        let timer = setInterval(() => {
+            this.timerId = setInterval(() => {
             seconds = timeMinute % 60
             minutes = Math.trunc(timeMinute / 60 % 60)
 
@@ -280,7 +288,9 @@ export default class Game {
 
     clearTimer() {
 
+        setTimeout(() => { clearInterval(this.timerId ) }, 0);
     }
+
 
     saveGame() {
         document.querySelector('.item--save_game').addEventListener('click', () => {
@@ -320,6 +330,7 @@ export default class Game {
             let id = document.querySelector(`[data-pos="${i}"]`).dataset.id;
             if (pos == id && i == this.size * this.size) {
                 this.showWinMessage();
+                this.clearTimer();
             } else if (pos == id) continue;
             else break;
         }
@@ -351,9 +362,9 @@ export default class Game {
     }
 
     showWinMessage() {
-        let win = document.createElement('div');
+        const win = document.createElement('div');
         win.classList.add('win');
-        const time = document.querySelector('.time').innerText;
+        const time = document.querySelector('.time').innerText.replace("Time:", '');
         win.innerHTML =
             `<span class="corner">
                 <span class="line line--horizontal"></span>
@@ -361,14 +372,14 @@ export default class Game {
             </span>
             <h2>You won!</h2>
             <p class="winText">You won in ${time} and ${this.countMoves} moves!</p>
-            <span class="btn__close">
+            <span class="btn__close btn__close--win">
                 <span class="close__line close-line--vert"></span>
                 <span class="close__line close-line--horiz"></span>
             </span>`;
-        document.querySelector('.header').after(win);
 
+        document.querySelector('.header').after(win);
         setTimeout(() => {
-            document.querySelector('.btn__close').addEventListener('click', () => {
+            document.querySelector('.btn__close--win').addEventListener('click', () => {
                 win.remove();
             })
         }, 500);
@@ -391,16 +402,19 @@ export default class Game {
                 <br>
                 You can save your game and load it later.<br>
                 Or you can just use pause button.<br>
-                Also you can choose game field size of color in Settings</p>
-            <span class="btn__close">
+                Also you can choose game field size and mode (picture or number),<br>
+                and turn on or tutn off sounds in Settings.<br>
+                Have a nice game!</p>
+            <span class="btn__close btn__close--rules">
                 <span class="close__line close-line--vert"></span>
                 <span class="close__line close-line--horiz"></span>
             </span>`;
             document.querySelector('.header').after(rules);
 
             setTimeout(() => {
-                document.querySelector('.btn__close').addEventListener('click', () => {
+                document.querySelector('.btn__close--rules').addEventListener('click', () => {
                     rules.remove();
+                    document.querySelector('.menu').classList.add('inactive');
                 })
             }, 500);
         })
@@ -443,7 +457,7 @@ export default class Game {
          <li class="score_position">9..............................................</li>
          <li class="score_position">10.............................................</li>
          </ul>
-            <span class="btn__close">
+            <span class="btn__close btn__close--scrore">
                 <span class="close__line close-line--vert"></span>
                 <span class="close__line close-line--horiz"></span>
             </span>`;
@@ -459,8 +473,9 @@ export default class Game {
             //  }
 
             setTimeout(() => {
-                document.querySelector('.btn__close').addEventListener('click', () => {
+                document.querySelector('.btn__close--score').addEventListener('click', () => {
                     score.remove();
+                    document.querySelector('.menu').classList.add('inactive');
                 })
             }, 500);
         })

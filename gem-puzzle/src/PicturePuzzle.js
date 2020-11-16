@@ -36,8 +36,7 @@ export default class PicturePuzzle extends Game{
 
       
         this.init();
-        //this.generateCells();
-     
+
         const img = new Image();
         img.onload = () => {
            this.height = img.height * this.width / img.width;
@@ -52,12 +51,7 @@ export default class PicturePuzzle extends Game{
         this.setLimite();
         this.addClickable();
         this.randomizeItem();
-       
         this.showSolve();
-
-        document.querySelector('.empty').ondragover = this.allowDrop;
-        document.querySelector('.empty').ondrop = this.drop;
-
     }
 
 
