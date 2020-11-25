@@ -1,69 +1,49 @@
-/*  eslint linebreak-style: ["error", "windows"]  */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = {
-  mode: 'development',
-  entry: './src/main.js',
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 9000,
-  },
-  module: {
-    rules: [
-      {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file-loader',
-        options: {
-          name: 'fonts/[name].[ext]',
-        },
-      },
-      {
-        test: /\.(png|jpe?g|gif)$/i,
-        loader: 'file-loader',
-        options: {
-          name: '[path][name].[ext]',
-          outputPath: (file) => {
-            const imagesPath = file.split('src/')[1];
-            return imagesPath;
-          },
-        },
-      },
-      {
-        test: /\.(mp3|wav)$/i,
-        loader: 'file-loader',
-        options: {
-          name: './assets/sounds/[name].[ext]',
-        },
-      },
+const config = {
+    context: path.resolve(__dirname, ''),
+    entry: './src/main.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'main.js',
+    },
+    devServer: {
+        port: 4200,
+        open: true,
+        contentBase: path.join(__dirname, './assets')
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+            },
+        ],
+    },
+    plugins: [
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({ template: './index.html' }),
+        new MiniCssExtractPlugin({ filename: 'src/style.css' }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, './assets'),
+                    to: path.resolve(__dirname, 'dist/assets')
+                },
+            ],
+        })
     ],
-  },
-  resolve: {
-    extensions: ['.js', '.scss', '.mp3'],
-  },
-  plugins: [
-    new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
-    new HtmlWebpackPlugin({
-      title: 'Output Management',
-      template: 'src/index.html',
-      minify: {
-        collapseWhitespace: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-      },
-    }),
-  ],
-  output: {
-    publicPath: './',
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
+};
+
+module.exports = (env, argv) => {
+    if (argv.mode === 'development') {
+        config.watch = true;
+        config.devtool = 'source-map';
+    }
+
+    return config;
 };
