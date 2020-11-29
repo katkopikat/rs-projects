@@ -6,24 +6,24 @@ export default class Cell {
 
     this.width = this.puzzle.width / this.puzzle.size;
     this.height = this.width;
-    this.container = this.createDiv();
+    this.container = this.createCellElement();
     puzzle.container.appendChild(this.container);
   }
 
-  createDiv() {
-    const div = document.createElement('div');
-    div.classList.add('cell');
-    div.classList.add('disabled');
+  createCellElement() {
+    const cellElement = document.createElement('div');
+    cellElement.classList.add('cell');
+    cellElement.classList.add('disabled');
 
-    div.style.order = `${this.index + 1}`;
-    div.dataset.id = `${this.index + 1}`;
-    div.dataset.pos = `${this.index + 1}`;
+    cellElement.style.order = `${this.index + 1}`;
+    cellElement.dataset.id = `${this.index + 1}`;
+    cellElement.dataset.pos = `${this.index + 1}`;
 
-    div.style.backgroundImage = `url(${this.puzzle.imageSrc})`;
-    div.style.backgroundSize = `${this.puzzle.width}rem ${this.puzzle.height}rem`;
+    cellElement.style.backgroundImage = `url(${this.puzzle.imageSrc})`;
+    cellElement.style.backgroundSize = `${this.puzzle.width}rem ${this.puzzle.height}rem`;
 
-    div.innerText = `${this.index + 1}`;
-    div.style.color = 'rgba(255,255,255,0.3)';
+    cellElement.innerText = `${this.index + 1}`;
+    cellElement.style.color = 'rgba(255,255,255,0.3)';
 
     const blockWidth = this.puzzle.width / this.puzzle.size;
     const blockHeight = this.puzzle.height / this.puzzle.size;
@@ -31,11 +31,11 @@ export default class Cell {
     const left = blockWidth * (this.index % this.puzzle.size);
     const top = blockHeight * (Math.floor(this.index / this.puzzle.size));
 
-    div.style.height = `${this.puzzle.height / this.puzzle.size - 0.2}rem`;
-    div.style.width = `${this.puzzle.width / this.puzzle.size - 0.2}rem`;
+    cellElement.style.height = `${this.puzzle.height / this.puzzle.size - 0.2}rem`;
+    cellElement.style.width = `${this.puzzle.width / this.puzzle.size - 0.2}rem`;
 
-    div.style.backgroundPosition = `-${left}rem -${top}rem`;
+    cellElement.style.backgroundPosition = `-${left}rem -${top}rem`;
 
-    return div;
+    return cellElement;
   }
 }

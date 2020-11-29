@@ -1,12 +1,13 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-param-reassign */
+
 export default class Game {
-  constructor(container, width, size, mode) {
+  constructor(container, width, size, mode, storage) {
     this.parentConteiner = container;
     this.width = width;
     this.size = size;
     this.mode = mode;
-    this.cells = [];
+    this.storage = storage;
     this.arrPosition = [];
     this.countMoves = 0;
     this.limitLeft = [];
@@ -18,8 +19,13 @@ export default class Game {
     this.gameIsPaused = false;
     this.audioOn = true;
 
+    this.scoresIsOpen = false;
+    this.rulesIsOpen = false;
+    this.settingsIsOpen = false;
+
     this.saveGame();
     this.openMenu();
+    this.storage.createResultsSet();
   }
 
   init() {
@@ -29,14 +35,14 @@ export default class Game {
   }
 
   createWrapper() {
-    const div = document.createElement('div');
-    div.className = 'puzzle';
-    div.style.position = 'relative';
-    div.style.margin = '2rem auto';
-    div.style.width = `${this.width}rem`;
-    document.querySelector('.wrapper').append(div);
+    const wrapper = document.createElement('div');
+    wrapper.className = 'puzzle';
+    wrapper.style.position = 'relative';
+    wrapper.style.margin = '2rem auto';
+    wrapper.style.width = `${this.width}rem`;
+    document.querySelector('.wrapper').append(wrapper);
 
-    return div;
+    return wrapper;
   }
 
   // set limites for moves
@@ -171,7 +177,7 @@ export default class Game {
   // make n-random autoclick for randomize items on the field
   randomizeItem() {
     let randomNumb;
-    if (this.size === 3) randomNumb = Game.getRandomInt(30, 60);
+    if (this.size === 3) randomNumb = Game.getRandomInt(40, 80);
     if (this.size === 4) randomNumb = Game.getRandomInt(100, 150);
     if (this.size === 5 || this.size === 6 || this.size === 7) {
       randomNumb = Game.getRandomInt(150, 200);
@@ -210,12 +216,12 @@ export default class Game {
 
     for (let j = 0; j < 3; j += 1) {
       for (let i = 0; i < arr.length - 1; i += 1) {
-        const ArrOneStep = arr[i].split(',');
-        const ArrOneStepback = arr[i + 1].split(',');
+        const arrOneStep = arr[i].split(',');
+        const arrOneStepback = arr[i + 1].split(',');
 
-        if (ArrOneStep[0] === ArrOneStepback[0]
-         && ArrOneStep[1] === ArrOneStepback[2]
-         && ArrOneStep[2] === ArrOneStepback[1]) {
+        if (arrOneStep[0] === arrOneStepback[0]
+         && arrOneStep[1] === arrOneStepback[2]
+         && arrOneStep[2] === arrOneStepback[1]) {
           arr.splice(i, 2);
         }
       }
@@ -231,12 +237,12 @@ export default class Game {
     const history = [...this.arrPosition];
 
     const makeStep = (hist, i = 0) => {
-      const ArrOneStep = hist[i].split(',');
+      const arrOneStep = hist[i].split(',');
       const tempEmpty = document.querySelector('.empty');
-      const temp = document.querySelector(`[data-id="${ArrOneStep[0]}"]`);
+      const temp = document.querySelector(`[data-id="${arrOneStep[0]}"]`);
 
-      temp.style.order = `${ArrOneStep[1]}`;
-      tempEmpty.style.order = `${ArrOneStep[2]}`;
+      temp.style.order = `${arrOneStep[1]}`;
+      tempEmpty.style.order = `${arrOneStep[2]}`;
 
       if (i === hist.length - 1) {
         return;
@@ -276,30 +282,6 @@ export default class Game {
     }, 0);
   }
 
-  saveGame() {
-    document.querySelector('.item--save_game').addEventListener('click', () => {
-      localStorage.setItem('savedgame', this.arrPosition);
-    });
-  }
-
-  /* loadGame(){
-      let lastGameStr = localStorage.getItem('savedgame');
-          let lastGameArr = lastGameStr.match(/\d{1,2}\,\d{1,2}\,\d{1,2}/g);
-
-          for (let i = 0; i < lastGameArr.length; i++){
-              let ArrOneStep = lastGameArr[i].split(',');
-              console.log(ArrOneStep)
-              let temp = document.querySelector(`[data-id="${ArrOneStep[0]}"]`);
-              temp.style.order = `${ArrOneStep[1]}`;
-              temp.dataset.pos = `${ArrOneStep[1]}`;
-              let tempEmpty = document.querySelector('.empty');
-              tempEmpty.style.order = `${ArrOneStep[2]}`;
-              tempEmpty.dataset.pos = `${ArrOneStep[2]}`;
-              this.deleteClickable();
-              this.addClickable();
-          }
-  } */
-
   gameIsSolved() {
     for (let i = 1; i <= this.size * this.size; i += 1) {
       const { pos } = document.querySelector(`[data-pos="${i}"]`).dataset;
@@ -323,7 +305,7 @@ export default class Game {
     });
 
     Game.showRules();
-    Game.showScore();
+    this.showScore();
     Game.closeMenu();
     return this.gameIsPaused;
   }
@@ -380,7 +362,7 @@ export default class Game {
                 <span class="close__line close-line--vert"></span>
                 <span class="close__line close-line--horiz"></span>
             </span>`;
-      document.querySelector('.header').after(rules);
+      document.querySelector('.menu_content').appendChild(rules);
 
       setTimeout(() => {
         document.querySelector('.btn__close--rules').addEventListener('click', () => {
@@ -391,25 +373,26 @@ export default class Game {
     });
   }
 
-  saveResult() {
-    let countPlace = 1;
-    for (let i = 0; i < localStorage.length; i += 1) {
-      const key = localStorage.key(i);
-      if (key.match(/place/)) {
-        countPlace += 1;
-      }
-    }
-    const time = document.querySelector('.time').innerText.replace('Time:', '');
-    localStorage.setItem(`place${countPlace}`,
-      `${this.countMoves}_________${time}_______${this.size}_______${this.mode}`);
+  saveGame() {
+    document.querySelector('.item--save_game').addEventListener('click', () => {
+      this.storage.saveGame(this.arrPosition);
+    });
   }
 
-  static showScore() {
-    document.querySelector('.item--scores').addEventListener('click', () => {
-      const score = document.createElement('div');
-      score.classList.add('score');
+  saveResult() {
+    const time = document.querySelector('.time').innerText.replace('Time:', '');
+    const currencyResult = `${this.countMoves}_________${time}_______${this.size}_______${this.mode}`;
+    this.storage.saveResult(currencyResult);
+  }
 
-      score.innerHTML = `<span class="corner">
+  showScore() {
+    if (!this.scoresIsOpen) {
+      this.scoresIsOpen = true;
+      document.querySelector('.item--scores').addEventListener('click', () => {
+        const score = document.createElement('div');
+        score.classList.add('score');
+
+        score.innerHTML = `<span class="corner">
                 <span class="line line--horizontal"></span>
                 <span class="line line--vertical"></span>
             </span>
@@ -421,41 +404,38 @@ export default class Game {
                 <span class="close__line close-line--vert"></span>
                 <span class="close__line close-line--horiz"></span>
             </span>`;
-      document.querySelector('.header').after(score);
+        document.querySelector('.menu_content').appendChild(score);
 
-      const historyArr = [];
-      for (let i = 0; i < localStorage.length; i += 1) {
-        const key = localStorage.key(i);
-        if (key.match(/place/)) {
-          historyArr.push(localStorage.getItem(`place${i + 1}`));
+        const historyArr = Array.from(this.storage.createResultsSet());
+        if (historyArr.length > 1) {
+          const sortArrayByDigits = (array) => {
+            const reg = /\D/g;
+            array.sort((a, b) => (parseInt(a.replace(reg, ''), 10) - parseInt(b.replace(reg, ''), 10)));
+          };
+          sortArrayByDigits(historyArr);
         }
-      }
-      // if (historyArr.length > 1) {
-      //   const sortArrayByDigits = (array) => {
-      //     const reg = /\D/g;
-      //     array.sort((a, b) =>
-      //           (parseInt(a.replace(reg, ''), 10) - parseInt(b.replace(reg, ''), 10)));
-      //   };
-      //   sortArrayByDigits(historyArr);
-      // }
 
-      for (let i = 0; i < historyArr.length; i += 1) {
-        if (i < 10) {
-          const scoreLi = document.createElement('li');
-          scoreLi.classList.add('score_position');
-          scoreLi.classList.add(`position${i + 1}`);
+        for (let i = 0; i < historyArr.length; i += 1) {
+          if (i < 10) {
+            const scoreLi = document.createElement('li');
+            scoreLi.classList.add('score_position');
+            scoreLi.classList.add(`position${i + 1}`);
 
-          const curPos = document.querySelector('.scores__list').lastChild;
-          curPos.after(scoreLi);
-          scoreLi.innerText = `${i + 1}_________${historyArr[i]}`;
+            const curPos = document.querySelector('.scores__list').lastChild;
+            curPos.after(scoreLi);
+            scoreLi.innerText = `${i + 1}_________${historyArr[i]}`;
+          }
         }
-      }
-      setTimeout(() => {
-        document.querySelector('.btn__close--score').addEventListener('click', () => {
-          score.remove();
-          document.querySelector('.menu').classList.add('inactive');
-        });
-      }, 1000);
-    });
+
+        setTimeout(() => {
+          document.querySelector('.btn__close--score').addEventListener('click', () => {
+            score.remove();
+            document.querySelector('.menu').classList.add('inactive');
+            this.scoresIsOpen = false;
+          });
+        }, 1000);
+      });
+    }
+    return this.scoresIsOpen;
   }
 }

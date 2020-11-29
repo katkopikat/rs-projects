@@ -1,12 +1,14 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
     background-color: #171717;
+
 }
 
 .content {
@@ -20,15 +22,20 @@ body {
 }
 
 .puzzle-wrapper {
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
 
 .puzzle {
     margin: 0px auto;
     width: 500px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: relative;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
 }
 
 .game__name {
@@ -39,6 +46,8 @@ body {
 }
 
 .header {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin-left: 4rem;
     margin-top: 2rem;
@@ -69,6 +78,8 @@ body {
 }
 
 .menu {
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
     margin-bottom: 2rem;
 }
@@ -84,19 +95,25 @@ body {
 
 .close--menu {
     margin-top: 1rem;
-    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+        -ms-transform: scale(0.7);
+            transform: scale(0.7);
     position: relative;
     left: -12.5rem;
     opacity: 0.5;
 }
 
 .item--new_game--open {
+    -webkit-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0s;
+    -o-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0s;
     transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0s;
     margin-top: 0rem;
     opacity: 1;
 }
 
 .item--save_game--open {
+    -webkit-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.1s;
+    -o-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.1s;
     transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.1s;
     margin-top: 0rem;
     opacity: 1;
@@ -104,24 +121,32 @@ body {
 }
 
 .item--scores--open {
+    -webkit-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.2s;
+    -o-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.2s;
     transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.2s;
     margin-top: 0rem;
     opacity: 1;
 }
 
 .item--settings--open {
+    -webkit-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.3s;
+    -o-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.3s;
     transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.3s;
     margin-top: 0rem;
     opacity: 1;
 }
 
 .item--rules--open {
+    -webkit-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.4s;
+    -o-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.4s;
     transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.4s;
     margin-top: 0rem;
     opacity: 1;
 }
 
 .item--solution--open {
+    -webkit-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.5s;
+    -o-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.5s;
     transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.5s;
     margin-top: 0rem;
     opacity: 1;
@@ -136,21 +161,24 @@ li:hover {
     height: 24%;
     width: 24%;
     margin: 0.1rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     font-size: 1.5rem;
-    user-select: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
     text-align: center;
     font-family: 'Spartan', sans-serif;
     color: white;
 }
-
-/* .cell__img4 {
-    height: 24%;
-    width: 24%;
-    margin: 0.1rem;
-} */
 
 [data-id="1"] {
     background-color: #05D9DD;
@@ -267,7 +295,9 @@ h2 {
 }
 
 .line--vertical {
-    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
     position: absolute;
     left: -4.2rem;
     top: 4.15rem;
@@ -279,11 +309,17 @@ h2 {
     top: 0rem;
     width: 3rem;
     height: 3rem;
+    -webkit-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
 }
 
 .btn__close:hover {
-    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    -webkit-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
     cursor: pointer;
 }
@@ -296,7 +332,9 @@ h2 {
 }
 
 .close-line--vert {
-    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
     position: absolute;
     left: 0rem;
     top: 0rem;
@@ -348,6 +386,8 @@ h2 {
 .clickable {
     pointer-events: auto;
     cursor: pointer;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
 
@@ -358,6 +398,8 @@ h2 {
 }
 
 .inactive {
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
     display: none;
 }
@@ -400,21 +442,23 @@ h2 {
 }
 
 @media (max-width: 768px){
-    .rules,.settings,.win,.score {
-        font-size: 0.9rem;
-        max-width: 62vw;
-    }
+
     h2 {font-size: 2.3rem; }
 
     .settings >span {
         font-size: 1rem;
      }
-    }
 
-@media (max-width: 768px){
     .rules, .settings, .win, .score {
          font-size: 0.8rem;
          max-width: 72vw;
+    }
+    .puzzle{
+        width: 28rem !important;
+    }
+    .cell {
+        height: 6.5rem !important;
+        width: 6.5rem !important;
     }
 }
 
@@ -429,5 +473,12 @@ h2 {
 
     .score>ul{
         font-size: 0.8rem;
+    }
+    .cell{
+        height: 6rem !important;
+        width: 6rem !important;
+    }
+    .puzzle{
+        width: 25rem !important;
     }
 }

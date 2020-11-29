@@ -3,8 +3,8 @@ import Cell from './Cell';
 import Game from './Game';
 
 export default class PicturePuzzle extends Game {
-  constructor(container, imageSrc, width, size, mode) {
-    super(container, width, size, mode);
+  constructor(container, imageSrc, width, size, mode, storage) {
+    super(container, width, size, mode, storage);
     this.imageSrc = imageSrc;
     this.parentConteiner = container;
     this.width = width;
@@ -12,12 +12,6 @@ export default class PicturePuzzle extends Game {
     this.size = size;
     this.mode = mode;
     this.cells = [];
-    this.arrPosition = [];
-    this.countMoves = 0;
-    this.limitLeft = [];
-    this.limitRight = [];
-    this.allowBtnForClick = [];
-
     this.init();
 
     const img = new Image();
@@ -29,7 +23,6 @@ export default class PicturePuzzle extends Game {
 
     img.src = this.imageSrc;
     this.generateCells();
-    this.emptyPos = +this.getEmptyPosition();
     this.setLimite();
     this.addClickable();
     this.randomizeItem();

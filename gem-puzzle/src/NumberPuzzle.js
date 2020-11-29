@@ -3,24 +3,18 @@ import CellNumber from './CellNumber';
 import Game from './Game';
 
 export default class NumberPuzzle extends Game {
-  constructor(container, width, size, mode) {
-    super(container, width, size, mode);
-    this.parentConteiner = container;
+  constructor(container, width, size, mode, storage) {
+    super(container, width, size, mode, storage);
     this.width = width;
     this.height = width;
     this.size = size;
     this.mode = mode;
     this.cells = [];
-    this.arrPosition = [];
-    this.limitLeft = [];
-    this.limitRight = [];
-    this.allowBtnForClick = [];
     this.init();
     this.generateCells();
     this.setLimite();
     this.addClickable();
     this.randomizeItem();
-    this.countMoves = 0;
     this.showSolve();
   }
 

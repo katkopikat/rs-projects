@@ -32,6 +32,9 @@ export default function createEnvironment() {
                     </span>
                     <audio class="audio" src="assets/sounds/move.mp3"></audio>`;
   wrapper.prepend(header);
+  const menuContent = document.createElement('div');
+  menuContent.className = 'menu_content';
+  header.after(menuContent);
 
   const puzzleContainer = document.createElement('div');
   puzzleContainer.className = 'puzzle-wrapper';

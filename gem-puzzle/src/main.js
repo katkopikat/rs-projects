@@ -1,16 +1,28 @@
 /* eslint-disable linebreak-style */
 import './style.css';
-import '../assets/sounds/move.mp3';
 import PicturePuzzle from './PicturePuzzle';
 import NumberPuzzle from './NumberPuzzle';
 import createEnvironment from './environment';
+import Storage from './Storage';
 
 let mode = '';
 let size = 4;
+const storage = new Storage();
+
+function deleteGame() {
+  const wrapper = document.querySelector('.puzzle-wrapper');
+  const menuContent = document.querySelector('.menu_content');
+  while (wrapper.firstChild) {
+    wrapper.removeChild(wrapper.firstChild);
+  }
+  while (menuContent.firstChild) {
+    menuContent.removeChild(menuContent.firstChild);
+  }
+}
 
 function createNumberPuzzle() {
   const numberPuzzle = new NumberPuzzle(
-    document.querySelector('.puzzle-wrapper'), 30, size, 'number',
+    document.querySelector('.puzzle-wrapper'), 30, size, 'number', storage,
   );
   mode = 'number';
   return mode;
@@ -18,13 +30,12 @@ function createNumberPuzzle() {
 
 function createPictirePuzzle() {
   const setRandomImg = (min, max) => Math.floor(Math.random() * (max - min) + min);
-
   const randomImg = setRandomImg(1, 151);
 
   const picturePuzzle = new PicturePuzzle(
     document.querySelector('.puzzle-wrapper'),
     `https://raw.githubusercontent.com/irinainina/image-data/master/box/${randomImg}.jpg`,
-    30, size, 'picture',
+    30, size, 'picture', storage,
   );
   mode = 'picture';
   return mode;
@@ -63,7 +74,7 @@ function showSettings() {
             <span class="close__line close-line--vert"></span>
             <span class="close__line close-line--horiz"></span>
         </span>`;
-    document.querySelector('.header').after(settings);
+    document.querySelector('.menu_content').appendChild(settings);
 
     setTimeout(() => {
       const modePicture = document.querySelector('.mode--picture');
@@ -78,7 +89,7 @@ function showSettings() {
           size = index + 3;
           document.querySelector('.active_size').classList.remove('active_size');
           item.classList.add('active_size');
-          document.querySelector('.puzzle').remove();
+          deleteGame();
           if (mode === 'number') {
             createNumberPuzzle();
           } else createPictirePuzzle();
@@ -89,7 +100,7 @@ function showSettings() {
         mode = 'number';
         modePicture.classList.remove('active_mode');
         modeNumber.classList.add('active_mode');
-        document.querySelector('.puzzle').remove();
+        deleteGame();
         createNumberPuzzle();
         return mode;
       });
@@ -98,7 +109,7 @@ function showSettings() {
         mode = 'picture';
         modePicture.classList.add('active_mode');
         modeNumber.classList.remove('active_mode');
-        document.querySelector('.puzzle').remove();
+        deleteGame();
         createPictirePuzzle();
         return mode;
       });
@@ -130,10 +141,10 @@ function showSettings() {
 function newGame() {
   document.querySelector('.item--new_game').addEventListener('click', () => {
     if (mode === 'number') {
-      document.querySelector('.puzzle').remove();
+      deleteGame();
       createNumberPuzzle();
     } else {
-      document.querySelector('.puzzle').remove();
+      deleteGame();
       createPictirePuzzle();
     }
   });
