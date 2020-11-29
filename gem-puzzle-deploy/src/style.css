@@ -1,0 +1,484 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #171717;
+
+}
+
+.content {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.wrapper {
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.puzzle-wrapper {
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.puzzle {
+    margin: 0px auto;
+    width: 500px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+}
+
+.game__name {
+    font-family: 'Spartan', sans-serif;
+    color: white;
+    font-size: 5rem;
+    font-weight: 500;
+}
+
+.header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-left: 4rem;
+    margin-top: 2rem;
+    padding-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.status__item {
+    margin-right: 1rem;
+}
+
+.time {
+    color: #2AB6E1;
+}
+
+.moves {
+    color: #E502F1;
+}
+
+.menu__btn {
+    color: #05D9DD;
+}
+
+.menu__btn:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.menu {
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 2rem;
+}
+
+.menu__item {
+    font-size: 1.1rem;
+    color: #4A4A4A;
+    margin-bottom: 0.2rem;
+    list-style-type: none;
+    opacity: 0;
+    margin-top: -1.5rem;
+}
+
+.close--menu {
+    margin-top: 1rem;
+    -webkit-transform: scale(0.7);
+        -ms-transform: scale(0.7);
+            transform: scale(0.7);
+    position: relative;
+    left: -12.5rem;
+    opacity: 0.5;
+}
+
+.item--new_game--open {
+    -webkit-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0s;
+    -o-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0s;
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0s;
+    margin-top: 0rem;
+    opacity: 1;
+}
+
+.item--save_game--open {
+    -webkit-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.1s;
+    -o-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.1s;
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.1s;
+    margin-top: 0rem;
+    opacity: 1;
+
+}
+
+.item--scores--open {
+    -webkit-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.2s;
+    -o-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.2s;
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.2s;
+    margin-top: 0rem;
+    opacity: 1;
+}
+
+.item--settings--open {
+    -webkit-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.3s;
+    -o-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.3s;
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.3s;
+    margin-top: 0rem;
+    opacity: 1;
+}
+
+.item--rules--open {
+    -webkit-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.4s;
+    -o-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.4s;
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.4s;
+    margin-top: 0rem;
+    opacity: 1;
+}
+
+.item--solution--open {
+    -webkit-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.5s;
+    -o-transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.5s;
+    transition: margin 0.5s cubic-bezier(1, 0, 0, 1) 0.5s;
+    margin-top: 0rem;
+    opacity: 1;
+}
+
+li:hover {
+    color: #05D9DD;
+    cursor: pointer;
+}
+
+.cell {
+    height: 24%;
+    width: 24%;
+    margin: 0.1rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-size: 1.5rem;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    text-align: center;
+    font-family: 'Spartan', sans-serif;
+    color: white;
+}
+
+[data-id="1"] {
+    background-color: #05D9DD;
+}
+
+[data-id="2"] {
+    background-color: #2AB6E1;
+}
+
+[data-id="3"] {
+    background-color: #287EE0;
+}
+
+[data-id="4"] {
+    background-color: #354DD5;
+}
+
+[data-id="5"] {
+    background-color: #24BBE0;
+}
+
+[data-id="6"] {
+    background-color: #5989E5;
+}
+
+[data-id="7"] {
+    background-color: #4757F2;
+}
+
+[data-id="8"] {
+    background-color: #2E3AB4;
+}
+
+[data-id="9"] {
+    background-color: #B93CF2;
+}
+
+[data-id="10"] {
+    background-color: #8574F2;
+}
+
+[data-id="11"] {
+    background-color: #3B57E6;
+}
+
+[data-id="12"] {
+    background-color: #282896;
+}
+
+[data-id="13"] {
+    background-color: #E502F1;
+}
+
+[data-id="14"] {
+    background-color: #A10FD5;
+}
+
+[data-id="15"] {
+    background-color: #631BBC;
+}
+
+.rules,
+.settings,
+.win,
+.score {
+    position: relative;
+    color: white;
+    font-size: 1rem;
+    max-width: 38vw;
+    margin: 2rem auto;
+    margin-bottom: 3rem;
+}
+
+.score > ul {
+    margin-left: 2rem;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.2rem;
+    list-style: none;
+}
+
+h2 {
+    font-family: 'Spartan', sans-serif;
+    color: white;
+    font-size: 3rem;
+    font-weight: 500;
+    margin-left: 1.7rem;
+    padding-top: 1.7rem;
+    padding-bottom: 1rem;
+}
+
+.win > h2 {
+    padding-bottom: 0;
+}
+
+.rules p {
+    margin-left: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.winText {
+    margin-left: 2rem;
+}
+
+.corner {
+    position: relative;
+}
+
+.line {
+    position: absolute;
+    width: 8.4rem;
+    height: 0.15rem;
+    background-color: white;
+}
+
+.line--vertical {
+    -webkit-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+    position: absolute;
+    left: -4.2rem;
+    top: 4.15rem;
+}
+
+.btn__close {
+    position: absolute;
+    right: 0rem;
+    top: 0rem;
+    width: 3rem;
+    height: 3rem;
+    -webkit-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+}
+
+.btn__close:hover {
+    -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    -webkit-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+    cursor: pointer;
+}
+
+.close__line {
+    position: absolute;
+    width: 2rem;
+    height: 0.15rem;
+    background-color: white;
+}
+
+.close-line--vert {
+    -webkit-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+    position: absolute;
+    left: 0rem;
+    top: 0rem;
+}
+
+.solve {
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.settings__item:hover {
+    cursor: pointer;
+    color: #05D9DD;
+}
+
+.active_sound,
+.active_mode,
+.active_size {
+    cursor: pointer;
+    color: #05D9DD;
+    opacity: 1;
+}
+
+.type_block,
+.size_block,
+.sound_block {
+    display: inline-block;
+    margin-left: 2rem;
+    margin-bottom: 0.8rem;
+}
+
+.btn__type {
+    padding-right: 2rem;
+}
+
+.btn__size {
+    padding-right: 2.8rem;
+}
+
+.btn__sound {
+    padding-right: 1.7rem;
+}
+
+.disabled {
+    pointer-events: none;
+}
+
+.clickable {
+    pointer-events: auto;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.settings > span {
+    color: white;
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.inactive {
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    display: none;
+}
+
+.cell5, .cell7 {
+    background-color: #2AB6E1;
+}
+
+.cell6, .cell8 {
+    background-color: #8574F2;
+}
+
+.cell7  {
+    background-color: #354DD5;
+    font-size: 1.1rem;
+}
+
+.cell8  {
+    background-color: #4757F2;
+    font-size: 1rem;
+}
+
+.empty {
+    pointer-events: auto;
+    opacity: 0 !important;
+
+}
+
+@media (max-width: 1024px){
+.rules,
+.settings,
+.win,
+.score {
+    font-size: 1rem;
+    max-width: 53vw;
+}
+h2 {
+    font-size: 2.7rem;
+ }
+}
+
+@media (max-width: 768px){
+
+    h2 {font-size: 2.3rem; }
+
+    .settings >span {
+        font-size: 1rem;
+     }
+
+    .rules, .settings, .win, .score {
+         font-size: 0.8rem;
+         max-width: 72vw;
+    }
+    .puzzle{
+        width: 28rem !important;
+    }
+    .cell {
+        height: 6.5rem !important;
+        width: 6.5rem !important;
+    }
+}
+
+@media (max-width: 500px){
+    .rules, .settings, .win, .score {
+        font-size: 0.8rem;
+        max-width: 80vw;
+}
+    .settings > span{
+        font-size: 0.8rem;
+    }
+
+    .score>ul{
+        font-size: 0.8rem;
+    }
+    .cell{
+        height: 6rem !important;
+        width: 6rem !important;
+    }
+    .puzzle{
+        width: 25rem !important;
+    }
+}
