@@ -277,7 +277,7 @@ margin: 0;
 strong {
 display: inline-block;
 background-color: #333742;
-padding: 5px;
+padding: 1px 5px;
 border-radius: 3px;
 }
 hr {
@@ -424,3 +424,28 @@ hr {
    size: 5px;
    width: 200px;
  }
+
+ /* .congratulations{
+   text-align: center;
+   color:#d2434e;
+   font-size: 30px;
+ }
+ .did_it{
+  text-align: center;
+  color: white;
+  font-size: 25px;
+ } */
+
+ 
+.enter__code__input--win{
+  background-color: #d2434e;
+    color: white;
+}
+
+.visual__wrapper--win{
+  display: block;
+}
+
+#deathstar--win{
+  height: 190px;
+}

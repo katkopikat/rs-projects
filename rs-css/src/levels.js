@@ -1,50 +1,133 @@
+/* eslint-disable linebreak-style */
 export const levels = [
-    {
-      level: 'Level 1 of 10',
-      doThis : "Destroy all the planets",
-      selector : "planet",
-      selectorName : "Type Selector",
-      helpTitle : "Select elements by their type",
-      syntax : "A",
-      describe : "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <tag>div</tag>, <tag>p</tag> and <tag>ul</tag> are all different element types.",
-      examples : [
-        '<strong>div</strong> selects all <tag>div</tag> elements.',
-        '<strong>p</strong> selects all <tag>p</tag> elements.',
-      ],
+  {
+    level: 'Level 1 of 10',
+    doThis: 'Destroy all the planets',
+    selector: 'planet',
+    selectorName: 'Type Selector',
+    helpTitle: 'Select elements by their type',
+    syntax: 'A',
+    describe: 'Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <tag>div</tag>, <tag>p</tag> and <tag>ul</tag> are all different element types.',
+    examples: [
+      '<strong>div</strong> selects all <tag>div</tag> elements.',
+      '<strong>p</strong> selects all <tag>p</tag> elements.',
+    ],
   },
 
-    {
-      level: 'Level 2 of 10',
-      doThis : "Destroy all the planets, but not the Sun",
-      selector : ".planet",
-      selectorName : "Type Selector",
-      helpTitle : "Select elements by their type",
-      syntax : "A",
-      describe : "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <tag>div</tag>, <tag>p</tag> and <tag>ul</tag> are all different element types.",
-      examples : [
-        '<strong>div</strong> selects all <tag>div</tag> elements.',
-        '<strong>p</strong> selects all <tag>p</tag> elements.',
-      ],
-      htmlCode : `<pre class="language-html"><code>&lt;section class="solar-system"&gt;
-      &lt;div class="death-star"> Death Star &lt/div&gt;
-      &lt;div class="star"> Sun &lt/div&gt;
-      &lt;div class="planet"> Venus &lt/div&gt;
-      &lt;div class="planet"> Earth &lt/div&gt;
-      &lt;div class="planet"> Mars &lt/div&gt;
-    &lt;/section&gt;</code>
-    </pre>`
-    },
-    {
-      level: 'Level 3 of 10',
-      doThis : "Destroy all the planets",
-      selector : "planet",
-      selectorName : "Type Selector",
-      helpTitle : "Select elements by their type",
-      syntax : "A",
-      describe : "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <tag>div</tag>, <tag>p</tag> and <tag>ul</tag> are all different element types.",
-      examples : [
-        '<strong>div</strong> selects all <tag>div</tag> elements.',
-        '<strong>p</strong> selects all <tag>p</tag> elements.',
-      ],
+  {
+    level: 'Level 2 of 10',
+    doThis: 'Destroy all the planets, but not the Sun',
+    selector: '.planet',
+    selectorName: 'Class Selector',
+    helpTitle: 'Select elements by their class',
+    syntax: '.classname',
+    describe: 'The class selector selects all elements with that class attribute. Elements can only have one ID, but many classes.',
+    examples: [
+      '<strong>.neato</strong> selects all elements with <strong>class="neato"</strong>',
+    ],
   },
-]
+  {
+    level: 'Level 3 of 10',
+    doThis: 'Destroy the Sun',
+    selector: '#star',
+    selectorName: 'ID Selector',
+    helpTitle: 'Select elements with an ID',
+    syntax: '#id',
+    describe: 'Selects the element with a specific <strong>id</strong>. You can also combine the ID selector with the type selector.',
+    examples: [
+      '<strong>#cool</strong> selects any element with <tag>id="cool"</tag>.',
+      '<strong>ul#long</strong> selects  <tag> &lt;ul id="long"&gt;</tag> elements.',
+    ],
+  },
+  {
+    level: 'Level 4 of 10',
+    doThis: 'Destroy the Moon',
+    selector: 'earth > moon',
+    selectorName: 'Child Selector',
+    helpTitle: 'Select direct children of an element',
+    syntax: 'A > B',
+    describe: 'You can select elements that are direct children of other elements. A child element is any element that is nested directly in another element.Elements that are nested deeper than that are called descendant elements.',
+    examples: [
+      '<strong>A > B</strong> selects all  <tag>B</tag>.',
+      'selects that are a direct children <strong>A</strong> ',
+    ],
+  },
+  {
+    level: 'Level 5 of 10',
+    doThis: 'Destroy first planet.....',
+    selector: 'First Child Pseudo-selector',
+    selectorName: 'ID Selector',
+    helpTitle: 'Select a first child element inside of another element',
+    syntax: ':first-child',
+    describe: 'You can select the first child element. A child element is any element that is directly nested in another element. You can combine this pseudo-selector with other selectors.',
+    examples: [
+      '<strong>:first-child</strong>  selects all first child elements.',
+      '<strong>p:first-child</strong> selects all first child <tag> p </tag> elements.',
+      '<strong>div p:first-child</strong> selects all first child <tag> p </tag> elements that are in aments <tag> div </tag>.',
+    ],
+  },
+  {
+    level: 'Level 6 of 10',
+    doThis: 'Destroy ---',
+    selector: '#star',
+    selectorName: 'ID Selector',
+    helpTitle: 'Select elements with an ID',
+    syntax: '#id',
+    describe: 'Selects the element with a specific <strong>id</strong>. You can also combine the ID selector with the type selector.',
+    examples: [
+      '<strong>#cool</strong> selects any element with <tag>id="cool"</tag>.',
+      '<strong>ul#long</strong> selects  <tag> &lt;ul id="long"&gt;</tag> elements.',
+    ],
+  },
+  {
+    level: 'Level 7 of 10',
+    doThis: 'Destroy ---',
+    selector: '#star',
+    selectorName: 'ID Selector',
+    helpTitle: 'Select elements with an ID',
+    syntax: '#id',
+    describe: 'Selects the element with a specific <strong>id</strong>. You can also combine the ID selector with the type selector.',
+    examples: [
+      '<strong>#cool</strong> selects any element with <tag>id="cool"</tag>.',
+      '<strong>ul#long</strong> selects  <tag> &lt;ul id="long"&gt;</tag> elements.',
+    ],
+  },
+  {
+    level: 'Level 8 of 10',
+    doThis: 'Destroy all planets without life!',
+    selector: ":not(attribute='we-have-life')",
+    selectorName: 'Negation Pseudo-class',
+    helpTitle: "Select all elements that don't match the negation selector!",
+    syntax: ':not(X)',
+    describe: "<strong>p*</strong> You can use this to select all elements that do not match selector <strong>'X'</strong>.",
+    examples: [
+      '<strong>div:not(:first-child)</strong> selects every <tag>div that is not a first child.</tag> that is not a first child..',
+      '<strong>:not(.big, .medium)</strong>selects all elements that do not have <strong>class="big"</strong> or <strong>class="medium"</strong>.',
+    ],
+  },
+  {
+    level: 'Level 9 of 10',
+    doThis: 'Destroy all planets without life!',
+    selector: ":not(attribute='we-have-life')",
+    selectorName: 'Negation Pseudo-class',
+    helpTitle: "Select all elements that don't match the negation selector!",
+    syntax: ':not(X)',
+    describe: "<strong>p*</strong> You can use this to select all elements that do not match selector <strong>'X'</strong>.",
+    examples: [
+      '<strong>div:not(:first-child)</strong> selects every <tag>div that is not a first child.</tag> that is not a first child..',
+      '<strong>:not(.big, .medium)</strong>selects all elements that do not have <strong>class="big"</strong> or <strong>class="medium"</strong>.',
+    ],
+  },
+  {
+    level: 'Level 10 of 10',
+    doThis: 'Destroy the entire universe!',
+    selector: '*',
+    selectorName: 'The Universal Selector',
+    helpTitle: 'You can select everything!',
+    syntax: '*',
+    describe: 'You can select all elements with the universal selector!',
+    examples: [
+      '<strong>p*</strong>  selects any element inside all <tag>p</tag> elements.',
+    ],
+  },
+];
