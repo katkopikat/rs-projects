@@ -22,11 +22,17 @@ import {planetsForDisplay} from './planetsForDisplay.js';
 import hljs from './../assets/highlight/highlight.pack.js';
 import {hintList} from './hint.js';
 
+const menu = [...document.querySelector('.mobile-menu-list').children];
+const resetBtn = document.querySelector('.reset_btn');
+//console.log(menu)
+
 let numberLevel = +loadLevelFromStorage() || 1;
 generateLevel(numberLevel);
 
 
 function generateLevel(numberLevel) {
+    getLevelStatusInStorage();
+    addListenerToMenu();
     clearDisplay();
     updateDescription(numberLevel);
     updateHtmlText(numberLevel);
@@ -38,12 +44,33 @@ function generateLevel(numberLevel) {
     //sendAnwser();
 }
 //local Storage
-function saveLevelInStorage() {
+function saveLevelInStorage(numberLevel) {
     localStorage.setItem('selectorLevel', numberLevel);
 }
 
 function loadLevelFromStorage() {
     return localStorage.getItem('selectorLevel');
+}
+
+function saveLevelStatusInStorage(level, status) {
+    localStorage.setItem(`lvl-${numberLevel}`, status);
+}
+
+function getLevelStatusInStorage() {
+    let j = 1;
+    let statusInStorage = new Map();
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key = localStorage.key(i);
+      if (key.match(/lvl/)) {
+        console.log(key)
+        //statusInStorage.set()
+        //document.querySelector('.active-level').firstChild;
+        console.log(localStorage.value)
+        document.querySelector(`[data-id="${key}"]`).firstChild.classList.add(`${localStorage.getItem(key)}`);
+        j += 1;
+      }
+    localStorage.getItem(`${numberLevel}`);
+    }
 }
 
 //подсказка
@@ -79,10 +106,14 @@ document.querySelector('.enter__code__input').addEventListener('keydown', functi
     }
 });
 
+resetBtn.addEventListener('click', () => {
+    //localStorage.clear();
+    //generateLevel(1);
+    //window['location'] = location;
+})
 //меню
 function updateLevelInMenu(numberLevel) {
     const levelsListinMenu= [...document.querySelector('.mobile-menu-list').children];
-
     levelsListinMenu.forEach(item => {
         item.classList.remove('active-level');
      })
@@ -115,7 +146,6 @@ function updateDescription(numberLevel) {
     describeHint.innerHTML = obj.describe;
     examples.innerHTML = obj.examples;
 }
-
 //обновление блока с кодом
 function updateHtmlText(numberLevel) {
     let obj = codeHtml[numberLevel - 1];
@@ -126,12 +156,20 @@ function updateHtmlText(numberLevel) {
 //проверить ответ с введенным
 function checkAnswer() {
     let obj = levels[numberLevel - 1];
+    const check = document.querySelector('.active-level').firstChild;
     if (input.value === obj.selector) {
-        document.querySelector('.active-level').firstChild.classList.remove('check-undone')
-        document.querySelector('.active-level').firstChild.classList.add('check-done')
+        check.classList.remove('check-undone');
+        check.classList.add('check-done');
+        saveLevelStatusInStorage(numberLevel, check.className)
+
         numberLevel += 1;
         generateLevel(numberLevel)
     } else {
+
+        document.querySelector('.input__wrapper').classList.add('lose-animation');
+        setTimeout(() => {
+            document.querySelector('.input__wrapper').classList.remove('lose-animation');
+        }, 500);
     }
     //winAnimation();
     //        // generateLevel();
@@ -163,8 +201,11 @@ function showHelp() {
         }, 300);
     };
     printChar(selector);
-    document.querySelector('.active-level').firstChild.classList.remove('check-undone')
-    document.querySelector('.active-level').firstChild.classList.add('check-done-with-hint')
+    const check = document.querySelector('.active-level').firstChild;
+    check.classList.remove('check-undone')
+    check.classList.add('check-done-with-hint')
+
+    saveLevelStatusInStorage(numberLevel, check.className);
 }
 
 let menuIsOpen = false;
@@ -196,4 +237,13 @@ function closeMenu() {
     burgerBtn.classList.remove("mobile-menu-btn-rotation");
     mobileMenuMask.classList.remove("mobile-menu-mask");
     mobileMenuMask.classList.remove("mobile-menu-mask")
+}
+
+function addListenerToMenu(){
+    menu.forEach((item, index) => {
+        item.addEventListener('click', () => {  
+            generateLevel(index+1);
+            saveLevelInStorage(index+1);
+        })
+     })
 }

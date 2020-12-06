@@ -365,4 +365,37 @@ hr {
 .mobile-menu-item:hover{
   display: inline-block;
   background-color: #242731;
+  cursor: pointer;
+}
+
+.lose-animation {
+  /* Запустите анимацию встряхивания и сделайте так, чтобы анимация длилась 0,5 секунды */
+  animation: shake 0.5s;
+
+  /* Когда анимация будет закончена, начните снова */
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0px); }
+  20% { transform: translateX(5px); }
+  40% { transform: translateX(-5px); }
+  60% { transform: translateX(5px) ; }
+  80% { transform: translateX(-5px); }
+  100% { transform: translateX(0px); }
+}
+
+[data-id="lvl-10"]{
+  margin-bottom: 40px;
+}
+
+.reset_btn{
+  opacity: 0.4;
+  font-size: 17px;
+}
+
+.reset_btn:hover{
+  color: #d2434e;
+  opacity: 1;
+  cursor: pointer;
 }
