@@ -24,7 +24,6 @@ import {hintList} from './hint.js';
 
 const menu = [...document.querySelector('.mobile-menu-list').children];
 const resetBtn = document.querySelector('.reset_btn');
-//console.log(menu)
 
 let numberLevel = +loadLevelFromStorage() || 1;
 generateLevel(numberLevel);
@@ -62,10 +61,6 @@ function getLevelStatusInStorage() {
     for (let i = 0; i < localStorage.length; i += 1) {
       const key = localStorage.key(i);
       if (key.match(/lvl/)) {
-        console.log(key)
-        //statusInStorage.set()
-        //document.querySelector('.active-level').firstChild;
-        console.log(localStorage.value)
         document.querySelector(`[data-id="${key}"]`).firstChild.classList.add(`${localStorage.getItem(key)}`);
         j += 1;
       }
@@ -82,7 +77,6 @@ function showHint() {
     picturePlanets.forEach(item => {
         let whatItem = item.className;
         item.addEventListener('mouseover', (e) => {
-            console.log(whatItem);
             hint.style.opacity = 1;
             hint.innerText = obj[`${whatItem}`];
      })
@@ -163,12 +157,15 @@ function checkAnswer() {
         saveLevelStatusInStorage(numberLevel, check.className)
 
         numberLevel += 1;
+        input.value = '';
         generateLevel(numberLevel)
     } else {
-
+        document.querySelector('.enter__code__input').classList.add('input__false');
         document.querySelector('.input__wrapper').classList.add('lose-animation');
         setTimeout(() => {
             document.querySelector('.input__wrapper').classList.remove('lose-animation');
+            document.querySelector('.enter__code__input').classList.remove('input__false');
+            input.value = '';
         }, 500);
     }
     //winAnimation();
@@ -192,6 +189,7 @@ function pushHelpBtn() {
 }
 
 function showHelp() {
+    input.value = '';
     let selector = levels[numberLevel - 1].selector;
     const printChar = (select, i = 0) => {
         if (i === selector.length) return;

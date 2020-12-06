@@ -214,15 +214,23 @@ margin: 0;
     color: #62646b;
     bottom: 0;
     padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center
 }
 
-.footer__made-by, .footer__github{
-  margin: 5px auto;
+.footer__made-by{
+  display: inline;
 }
-
+.footer__made-by > a{
+  color: #62646b;
+  text-decoration: none;
+}
 .logo__img{
-height: 30px;
-opacity: 0.3;
+  height: 25px;
+  width: 68px;
+  opacity: 0.3;
+  padding-bottom: 5px;
 }
 
 .heading__level{
@@ -385,6 +393,9 @@ hr {
   100% { transform: translateX(0px); }
 }
 
+.input__false{
+  background-color: #d2434e;
+}
 [data-id="lvl-10"]{
   margin-bottom: 40px;
 }
