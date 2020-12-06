@@ -4,7 +4,7 @@ export const hintList = [{
     },
     {
         deathstar: `<div class="death-star">`,
-        sun: `<div class="star">`,
+        star: `<div class="star">`,
         planet: `<div class="planet">`
     },
 ]

@@ -33,7 +33,7 @@
   width: 50%;
   margin: 0 auto;
   justify-content: space-between;
-  margin-bottom: 15px;
+ 
 }
 /* .visual__wrapper .game__img {
  
@@ -45,34 +45,35 @@
 }
 
 #mercury{
-  height: 30px;
+  height: 50px;
+  /* height: 30px; */
 }
 #venus{
-  height: 50px;
+  height: 65px;
 }
 #earth{
-  height: 55px;
+  height: 105px;
 }
 #mars{
-  height: 55px;
+  height: 95px;
 }
 #jupiter{
-  height: 100px;
+  height: 190px;
 }
 #sun{
-  height: 130px;
+  height: 190px;
 }
 #saturn{
-
+  height: 187px;
 }
 #uranus{
-
+  height: 115px;
 }
 #neptune{
-
+  height: 92px;
 }
 #pluto{
-
+  height: 40px;
 }
 .hint{
   background-color: white;
@@ -83,7 +84,7 @@
   opacity: 0;
   width: 180px;
   margin: 0 auto;
-  margin-bottom: 50px;
+  margin-bottom: 15px;
 }
 .code__wrapper {
   display: flex;
@@ -103,7 +104,7 @@
   position: relative;
   text-align: left;
   width: 60%;
-  margin: 20px auto;
+  margin: 10px auto;
   border: solid 2px rgba(0, 0, 0, 0.35);
   border-radius: 4px;
   overflow: hidden;
@@ -126,18 +127,20 @@
 }
 .enter__code__input {
   border: none;
-  width: 95%;
+  width: 100%;
   font-size: 16px;
   line-height: 35px;
   padding-left: 40px;
   outline:none;
+  font-family: 'Inconsolata', monospace;
 }
 
 .wrapper__btns{
   display: flex;
   width: 60%;
-  margin: 20px auto;
+  margin: 15px auto;
   justify-content: center;
+  margin-bottom: 40px;
 }
 
 .enter__btn, .help__btn{
@@ -206,7 +209,7 @@ margin: 0;
   padding: 30px;
 }
 .footer {
-  width: calc(100% - 375px);
+  width: calc(100% - 300px);
     position: absolute;
     text-align: center;
     background-color: #1b1d266b;
@@ -221,6 +224,7 @@ margin: 0;
 
 .footer__made-by{
   display: inline;
+  padding-bottom: 2px;
 }
 .footer__made-by > a{
   color: #62646b;
@@ -259,7 +263,7 @@ margin: 0;
   margin: 10px 0;
   font-size: 16px;
   font-weight: 400;
-  margin-bottom: 55px;
+  margin-bottom: 15px;
 }
 .describe--examples-title{
   font-weight: 900;
@@ -410,3 +414,13 @@ hr {
   opacity: 1;
   cursor: pointer;
 }
+
+.git__link:hover{
+  color: #d2434e;
+}
+
+ .beam{
+   color: red;
+   size: 5px;
+   width: 200px;
+ }

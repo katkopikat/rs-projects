@@ -30,9 +30,9 @@ generateLevel(numberLevel);
 
 
 function generateLevel(numberLevel) {
-    getLevelStatusInStorage();
     addListenerToMenu();
-    clearDisplay();
+    getLevelStatusInStorage();
+    clearDisplay(numberLevel);
     updateDescription(numberLevel);
     updateHtmlText(numberLevel);
     hljs.initHighlightingOnLoad()
@@ -156,6 +156,11 @@ function checkAnswer() {
         check.classList.add('check-done');
         saveLevelStatusInStorage(numberLevel, check.className)
 
+        document.querySelectorAll(obj.selector).forEach(item => {
+            console.log(item)
+            //item.
+        })
+
         numberLevel += 1;
         input.value = '';
         generateLevel(numberLevel)
@@ -242,6 +247,8 @@ function addListenerToMenu(){
         item.addEventListener('click', () => {  
             generateLevel(index+1);
             saveLevelInStorage(index+1);
+            numberLevel = index+1;
         })
      })
+     return numberLevel;
 }
