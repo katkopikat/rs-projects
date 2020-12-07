@@ -16,9 +16,10 @@ const burgerBtn = document.querySelector('.mobile-menu-btn');
 const mobileMenu = document.querySelector('.mobile-menu-container');
 const mobileMenuMask = document.querySelector('.mobile-menu-wrapper');
 const menu = document.querySelectorAll('.mobile-menu-item');
+const hint = document.querySelector('.hint');
 
 export {
   headingLevel, describeHeading, describeTitle, syntax, describeHint, examples,
   doThis, enterBtn, helpBtn, input, htmlText, resetBtn, display, burgerBtn, mobileMenu,
-  mobileMenuMask, menu,
+  mobileMenuMask, menu, hint,
 };

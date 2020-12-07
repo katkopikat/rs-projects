@@ -1,10 +1,9 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-param-reassign */
-/* eslint-disable linebreak-style */
 import {
   headingLevel, describeHeading, describeTitle, syntax, describeHint, examples, doThis,
   enterBtn, helpBtn, input, htmlText, resetBtn, display, burgerBtn, mobileMenu,
-  mobileMenuMask, menu,
+  mobileMenuMask, menu, hint,
 } from './variables';
 import './style.css';
 import '../assets/highlight/styles/an-old-hope.css';
@@ -16,17 +15,31 @@ import hintList from './hint';
 
 let menuIsOpen = false;
 let numberLevel = +loadLevelFromStorage() || 1;
-const hint = document.querySelector('.hint');
 
 // UPDATE DISPLAY , HTML, ----------------------------------------------------
+function clearDisplay() {
+  input.value = '';
+  while (display.firstChild) {
+    display.removeChild(display.firstChild);
+  }
+  while (htmlText.firstChild) {
+    htmlText.removeChild(htmlText.firstChild);
+  }
+}
+
+function scaleDisplay() {
+  if (numberLevel === 10) {
+    display.style.transform = 'scale(0.7)';
+    display.style.width = 'auto';
+  } else {
+    display.style.transform = 'scale(1)';
+    display.style.width = '50%';
+  }
+}
+
 function updateDisplay() {
   const obj = planetsForDisplay[numberLevel - 1];
   display.innerHTML = obj.displayPlanet;
-}
-
-function updateHtmlText() {
-  const obj = codeHtml[numberLevel - 1];
-  htmlText.innerHTML = obj.htmlCode;
 }
 
 function updateDescription() {
@@ -40,13 +53,9 @@ function updateDescription() {
   examples.innerHTML = obj.examples;
 }
 
-function scaleDisplay() {
-  display.style.transform = 'scale(1)';
-  display.style.width = '50%';
-  if (numberLevel === 10) {
-    display.style.transform = 'scale(0.7)';
-    display.style.width = 'auto';
-  }
+function updateHtmlText() {
+  const obj = codeHtml[numberLevel - 1];
+  htmlText.innerHTML = obj.htmlCode;
 }
 
 function lightHtmLCode() {
@@ -85,17 +94,6 @@ function lightHtmLCode() {
   });
 }
 
-function clearDisplay() {
-  input.value = '';
-  // const wrapperHtml = document.querySelector('.html_page__window');
-  while (display.firstChild) {
-    display.removeChild(display.firstChild);
-  }
-  while (htmlText.firstChild) {
-    htmlText.removeChild(htmlText.firstChild);
-  }
-}
-
 // LOCAL STORAGE
 function saveLevelInStorage(/* numberLevel */) {
   localStorage.setItem('selectorLevel', numberLevel);
@@ -105,7 +103,7 @@ function saveLevelStatusInStorage(level, status) {
   localStorage.setItem(`lvl-${numberLevel}`, status);
 }
 
-function getLevelStatusInStorage() {
+function getLevelStatusFromStorage() {
   for (let i = 0; i < localStorage.length; i += 1) {
     const key = localStorage.key(i);
     if (key.match(/lvl/)) {
@@ -119,7 +117,7 @@ function loadLevelFromStorage() {
   return localStorage.getItem('selectorLevel');
 }
 
-// проверить ответ с введенным
+// SHOW SMTH
 function checkAnswer() {
   const obj = levels[numberLevel - 1];
 
@@ -191,9 +189,9 @@ function showWinAnimation() {
   htmlText.innerHTML = `<pre class="language-html"><code class="code">&lt;div class="youUnderestimateMyPower"&gt;
 <p>You destroyed the Universe and defeated css-selectors!</p>&lt;/div&gt;</code></pre>`;
   document.querySelector('.heading__task').innerHTML = 'The Universe is destroyed!';
-  // document.querySelectorAll('.code').forEach((block) => {
-  //   hljs.highlightBlock(block);
-  // });
+  document.querySelectorAll('.code').forEach((block) => {
+    hljs.highlightBlock(block);
+  });
   const printChar = (select, i = 0) => {
     if (i === congr.length) return;
     setTimeout(() => {
@@ -239,7 +237,7 @@ function updateLevelInMenu() {
 
 // GENERATE LEVEL  ----------------------------------------------------
 function generateLevel() {
-  getLevelStatusInStorage();
+  getLevelStatusFromStorage();
   clearDisplay(numberLevel);
   updateDisplay();
   updateDescription(numberLevel);
@@ -250,17 +248,6 @@ function generateLevel() {
   lightHtmLCode();
   scaleDisplay();
 }
-
-// const arrayCode = ['code--deathstar', 'code--mercury',
-// 'code--mars', 'code--venus', 'code--earth'];
-// arrayCode.forEach((item) => {
-//   item.addEventListener('mouseover', () => {
-//     hljs.initHighlightingOnLoad();
-//     // if (item.match)
-//   });
-// });
-
-generateLevel(1);
 
 (function () {
   burgerBtn.addEventListener('click', () => {
@@ -300,3 +287,5 @@ generateLevel(1);
     showHelp();
   });
 }());
+
+generateLevel(1);
