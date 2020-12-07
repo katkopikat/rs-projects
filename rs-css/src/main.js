@@ -1,22 +1,10 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-param-reassign */
+/* eslint-disable linebreak-style */
 import {
-  headingLevel,
-  describeHeading,
-  describeTitle,
-  syntax,
-  describeHint,
-  examples,
-  doThis,
-  enterBtn,
-  helpBtn,
-  input,
-  htmlText,
-  resetBtn,
-  display,
-  burgerBtn,
-  mobileMenu,
-  mobileMenuMask,
-  menu,
+  headingLevel, describeHeading, describeTitle, syntax, describeHint, examples, doThis,
+  enterBtn, helpBtn, input, htmlText, resetBtn, display, burgerBtn, mobileMenu,
+  mobileMenuMask, menu,
 } from './variables';
 import './style.css';
 import '../assets/highlight/styles/an-old-hope.css';
@@ -28,14 +16,89 @@ import hintList from './hint';
 
 let menuIsOpen = false;
 let numberLevel = +loadLevelFromStorage() || 1;
+const hint = document.querySelector('.hint');
 
-// local Storage
-function saveLevelInStorage(/* numberLevel */) {
-  localStorage.setItem('selectorLevel', numberLevel);
+// UPDATE DISPLAY , HTML, ----------------------------------------------------
+function updateDisplay() {
+  const obj = planetsForDisplay[numberLevel - 1];
+  display.innerHTML = obj.displayPlanet;
 }
 
-function loadLevelFromStorage() {
-  return localStorage.getItem('selectorLevel');
+function updateHtmlText() {
+  const obj = codeHtml[numberLevel - 1];
+  htmlText.innerHTML = obj.htmlCode;
+}
+
+function updateDescription() {
+  const obj = levels[numberLevel - 1];
+  describeTitle.innerText = obj.helpTitle;
+  doThis.innerText = obj.doThis;
+  headingLevel.innerText = obj.level;
+  describeHeading.innerText = obj.selectorName;
+  syntax.innerText = obj.syntax;
+  describeHint.innerHTML = obj.describe;
+  examples.innerHTML = obj.examples;
+}
+
+function scaleDisplay() {
+  display.style.transform = 'scale(1)';
+  display.style.width = '50%';
+  if (numberLevel === 10) {
+    display.style.transform = 'scale(0.7)';
+    display.style.width = 'auto';
+  }
+}
+
+function lightHtmLCode() {
+  document.querySelectorAll('.code').forEach((block) => {
+    hljs.highlightBlock(block);
+  });
+
+  const displayElements = [...display.children];
+
+  document.querySelectorAll('.code').forEach((line) => {
+    line.addEventListener('mouseover', () => {
+      line.classList.add('code-line');
+      hint.style.opacity = '1';
+      hint.innerText = line.innerText;
+      [...line.children].forEach((ch) => { ch.classList.add('code-line'); });
+
+      displayElements.forEach((item) => {
+        item.style.opacity = '0.5';
+      });
+
+      const thisPlanet = line.classList[1].replace('code--', '');
+      document.querySelector(`.${thisPlanet}-gif`).style.opacity = '1';
+      document.querySelector(`.${thisPlanet}-png`).style.opacity = '1';
+    });
+
+    line.addEventListener('mouseleave', () => {
+      hint.style.opacity = '0';
+
+      displayElements.forEach((it) => {
+        it.style.opacity = '1';
+      });
+
+      line.classList.remove('code-line');
+      [...line.children].forEach((ch) => { ch.classList.remove('code-line'); });
+    });
+  });
+}
+
+function clearDisplay() {
+  input.value = '';
+  // const wrapperHtml = document.querySelector('.html_page__window');
+  while (display.firstChild) {
+    display.removeChild(display.firstChild);
+  }
+  while (htmlText.firstChild) {
+    htmlText.removeChild(htmlText.firstChild);
+  }
+}
+
+// LOCAL STORAGE
+function saveLevelInStorage(/* numberLevel */) {
+  localStorage.setItem('selectorLevel', numberLevel);
 }
 
 function saveLevelStatusInStorage(level, status) {
@@ -51,90 +114,11 @@ function getLevelStatusInStorage() {
     localStorage.getItem(`${numberLevel}`);
   }
 }
-// подсказка
-function showHint() {
-  const picturePlanets = [...display.children];
-  const obj = hintList[numberLevel - 1];
-  const hint = document.querySelector('.hint');
 
-  picturePlanets.forEach((item) => {
-    const whatItem = item.classList[0];
-    item.addEventListener('mouseover', () => {
-      hint.style.opacity = 1;
-      hint.innerText = obj[`${whatItem}`];
-    });
-    item.addEventListener('mouseout', () => {
-      hint.style.opacity = 0;
-    });
-  });
+function loadLevelFromStorage() {
+  return localStorage.getItem('selectorLevel');
 }
 
-function updateLevelInMenu(/* numberLevel */) {
-  const levelsListinMenu = [...document.querySelector('.mobile-menu-list').children];
-  levelsListinMenu.forEach((item) => {
-    item.classList.remove('active-level');
-  });
-  document.querySelector(`[data-id="lvl-${numberLevel}"]`).classList.add('active-level');
-}
-
-function clearDisplay() {
-  input.value = '';
-  // const wrapperHtml = document.querySelector('.html_page__window');
-  while (display.firstChild) {
-    display.removeChild(display.firstChild);
-  }
-  while (htmlText.firstChild) {
-    htmlText.removeChild(htmlText.firstChild);
-  }
-}
-
-function updateDisplay() {
-  const obj = planetsForDisplay[numberLevel - 1];
-  display.innerHTML = obj.displayPlanet;
-}
-
-// обновление блока с инфой
-function updateDescription(/* numberLevel */) {
-  const obj = levels[numberLevel - 1];
-  describeTitle.innerText = obj.helpTitle;
-  doThis.innerText = obj.doThis;
-  headingLevel.innerText = obj.level;
-  describeHeading.innerText = obj.selectorName;
-  syntax.innerText = obj.syntax;
-  describeHint.innerHTML = obj.describe;
-  examples.innerHTML = obj.examples;
-}
-
-// обновление блока с кодом
-function updateHtmlText(/* numberLevel */) {
-  const obj = codeHtml[numberLevel - 1];
-  htmlText.innerHTML = obj.htmlCode;
-  hljs.initHighlightingOnLoad();
-}
-
-function showWinAnimation() {
-toggleCheckStatus();
-  const congr = 'You did it!';
-  display.innerHTML = planetsForDisplay[10].congratulations;
-  document.querySelector('.deathstar').classList.add('deathstar--win');
-  input.value = '';
-  input.classList.add('enter__code__input--win');
-  display.classList.add('visual__wrapper--win');
-  htmlText.innerHTML = `<pre class="language-html"><code class="code">&lt;div class="youUnderestimateMyPower"&gt;
-<p>You destroyed the Universe and defeated css-selectors!</p>&lt;/div&gt;</code></pre>`;
-  document.querySelector('.heading__task').innerHTML = 'The Universe is destroyed!';
-  document.querySelectorAll('.code').forEach((block) => {
-    hljs.highlightBlock(block);
-  });
-  const printChar = (select, i = 0) => {
-    if (i === congr.length) return;
-    setTimeout(() => {
-      input.value += congr[i];
-      printChar(select, i + 1);
-    }, 300);
-  };
-  printChar(congr);
-}
 // проверить ответ с введенным
 function checkAnswer() {
   const obj = levels[numberLevel - 1];
@@ -158,18 +142,6 @@ function checkAnswer() {
   }
 }
 
-function toggleCheckStatus() {
-  const check = document.querySelector('.active-level').firstChild;
-
-  // if (check.classList.contains('check-done-with-hint')) {
-  //    check.classList.remove('check-done-with-hint');}
-  if (check.classList.contains('check-undone')) {
-    check.classList.remove('check-undone');
-  }
-  check.classList.add('check-done');
-  saveLevelStatusInStorage(numberLevel, check.className);
-}
-
 function showHelp() {
   input.value = '';
   const selector = levels[numberLevel - 1].selector[0];
@@ -183,20 +155,7 @@ function showHelp() {
   };
   printChar(selector);
 
-  //   const printChar = (select, i = 0) => {
-  //     if (i === selector.length) return;
-  //     setTimeout(() => {
-  //       input.value += selector[i];
-  //       printChar(select, i + 1);
-  //     }, 300);
-  //   };
-  //   printChar(selector);
   const check = document.querySelector('.active-level').firstChild;
-  // check.classList.remove('check-undone');
-
-  // if (check.classList.contains('check-done')) {
-  //    check.classList.remove('check-done');
-  // }
   if (check.classList.contains('check-undone')) {
     check.classList.remove('check-undone');
   }
@@ -205,8 +164,47 @@ function showHelp() {
   saveLevelStatusInStorage(numberLevel, check.className);
 }
 
-// BURGER MENU----------------------------------------------------
+function showHint() {
+  const picturePlanets = [...display.children];
+  const obj = hintList[numberLevel - 1];
 
+  picturePlanets.forEach((item) => {
+    const whatItem = item.classList[0];
+    item.addEventListener('mouseover', () => {
+      hint.style.opacity = 1;
+      hint.innerText = obj[`${whatItem}`];
+    });
+    item.addEventListener('mouseout', () => {
+      hint.style.opacity = 0;
+    });
+  });
+}
+
+function showWinAnimation() {
+  toggleCheckStatus();
+  const congr = 'You did it!';
+  display.innerHTML = planetsForDisplay[10].congratulations;
+  document.querySelector('.deathstar').classList.add('deathstar--win');
+  input.value = '';
+  input.classList.add('enter__code__input--win');
+  display.classList.add('visual__wrapper--win');
+  htmlText.innerHTML = `<pre class="language-html"><code class="code">&lt;div class="youUnderestimateMyPower"&gt;
+<p>You destroyed the Universe and defeated css-selectors!</p>&lt;/div&gt;</code></pre>`;
+  document.querySelector('.heading__task').innerHTML = 'The Universe is destroyed!';
+  // document.querySelectorAll('.code').forEach((block) => {
+  //   hljs.highlightBlock(block);
+  // });
+  const printChar = (select, i = 0) => {
+    if (i === congr.length) return;
+    setTimeout(() => {
+      input.value += congr[i];
+      printChar(select, i + 1);
+    }, 300);
+  };
+  printChar(congr);
+}
+
+// MENU AND CHECK STATUS ----------------------------------------------------
 function openMenu() {
   menuIsOpen = true;
   mobileMenuMask.classList.add('mobile-menu-mask');
@@ -222,30 +220,24 @@ function closeMenu() {
   mobileMenuMask.classList.remove('mobile-menu-mask');
 }
 
-burgerBtn.addEventListener('click', () => {
-  if (menuIsOpen === false) {
-    mobileMenuMask.classList.add('mobile-menu-mask');
-    setTimeout(openMenu, 0);
-  } else {
-    mobileMenuMask.classList.remove('mobile-menu-mask');
-    setTimeout(closeMenu, 0);
+function toggleCheckStatus() {
+  const check = document.querySelector('.active-level').firstChild;
+  if (check.classList.contains('check-undone')) {
+    check.classList.remove('check-undone');
   }
-});
+  check.classList.add('check-done');
+  saveLevelStatusInStorage(numberLevel, check.className);
+}
 
-// function addListenerToMenu() {
-//     console.log('click');
-//   menu.forEach((item, index) => {
-//     item.addEventListener('click', () => {
-//       generateLevel(index + 1);
-//       if (index < 10) {
-//         saveLevelInStorage(index + 1);
-//       }
-//       numberLevel = index + 1;
-//     });
-//   });
-//   return numberLevel;
-// }
+function updateLevelInMenu() {
+  const levelsListinMenu = [...document.querySelector('.mobile-menu-list').children];
+  levelsListinMenu.forEach((item) => {
+    item.classList.remove('active-level');
+  });
+  document.querySelector(`[data-id="lvl-${numberLevel}"]`).classList.add('active-level');
+}
 
+// GENERATE LEVEL  ----------------------------------------------------
 function generateLevel() {
   getLevelStatusInStorage();
   clearDisplay(numberLevel);
@@ -255,23 +247,32 @@ function generateLevel() {
   updateLevelInMenu(numberLevel);
   saveLevelInStorage(numberLevel);
   showHint();
-  document.querySelectorAll('.code').forEach((block) => {
-    hljs.highlightBlock(block);
-  });
-  display.style.transform = 'scale(1)';
-  display.style.width = '50%';
-
-  if (numberLevel === 10) {
-    display.style.transform = 'scale(0.7)';
-    display.style.width = 'auto';
-  }
+  lightHtmLCode();
+  scaleDisplay();
 }
 
+// const arrayCode = ['code--deathstar', 'code--mercury',
+// 'code--mars', 'code--venus', 'code--earth'];
+// arrayCode.forEach((item) => {
+//   item.addEventListener('mouseover', () => {
+//     hljs.initHighlightingOnLoad();
+//     // if (item.match)
+//   });
+// });
+
 generateLevel(1);
-hljs.initHighlightingOnLoad();
-// addListenerToMenu();
 
 (function () {
+  burgerBtn.addEventListener('click', () => {
+    if (menuIsOpen === false) {
+      mobileMenuMask.classList.add('mobile-menu-mask');
+      setTimeout(openMenu, 0);
+    } else {
+      mobileMenuMask.classList.remove('mobile-menu-mask');
+      setTimeout(closeMenu, 0);
+    }
+  });
+
   menu.forEach((item, index) => {
     item.addEventListener('click', () => {
       generateLevel(index + 1);
@@ -281,16 +282,20 @@ hljs.initHighlightingOnLoad();
       numberLevel = index + 1;
     });
   });
+
   enterBtn.addEventListener('click', () => {
     checkAnswer();
   });
+
   input.addEventListener('keydown', (e) => {
     if (e.keyCode === 13) checkAnswer();
   });
+
   resetBtn.addEventListener('click', () => {
     localStorage.clear();
     location.reload();
   });
+
   helpBtn.addEventListener('click', () => {
     showHelp();
   });

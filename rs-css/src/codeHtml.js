@@ -1,15 +1,13 @@
 /* eslint-disable linebreak-style */
 export default [
   {
-    htmlCode: `<pre class="language-html"><code class="code">&lt;solarsystem&gt;
-    &lt;deathstar> Death Star &lt/deathstar&gt;
-    &lt;planet> Mercury &lt/planet&gt;
-    &lt;planet> Venus &lt/planet&gt;
-    &lt;planet> Earth &lt/planet&gt;
-    &lt;planet> Mars &lt/planet&gt;
-    &lt;planet> Jupiter &lt/planet&gt;
-&lt;/solarsystem&gt;</code>
-</pre>`,
+    htmlCode: `
+    <pre class="language-html"><code class="code code--deathstar">&lt;deathstar> Death Star &lt/deathstar&gt;</code></pre>
+    <pre class="language-html"><code class="code code--mercury">&lt;planet> Mercury &lt/planet&gt;</code></pre>
+    <pre class="language-html"><code class="code code--venus">&lt;planet> Venus &lt/planet&gt;</code></pre>
+    <pre class="language-html"><code class="code code--earth">&lt;planet> Earth &lt/planet&gt;</code></pre>
+    <pre class="language-html"><code class="code code--mars">&lt;planet> Mars &lt/planet&gt;</code></pre>
+    <pre class="language-html"><code class="code code--jupiter">&lt;planet> Jupiter &lt/planet&gt;</code></pre>`,
   },
   {
     htmlCode: `<pre class="language-html"><code class="code">&lt;div class="solar-system"&gt;
