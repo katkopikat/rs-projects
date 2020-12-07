@@ -10,8 +10,15 @@ const enterBtn = document.querySelector('.enter__btn');
 const helpBtn = document.querySelector('.help__btn');
 const input = document.querySelector('.enter__code__input');
 const htmlText = document.querySelector('.html_page__window');
+const resetBtn = document.querySelector('.reset_btn');
+const display = document.querySelector('.visual__wrapper');
+const burgerBtn = document.querySelector('.mobile-menu-btn');
+const mobileMenu = document.querySelector('.mobile-menu-container');
+const mobileMenuMask = document.querySelector('.mobile-menu-wrapper');
+const menu = document.querySelectorAll('.mobile-menu-item');
 
 export {
   headingLevel, describeHeading, describeTitle, syntax, describeHint, examples,
-  doThis, enterBtn, helpBtn, input, htmlText,
+  doThis, enterBtn, helpBtn, input, htmlText, resetBtn, display, burgerBtn, mobileMenu,
+  mobileMenuMask, menu,
 };
