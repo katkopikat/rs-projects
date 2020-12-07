@@ -1,0 +1,22 @@
+{
+    "env": {
+        "browser": true,
+        "es2020": true
+    },
+    "extends": [
+      "airbnb-base"
+    ],
+    "rules": {
+      "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+            "js": "never",
+            "ts": "never"
+          }
+      ]
+     },
+    "plugins": [
+      "import"
+    ]
+  }

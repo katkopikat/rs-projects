@@ -1,17 +1,17 @@
-const headingLevel = document.querySelector('.heading__level'),
-    describeHeading = document.querySelector('.describe--heading'),
-    describeTitle = document.querySelector('.describe--title'),
-    syntax = document.querySelector('.describe--syntax'),
-    describeHint = document.querySelector('.describe--hint'),
-    examples = document.querySelector('.describe--examples'),
-    doThis = document.querySelector('.heading__task'),
-    enterBtn = document.querySelector('.enter__btn'),
-    helpBtn = document.querySelector('.help__btn'),
-    input = document.querySelector('.enter__code__input'),
-    htmlText = document.querySelector('.html_page__window'),
-    modalHelp = document.querySelector('.modal-help'),
-    modal = document.querySelector('.modal');
+/* eslint-disable linebreak-style */
+const headingLevel = document.querySelector('.heading__level');
+const describeHeading = document.querySelector('.describe--heading');
+const describeTitle = document.querySelector('.describe--title');
+const syntax = document.querySelector('.describe--syntax');
+const describeHint = document.querySelector('.describe--hint');
+const examples = document.querySelector('.describe--examples');
+const doThis = document.querySelector('.heading__task');
+const enterBtn = document.querySelector('.enter__btn');
+const helpBtn = document.querySelector('.help__btn');
+const input = document.querySelector('.enter__code__input');
+const htmlText = document.querySelector('.html_page__window');
 
-    
-export { headingLevel, describeHeading, describeTitle, syntax, describeHint, examples, 
-    doThis, enterBtn, helpBtn, input, htmlText, modalHelp, modal}
+export {
+  headingLevel, describeHeading, describeTitle, syntax, describeHint, examples,
+  doThis, enterBtn, helpBtn, input, htmlText,
+};

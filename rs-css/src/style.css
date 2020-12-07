@@ -39,41 +39,89 @@
  
 } */
 
-#deathstar,
+
 .deathstar {
   height: 80px;
 }
 
-#mercury{
+.mercury-gif{
   height: 50px;
   /* height: 30px; */
 }
-#venus{
+.venus-gif{
   height: 65px;
 }
-#earth{
+.earth-gif{
   height: 105px;
 }
-#mars{
+.mars-gif{
   height: 95px;
 }
-#jupiter{
+.jupiter-gif{
   height: 190px;
 }
-#sun{
+.sun-gif{
   height: 190px;
 }
-#saturn{
+.saturn-gif{
   height: 187px;
 }
-#uranus{
+.uranus-gif{
   height: 115px;
 }
-#neptune{
+.neptune-gif{
   height: 92px;
 }
-#pluto{
+.pluto-gif{
+  height: 35px;
+}
+.moon-gif{
   height: 40px;
+  position: relative;
+  top: -36px;
+  left: -22px;
+}
+.belt{
+  height: 200px;
+}
+
+
+.mercury-gif{
+  height: 50px;
+  /* height: 30px; */
+}
+.venus-png{
+  height: 55px;
+}
+.earth-png{
+  height: 60px;
+}
+.mars-png{
+  height: 50px;
+}
+.jupiter-png{
+  height: 136px;
+}
+.sun-png{
+  height: 190px;
+}
+.saturn-png{
+  height: 102px;
+}
+.uranus-png{
+  height: 115px;
+}
+.neptune-png{
+  height: 67px;
+}
+.pluto-png{
+  height: 40px;
+}
+.moon-png{
+  height: 40px;
+  position: relative;
+  top: -36px;
+  left: -22px;
 }
 .hint{
   background-color: white;
@@ -446,6 +494,6 @@ hr {
   display: block;
 }
 
-#deathstar--win{
+.deathstar--win{
   height: 190px;
 }

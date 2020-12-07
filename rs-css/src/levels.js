@@ -1,9 +1,9 @@
 /* eslint-disable linebreak-style */
-export const levels = [
+export default [
   {
     level: 'Level 1 of 10',
     doThis: 'Destroy all the planets',
-    selector: 'planet',
+    selector: ['planet'],
     selectorName: 'Type Selector',
     helpTitle: 'Select elements by their type',
     syntax: 'A',
@@ -17,7 +17,7 @@ export const levels = [
   {
     level: 'Level 2 of 10',
     doThis: 'Destroy all the planets, but not the Sun',
-    selector: '.planet',
+    selector: ['.planet'],
     selectorName: 'Class Selector',
     helpTitle: 'Select elements by their class',
     syntax: '.classname',
@@ -29,7 +29,7 @@ export const levels = [
   {
     level: 'Level 3 of 10',
     doThis: 'Destroy the Sun',
-    selector: '#star',
+    selector: ['#star'],
     selectorName: 'ID Selector',
     helpTitle: 'Select elements with an ID',
     syntax: '#id',
@@ -42,7 +42,7 @@ export const levels = [
   {
     level: 'Level 4 of 10',
     doThis: 'Destroy the Moon',
-    selector: 'earth > moon',
+    selector: ['.planet > div', '.planet>div', '.planet div', 'div div'],
     selectorName: 'Child Selector',
     helpTitle: 'Select direct children of an element',
     syntax: 'A > B',
@@ -54,7 +54,7 @@ export const levels = [
   },
   {
     level: 'Level 5 of 10',
-    doThis: 'Destroy first planet.....',
+    doThis: 'Destroy first planet near Death Star',
     selector: 'First Child Pseudo-selector',
     selectorName: 'ID Selector',
     helpTitle: 'Select a first child element inside of another element',
@@ -68,21 +68,22 @@ export const levels = [
   },
   {
     level: 'Level 6 of 10',
-    doThis: 'Destroy ---',
-    selector: '#star',
-    selectorName: 'ID Selector',
-    helpTitle: 'Select elements with an ID',
-    syntax: '#id',
-    describe: 'Selects the element with a specific <strong>id</strong>. You can also combine the ID selector with the type selector.',
+    doThis: 'Destroy this weird Pluto!',
+    selector: ['solar-system:last-child', '.planet', '.or-not-planet', '.planet .or-not-planet', '#who-am-I',
+      '[desire="want-to-be-planet"]'],
+    selectorName: 'Last Child Pseudo-selector',
+    helpTitle: 'Select the last element inside of another element',
+    syntax: ':last-child',
+    describe: 'You can use this selector to select an element that is the last child element inside of another element.Pro Tip → In cases where there is only one element, that element counts as the first-child, only-child and last-child!',
     examples: [
-      '<strong>#cool</strong> selects any element with <tag>id="cool"</tag>.',
-      '<strong>ul#long</strong> selects  <tag> &lt;ul id="long"&gt;</tag> elements.',
+      '<strong>:last-child</strong>  selects all last-child elements..',
+      '<strong>span:last-child</strong> selects all last-child<tag>span</tag> elements.',
     ],
   },
   {
     level: 'Level 7 of 10',
     doThis: 'Destroy ---',
-    selector: '#star',
+    selector: ['#star'],
     selectorName: 'ID Selector',
     helpTitle: 'Select elements with an ID',
     syntax: '#id',
@@ -95,7 +96,7 @@ export const levels = [
   {
     level: 'Level 8 of 10',
     doThis: 'Destroy all planets without life!',
-    selector: ":not(attribute='we-have-life')",
+    selector: [':not(attribute="we-have-life")', ":not(attribute='we-have-life')"],
     selectorName: 'Negation Pseudo-class',
     helpTitle: "Select all elements that don't match the negation selector!",
     syntax: ':not(X)',
@@ -108,7 +109,7 @@ export const levels = [
   {
     level: 'Level 9 of 10',
     doThis: 'Destroy all planets without life!',
-    selector: ":not(attribute='we-have-life')",
+    selector: ':not([life="i-have"])',
     selectorName: 'Negation Pseudo-class',
     helpTitle: "Select all elements that don't match the negation selector!",
     syntax: ':not(X)',
@@ -121,7 +122,7 @@ export const levels = [
   {
     level: 'Level 10 of 10',
     doThis: 'Destroy the entire universe!',
-    selector: '*',
+    selector: ['*', '.solar-system'],
     selectorName: 'The Universal Selector',
     helpTitle: 'You can select everything!',
     syntax: '*',

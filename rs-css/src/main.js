@@ -14,14 +14,13 @@ import {
 } from './variables';
 
 import './style.css';
-// import './../assets/highlight/styles/an-old-hope.css';
-// import './../assets/highlight/highlight.pack.js';
+import '../assets/highlight/styles/an-old-hope.css';
 
-import { levels } from './levels';
-import { codeHtml } from './codeHtml';
-import { planetsForDisplay } from './planetsForDisplay';
+import levels from './levels';
+import codeHtml from './codeHtml';
+import planetsForDisplay from './planetsForDisplay';
 import hljs from '../assets/highlight/highlight.pack';
-import { hintList } from './hint';
+import hintList from './hint';
 
 let menuIsOpen = false;
 const menu = [...document.querySelector('.mobile-menu-list').children];
@@ -51,11 +50,28 @@ function getLevelStatusInStorage() {
   for (let i = 0; i < localStorage.length; i += 1) {
     const key = localStorage.key(i);
     if (key.match(/lvl/)) {
-      document.querySelector(`[data-id="${key}"]`).firstChild.classList.add(`${localStorage.getItem(key)}`);
+      // document.querySelector(`[data-id="${key}"]`).firstChild.classList.remove('');
+      document.querySelector(`[data-id="${key}"]`).firstChild.className = `${localStorage.getItem(key)}`;
+    } else {
+      console.log('нет инфы');
     }
     localStorage.getItem(`${numberLevel}`);
   }
 }
+// function getLevelStatusInStorage() {
+//   // let statusInStorage = new Map();
+//   if (numberLevel < 10 && numberLevel > 1 && localStorage.length >= 1) {
+//     for (let i = 0; i <= localStorage.length; i += 1) {
+//       const key = localStorage.key(i);
+//       if (key.match(/lvl/)) {
+//         document.querySelector(`[data-id="${key}"]`).firstChild.classList.add(`${localStorage.getItem(key)}`);
+//       } else {
+//           continue;
+//       }
+//     }
+//     // localStorage.getItem(`${numberLevel}`);
+//   }
+// }
 
 // подсказка
 function showHint() {
@@ -64,7 +80,7 @@ function showHint() {
   const hint = document.querySelector('.hint');
 
   picturePlanets.forEach((item) => {
-    const whatItem = item.className;
+    const whatItem = item.classList[0];
     item.addEventListener('mouseover', () => {
       hint.style.opacity = 1;
       hint.innerText = obj[`${whatItem}`];
@@ -86,9 +102,8 @@ document.querySelector('.enter__code__input').addEventListener('keydown', (e) =>
 });
 
 resetBtn.addEventListener('click', () => {
-  // localStorage.clear();
-  // generateLevel(1);
-  // window['location'] = location;
+  localStorage.clear();
+  location.reload();
 });
 // меню
 
@@ -126,6 +141,7 @@ function updateDescription(numberLevel) {
   describeHint.innerHTML = obj.describe;
   examples.innerHTML = obj.examples;
 }
+
 // обновление блока с кодом
 function updateHtmlText(numberLevel) {
   const obj = codeHtml[numberLevel - 1];
@@ -136,12 +152,18 @@ function updateHtmlText(numberLevel) {
 function showWinAnimation() {
   const congr = 'You did it!';
   display.innerHTML = planetsForDisplay[10].congratulations;
-  document.querySelector('deathstar').classList.add('deathstar--win');
+  document.querySelector('.deathstar').classList.add('deathstar--win');
   input.value = '';
   input.classList.add('enter__code__input--win');
   display.classList.add('visual__wrapper--win');
-  htmlText.innerHTML = `<pre class="language-html"><code>&lt;div class="youUnderestimateMyPower"&gt; 
-                        <p>You destroyed the Universe <br>and defeated css-selectors!</p>&lt;/div&gt;</code></pre>`;
+  htmlText.innerHTML = `<pre class="language-html"><code class="code">&lt;div class="youUnderestimateMyPower"&gt;
+  <p>You destroyed the Universe and defeated css-selectors!</p>&lt;/div&gt;</code></pre>`;
+  document.querySelector('.deathstar').classList.add('deathstar--win');
+  document.querySelector('.heading__task').innerHTML = 'The Universe is destroyed!';
+  document.querySelectorAll('.code').forEach((block) => {
+    hljs.highlightBlock(block);
+  });
+
   const printChar = (select, i = 0) => {
     if (i === congr.length) return;
     setTimeout(() => {
@@ -154,21 +176,25 @@ function showWinAnimation() {
 // проверить ответ с введенным
 function checkAnswer() {
   const obj = levels[numberLevel - 1];
-  const check = document.querySelector('.active-level').firstChild;
-
-  if (input.value === obj.selector && numberLevel === 10) {
-    check.classList.remove('check-undone');
-    check.classList.add('check-done');
-    saveLevelStatusInStorage(numberLevel, check.className);
-    console.log('win');
+  //const check = document.querySelector('.active-level').firstChild;
+  if (obj.selector.includes(input.value) && numberLevel === 10) {
+    toggleCheckStatus();
+    // if (check.classList.contains('check-done-with-hint')) {
+    //   check.classList.remove('check-done-with-hint');
+    // }
+    // if (check.classList.contains('check-undone')) {
+    //   check.classList.remove('check-undone');
+    // }
+    // check.classList.add('check-done');
+    // check.classList.remove('check-undone');
+    // check.classList.add('check-done');
+    // saveLevelStatusInStorage(numberLevel, check.className);
     showWinAnimation();
-  } else if (input.value === obj.selector) {
-    check.classList.remove('check-undone');
-    check.classList.add('check-done');
-    saveLevelStatusInStorage(numberLevel, check.className);
-    document.querySelectorAll(obj.selector).forEach((item) => {
-      console.log(item);
-    });
+  } else if (obj.selector.includes(input.value)) {
+    toggleCheckStatus();
+    // check.classList.remove('check-undone');
+    // check.classList.add('check-done');
+    
     numberLevel += 1;
     input.value = '';
     generateLevel(numberLevel);
@@ -195,9 +221,20 @@ function checkAnswer() {
 // function loseAnimation() {
 // }
 
+function toggleCheckStatus() {
+    const check = document.querySelector('.active-level').firstChild;
+
+    //if (check.classList.contains('check-done-with-hint')) {
+    //    check.classList.remove('check-done-with-hint');}
+    if (check.classList.contains('check-undone')) {
+        check.classList.remove('check-undone');}
+        check.classList.add('check-done');
+        saveLevelStatusInStorage(numberLevel, check.className);
+}
+
 function showHelp() {
   input.value = '';
-  const selector = levels[numberLevel - 1];
+  const selector = levels[numberLevel - 1].selector[0];
   const printChar = (select, i = 0) => {
     if (i === selector.length) return;
     setTimeout(() => {
@@ -207,7 +244,14 @@ function showHelp() {
   };
   printChar(selector);
   const check = document.querySelector('.active-level').firstChild;
-  check.classList.remove('check-undone');
+  // check.classList.remove('check-undone');
+
+  //if (check.classList.contains('check-done')) {
+  //    check.classList.remove('check-done');
+  //}
+  if (check.classList.contains('check-undone')) {
+      check.classList.remove('check-undone');
+  }
   check.classList.add('check-done-with-hint');
 
   saveLevelStatusInStorage(numberLevel, check.className);
@@ -243,29 +287,42 @@ burgerBtn.addEventListener('click', () => {
     setTimeout(closeMenu, 0);
   }
 });
+
 function addListenerToMenu() {
   menu.forEach((item, index) => {
     item.addEventListener('click', () => {
       generateLevel(index + 1);
-      saveLevelInStorage(index + 1);
+      if (index < 10) {
+        saveLevelInStorage(index + 1);
+      }
       numberLevel = index + 1;
     });
   });
   return numberLevel;
 }
 
-generateLevel(numberLevel);
+generateLevel(1);
+hljs.initHighlightingOnLoad();
+addListenerToMenu();
 
-function generateLevel(numberLevel) {
-  addListenerToMenu();
+function generateLevel() {
   getLevelStatusInStorage();
   clearDisplay(numberLevel);
   updateDisplay();
   updateDescription(numberLevel);
   updateHtmlText(numberLevel);
-  hljs.initHighlightingOnLoad();
   updateLevelInMenu(numberLevel);
   saveLevelInStorage(numberLevel);
   showHint();
+  document.querySelectorAll('.code').forEach((block) => {
+    hljs.highlightBlock(block);
+  });
+  display.style.transform = 'scale(1)';
+  display.style.width = '50%';
+
+  if (numberLevel === 10) {
+    display.style.transform = 'scale(0.7)';
+    display.style.width = 'auto';
+  }
   // sendAnwser();
 }
