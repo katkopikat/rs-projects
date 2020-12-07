@@ -109,7 +109,7 @@ export default [
   {
     level: 'Level 9 of 10',
     doThis: 'Destroy all planets without life!',
-    selector: ':not([life="i-have"])',
+    selector: ['.planet:not([life="i-have"])'],
     selectorName: 'Negation Pseudo-class',
     helpTitle: "Select all elements that don't match the negation selector!",
     syntax: ':not(X)',

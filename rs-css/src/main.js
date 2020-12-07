@@ -77,8 +77,11 @@ function lightHtmLCode() {
       });
 
       const thisPlanet = line.classList[1].replace('code--', '');
-      document.querySelector(`.${thisPlanet}-gif`).style.opacity = '1';
-      document.querySelector(`.${thisPlanet}-png`).style.opacity = '1';
+      if (document.querySelector(`.${thisPlanet}-gif`)) {
+        document.querySelector(`.${thisPlanet}-gif`).style.opacity = '1';
+      } else {
+        document.querySelector(`.${thisPlanet}-png`).style.opacity = '1';
+      }
     });
 
     line.addEventListener('mouseleave', () => {
@@ -128,7 +131,10 @@ function checkAnswer() {
     toggleCheckStatus();
     numberLevel += 1;
     input.value = '';
-    generateLevel(numberLevel);
+    deletePlanet();
+    setTimeout(() => {
+      generateLevel(numberLevel);
+    }, 1450);
   } else {
     input.classList.add('input__false');
     document.querySelector('.input__wrapper').classList.add('lose-animation');
@@ -149,7 +155,7 @@ function showHelp() {
     setTimeout(() => {
       input.value += selector[i];
       printChar(select, i + 1);
-    }, 300);
+    }, 200);
   };
   printChar(selector);
 
@@ -168,12 +174,19 @@ function showHint() {
 
   picturePlanets.forEach((item) => {
     const whatItem = item.classList[0];
+    const namePlanet = item.classList[1].substr(0, item.classList[1].length - 4);
+    const thisHoverPlanet = document.querySelector(`.code--${namePlanet}`);
     item.addEventListener('mouseover', () => {
       hint.style.opacity = 1;
       hint.innerText = obj[`${whatItem}`];
+
+      thisHoverPlanet.classList.add('code-line');
+      [...thisHoverPlanet.children].forEach((ch) => { ch.classList.add('code-line'); });
     });
-    item.addEventListener('mouseout', () => {
+    item.addEventListener('mouseleave', () => {
       hint.style.opacity = 0;
+      thisHoverPlanet.classList.remove('code-line');
+      [...thisHoverPlanet.children].forEach((ch) => { ch.classList.remove('code-line'); });
     });
   });
 }
@@ -202,6 +215,11 @@ function showWinAnimation() {
   printChar(congr);
 }
 
+function deletePlanet() {
+  document.querySelectorAll('.del').forEach((item) => {
+    item.classList.add('del-anim');
+  });
+}
 // MENU AND CHECK STATUS ----------------------------------------------------
 function openMenu() {
   menuIsOpen = true;
