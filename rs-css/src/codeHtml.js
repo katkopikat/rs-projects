@@ -35,14 +35,15 @@ export default [
 <pre class="language-html"><code class="code code--mars">&lt;div class="planet"> Mars &lt/div&gt;</code></pre>`,
   },
   {
-    htmlCode: `<pre class="language-html"><code class="code">
-  &lt;div class="deathstar"> Death Star &lt/div&gt;</code></pre>
-  &lt;div class="solar-system"&gt;</code></pre>
-    &lt;div class="planet"> Saturn/div&gt;</code></pre>
-    &lt;div class="planet"> Uranus &lt/div&gt;</code></pre>
-    &lt;div class="planet"> Neptun &lt/div&gt;</code></pre>
-    &lt;div class="planet"> Pluto &lt/div&gt;</code></pre>
-&lt;/div&gt;</code></pre>`,
+    htmlCode: `
+    <pre class="language-html"><code class="code code--deathstar">&lt;div class="deathstar"> Death Star &lt/div&gt;</code></pre>
+<pre class="language-html"><code class="code"> &lt;div class="solar-system"&gt;</code></pre>
+    <pre class="language-html"><code class="code code--mars">     &lt;div class="planet">Mars &lt/planet&gt;</code></pre>
+    <pre class="language-html"><code class="code code--jupiter">     &lt;div class="planet"> Jupiter &lt/planet&gt;</code></pre>
+    <pre class="language-html"><code class="code code--uranus">     &lt;div class="planet"> Uranus &lt/div&gt;</code></pre>
+    <pre class="language-html"><code class="code code--neptune">     &lt;div class="planet"> Neptune &lt/div&gt;</code></pre>
+    <pre class="language-html"><code class="code code--pluto">     &lt;div class="planet"> Pluto &lt/div&gt;</code></pre>
+<pre class="language-html"><code class="code">&lt;/div&gt;</code></pre>`,
   },
   {
     htmlCode:

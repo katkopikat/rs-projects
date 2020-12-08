@@ -34,11 +34,11 @@ export default [{
 },
 {
   displayPlanet:
-        `<img class="deathstar deathstar-png" src="assets/images/deathstar.png" alt="Star Death">
-        <img class="planet mars-png" id="mars" src="assets/images/mars.png">
-        <img class="belt" id="belt" src="assets/images/belt.png">
-        <img class="planet uranus-gif" id="uranus" src="assets/images/uranus.gif">
-        <img class="planet neptun-png" id="neptune" src="assets/images/neptune.png">
+        `<img class="deathstar deathstar-png" src="assets/images/deathstar.png">
+        <img class="planet mars-gif del" id="mars" src="assets/images/mars.gif">
+        <img class="planet jupiter-png" id="jupiter" src="assets/images/jupiter.png">
+        <img class="planet uranus-png" id="uranus" src="assets/images/uranus.png">
+        <img class="planet neptune-png" id="neptune" src="assets/images/neptune.png">
         <img class="planet pluto-png" id="pluto" src="assets/images/pluto.png">`,
 },
 {

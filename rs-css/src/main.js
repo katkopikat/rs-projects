@@ -30,10 +30,10 @@ function clearDisplay() {
 function scaleDisplay() {
   if (numberLevel === 10) {
     display.style.transform = 'scale(0.7)';
-    display.style.width = 'auto';
+    // display.style.width = '80%';
   } else {
     display.style.transform = 'scale(1)';
-    display.style.width = '50%';
+    // display.style.width = '50%';
   }
 }
 
@@ -264,7 +264,7 @@ function generateLevel() {
   saveLevelInStorage(numberLevel);
   showHint();
   lightHtmLCode();
-  scaleDisplay();
+  //scaleDisplay();
 }
 
 (function () {
@@ -299,6 +299,7 @@ function generateLevel() {
   resetBtn.addEventListener('click', () => {
     localStorage.clear();
     location.reload();
+    generateLevel(1);
   });
 
   helpBtn.addEventListener('click', () => {
