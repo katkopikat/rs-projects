@@ -97,13 +97,8 @@ body {
   left: -22px;
 }
 
-.belt {
-  height: 200px;
-}
-
-
-.mercury-gif {
-  height: 50px;
+.mercury-png {
+  height: 40px;
   /* height: 30px; */
 }
 
@@ -144,10 +139,10 @@ body {
 }
 
 .moon-png {
-  height: 40px;
+  height: 20px;
   position: relative;
-  top: -36px;
-  left: -22px;
+  top: -40px;
+  left: -15px;
 }
 
 .hint {
@@ -494,10 +489,7 @@ hr {
 }
 
 .lose-animation {
-  /* Запустите анимацию встряхивания и сделайте так, чтобы анимация длилась 0,5 секунды */
   animation: shake 0.5s;
-
-  /* Когда анимация будет закончена, начните снова */
   animation-iteration-count: infinite;
 }
 
@@ -561,13 +553,18 @@ hr {
   color: white;
 }
 
+.visual__wrapper--scale {
+  transform: scale(0.7);
+  width: auto;
+}
+
 .visual__wrapper--win {
   display: block;
-
 }
 
 .deathstar--win {
   height: 190px;
+  margin: auto;
 }
 
 .del-anim {
@@ -715,12 +712,18 @@ hr {
   }
 
   .right__content {
-    transform: scale(0.8);
-    width: 150px;
+
+    width: 120px;
   }
 
   .mobile-menu-wrapper {
-    top: 60px;
+    top: 115px;
+    left: -8px;
+  }
+
+  .mobile-menu-list {
+    padding-left: 2px;
+    font-size: 15px;
   }
 
   .footer {
@@ -728,9 +731,29 @@ hr {
   }
 
   .right__content__wrapper {
-    padding: 10px;
+    transform: scale(0.8);
+    padding: 10px 0px;
+  }
+
+  .describe--examples {
+    opacity: 0;
+  }
 }
-.describe--examples{
-  opacity: 0;
+ @media screen and (max-width: 570px) {
+  .visual__wrapper {
+    transform: scale(0.6);
+  }
+  .input__wrapper, .code__wrapper{
+    width: 100%;
+    transform: scale(0.8);
+  }
+.footer{
+  width: calc(100% - 120px);
+
 }
+.left__content {
+  width: calc(100% - 120px);
 }
+  
+  } 
+  

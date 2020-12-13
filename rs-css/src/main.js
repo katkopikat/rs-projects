@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-param-reassign */
 import {
   headingLevel, describeHeading, describeTitle, syntax, describeHint, examples, doThis,
@@ -11,7 +12,6 @@ import levels from './levels';
 import codeHtml from './codeHtml';
 import planetsForDisplay from './planetsForDisplay';
 import hljs from '../assets/highlight/highlight.pack';
-import hintList from './hint';
 
 let menuIsOpen = false;
 let numberLevel = +loadLevelFromStorage() || 1;
@@ -19,6 +19,9 @@ let numberLevel = +loadLevelFromStorage() || 1;
 // UPDATE DISPLAY , HTML, ----------------------------------------------------
 function clearDisplay() {
   input.value = '';
+  display.innerHTML = '';
+  htmlText.innerHTML = '';
+
   while (display.firstChild) {
     display.removeChild(display.firstChild);
   }
@@ -29,17 +32,22 @@ function clearDisplay() {
 
 function scaleDisplay() {
   if (numberLevel === 10) {
-    display.style.transform = 'scale(0.7)';
-    // display.style.width = '80%';
-  } else {
-    display.style.transform = 'scale(1)';
-    // display.style.width = '50%';
+    display.classList.add('visual__wrapper--scale');
+  } else if (display.classList.contains('visual__wrapper--scale')) {
+    display.classList.remove('visual__wrapper--scale');
   }
 }
 
 function updateDisplay() {
   const obj = planetsForDisplay[numberLevel - 1];
   display.innerHTML = obj.displayPlanet;
+
+  if (document.querySelector('.deathstar').classList.contains('deathstar--win')) {
+    document.querySelector('.deathstar').classList.remove('deathstar--win');
+  }
+  if (display.classList.contains('visual__wrapper--win')) {
+    display.classList.remove('deathstar--win');
+  }
 }
 
 function updateDescription() {
@@ -79,8 +87,10 @@ function lightHtmLCode() {
       const thisPlanet = line.classList[1].replace('code--', '');
       if (document.querySelector(`.${thisPlanet}-gif`)) {
         document.querySelector(`.${thisPlanet}-gif`).style.opacity = '1';
+        hint.innerText = line.innerText;
       } else {
         document.querySelector(`.${thisPlanet}-png`).style.opacity = '1';
+        hint.innerText = line.innerText;
       }
     });
 
@@ -98,7 +108,7 @@ function lightHtmLCode() {
 }
 
 // LOCAL STORAGE
-function saveLevelInStorage(/* numberLevel */) {
+function saveLevelInStorage() {
   localStorage.setItem('selectorLevel', numberLevel);
 }
 
@@ -170,15 +180,13 @@ function showHelp() {
 
 function showHint() {
   const picturePlanets = [...display.children];
-  const obj = hintList[numberLevel - 1];
 
   picturePlanets.forEach((item) => {
-    const whatItem = item.classList[0];
     const namePlanet = item.classList[1].substr(0, item.classList[1].length - 4);
     const thisHoverPlanet = document.querySelector(`.code--${namePlanet}`);
     item.addEventListener('mouseover', () => {
       hint.style.opacity = 1;
-      hint.innerText = obj[`${whatItem}`];
+      hint.innerText = thisHoverPlanet.innerText;
 
       thisHoverPlanet.classList.add('code-line');
       [...thisHoverPlanet.children].forEach((ch) => { ch.classList.add('code-line'); });
@@ -264,7 +272,7 @@ function generateLevel() {
   saveLevelInStorage(numberLevel);
   showHint();
   lightHtmLCode();
-  //scaleDisplay();
+  scaleDisplay();
 }
 
 (function () {
@@ -297,9 +305,10 @@ function generateLevel() {
   });
 
   resetBtn.addEventListener('click', () => {
+    numberLevel = 1;
+    generateLevel();
     localStorage.clear();
     location.reload();
-    generateLevel(1);
   });
 
   helpBtn.addEventListener('click', () => {
@@ -307,4 +316,4 @@ function generateLevel() {
   });
 }());
 
-generateLevel(1);
+generateLevel();
