@@ -1,16 +1,22 @@
 /* eslint-disable linebreak-style */
-export const helpArr = [
-  {
-    help: `No worries, you've got this!
-        You're about to learn CSS Selectors! Selectors are how you pick which element to apply styles to.
-        Exhibit 1 - A CSS Rule
-        p {
-        margin-bottom: 12px;
-        }
-        Here, the "p" is the selector (selects all <p> elements) and applies the margin-bottom style.
-        To play, type in a CSS selector in the editor below to select the correct items on the table.If you get it right, you'll advance to the next level.
-        Hover over the items on the table to see their HTML markup.
-        Get help with selectors on the right!`,
-  },
 
-];
+import { input } from './variables';
+import levels from './levels';
+import { saveLevelStatusInStorage, loadLevelFromStorage } from './storage';
+import printLetter from './printLetter';
+
+export default function showHelp(level) {
+  const numberLevel = +loadLevelFromStorage() || 1;
+  input.value = '';
+  const selector = levels[numberLevel - 1].selector[0];
+
+  printLetter(selector);
+
+  const check = document.querySelector('.active-level').firstChild;
+  if (check.classList.contains('check-undone')) {
+    check.classList.remove('check-undone');
+  }
+  check.classList.add('check-done-with-hint');
+
+  saveLevelStatusInStorage(level, check.className);
+}
